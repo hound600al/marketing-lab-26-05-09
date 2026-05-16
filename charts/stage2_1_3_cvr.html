@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>2-1-3ë¨ê³ â CVR ê°ì </title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  body { font-family: 'Apple SD Gothic Neo', sans-serif; background: #f8f9fa; margin: 0; padding: 24px; }
+  h2 { color: #1a1a2e; font-size: 18px; margin-bottom: 4px; }
+  p.sub { color: #666; font-size: 13px; margin-top: 0; margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; max-width: 960px; margin: 0 auto; }
+  .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .card h3 { font-size: 14px; color: #555; margin: 0 0 16px; }
+  .badge { display: inline-block; background: #e8f5e9; color: #2e7d32; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-top: 10px; }
+  canvas { max-height: 200px; }
+</style>
+</head>
+<body>
+<div style="max-width:960px;margin:0 auto">
+  <h2>ð 2-1-3ë¨ê³ â CVR ê°ì : ì°ì»´ì¿ í° + D16Â·D45 ë¯¸ì í ê°ì</h2>
+  <p class="sub">ê°ì í 30ì¼ ë´ ë¯¸ì´ì© ì ì´íìë ì´ì© ì íë í¨í´ â ì´ê¸° ì í ì§ì¤ ê³µëµ</p>
+  <div class="grid">
+    <div class="card">
+      <h3>ð« ì°ì»´ì¿ í° â 30ì¼ ë´ íì±íì¨</h3>
+      <canvas id="welcomeChart"></canvas>
+      <div class="badge">+9.1pp (+35.5%)</div>
+    </div>
+    <div class="card">
+      <h3>â±ï¸ ì°ì»´ì¿ í° â ì²« ì£¼ë¬¸ê¹ì§ íê·  ì¼ì</h3>
+      <canvas id="daysChart"></canvas>
+      <div class="badge">-1.4ì¼ ë¨ì¶ (ì ë° ì´í)</div>
+    </div>
+    <div class="card">
+      <h3>ð¯ D16Â·D45 ë¯¸ì í ê°ì â ì íì¨</h3>
+      <canvas id="d16d45Chart"></canvas>
+      <div class="badge">D16 +99% / D45 +231%</div>
+    </div>
+  </div>
+</div>
+<script>
+new Chart(document.getElementById('welcomeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['ëì ì  (Q1)', 'ëì í (Q2)'],
+    datasets: [{ label: '30ì¼ ë´ íì±íì¨', data: [25.53, 34.59],
+      backgroundColor: ['#ef535066','#4CAF5066'], borderColor: ['#ef5350','#4CAF50'], borderWidth: 2, borderRadius: 8 }]
+  },
+  options: { plugins: { legend: { display: false } }, scales: { y: { max: 50, ticks: { callback: v => v+'%' } } } }
+});
+new Chart(document.getElementById('daysChart'), {
+  type: 'bar',
+  data: {
+    labels: ['ëì ì ', 'ëì í'],
+    datasets: [{ label: 'ì²« ì£¼ë¬¸ê¹ì§ íê·  ì¼ì', data: [2.6, 1.2],
+      backgroundColor: ['#ef535066','#4CAF5066'], borderColor: ['#ef5350','#4CAF50'], borderWidth: 2, borderRadius: 8 }]
+  },
+  options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => v+'ì¼' } } } }
+});
+new Chart(document.getElementById('d16d45Chart'), {
+  type: 'bar',
+  data: {
+    labels: ['D16 ëì ì ', 'D16 ëì í', 'D45 ëì ì ', 'D45 ëì í'],
+    datasets: [{ label: 'ì íì¨(%)', data: [1.94, 3.86, 0.83, 2.75],
+      backgroundColor: ['#ef535066','#4CAF5066','#ef535066','#4CAF5066'],
+      borderColor: ['#ef5350','#4CAF50','#ef5350','#4CAF50'], borderWidth: 2, borderRadius: 8 }]
+  },
+  options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => v+'%' } } } }
+});
+</script>
+</body>
+</html>
