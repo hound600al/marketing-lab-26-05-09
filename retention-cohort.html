@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회차별 잔존 코호트 분석 — 쿠폰 트리거 설계 근거</title>
+<title>회차별 잔존 유저 깔때기 — 등급 설계</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
@@ -12,19 +12,14 @@
 <style>
   :root{
     --blue-50:#EEF3FF; --blue-100:#DCE5FF; --blue-200:#B8CCFF; --blue-300:#8FAEFF;
-    --blue-400:#5C86FF; --blue-500:#2D5BFF; --blue-600:#1B45E0; --blue-700:#1432B0;
-    --blue-800:#0C2280; --blue-900:#061554;
+    --blue-400:#5C86FF; --blue-500:#2D5BFF; --blue-600:#1B45E0;
     --ink-50:#F7F9FD; --ink-100:#EEF1F6; --ink-200:#DDE2EB; --ink-300:#B7BFCC;
     --ink-400:#8B95A6; --ink-500:#5B6675; --ink-600:#3A4252; --ink-700:#1F2837;
     --ink-800:#131A26; --ink-900:#0A0E16;
-    --mint-500:#10C390; --mint-300:#5EE3B6; --mint-100:#D5F5E8;
-    --sun-500:#F5B400; --sun-300:#FFD460; --sun-100:#FFF1C9;
-    --rose-500:#EF4444; --rose-300:#FCA5A5; --rose-100:#FEE2E2;
+    --mint-500:#10C390; --sun-500:#F5B400;
     --font-sans:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo',system-ui,sans-serif;
     --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
     --shadow-sm:0 2px 6px rgba(15,25,50,.06);
-    --shadow-md:0 6px 18px rgba(15,25,50,.08);
-    --shadow-blue:0 8px 24px rgba(45,91,255,.18);
   }
   *,*::before,*::after{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -32,321 +27,221 @@
     font-family:var(--font-sans); color:var(--ink-800); background:var(--ink-50);
     font-feature-settings:"ss01" 1,"tnum" 1;
     -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    padding:40px 32px 64px;
+    padding:40px 32px 56px;
   }
   .wrap{max-width:1180px; margin:0 auto;}
 
-  /* Header */
   .eyebrow{font-family:var(--font-mono); font-size:11px; font-weight:600;
     letter-spacing:.14em; text-transform:uppercase; color:var(--blue-500); margin-bottom:14px;}
-  h1.title{font-size:38px; font-weight:800; letter-spacing:-.02em; line-height:1.1;
+  h1.title{font-size:34px; font-weight:800; letter-spacing:-.02em; line-height:1.1;
     margin:0 0 12px; color:var(--ink-900);}
   h1.title .blue{color:var(--blue-500);}
-  .sub{font-size:15px; color:var(--ink-500); line-height:1.6; max-width:780px; margin-bottom:36px;}
+  .sub{font-size:14.5px; color:var(--ink-500); line-height:1.6; max-width:780px; margin-bottom:28px;}
+  .sub b{color:var(--ink-800); font-weight:700;}
 
-  /* KPI row */
-  .kpi-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px;}
-  .kpi{background:#fff; border:1px solid var(--ink-100); border-radius:14px;
-    padding:18px 20px; box-shadow:var(--shadow-sm);}
-  .kpi-lab{font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--ink-400); margin-bottom:10px;}
-  .kpi-val{font-size:30px; font-weight:800; letter-spacing:-.02em; line-height:1; color:var(--ink-900);
-    font-variant-numeric:tabular-nums;}
-  .kpi-val .unit{font-size:15px; font-weight:600; color:var(--ink-400); margin-left:3px;}
-  .kpi-note{font-size:11px; color:var(--ink-500); margin-top:10px; line-height:1.5;}
-  .kpi-note b{color:var(--blue-600);}
-  .kpi.accent{background:linear-gradient(180deg, var(--blue-500), var(--blue-600)); border-color:var(--blue-600);}
-  .kpi.accent .kpi-lab{color:rgba(255,255,255,.7);}
-  .kpi.accent .kpi-val{color:#fff;}
-  .kpi.accent .kpi-note{color:rgba(255,255,255,.85);}
-  .kpi.accent .kpi-note b{color:#fff;}
-
-  /* Chart cards */
-  .grid-2{display:grid; grid-template-columns:1.35fr 1fr; gap:18px; margin-bottom:28px;}
   .card{background:#fff; border:1px solid var(--ink-100); border-radius:14px;
-    padding:22px 24px 18px; box-shadow:var(--shadow-sm);}
-  .card-title{font-size:15px; font-weight:700; color:var(--ink-800); margin-bottom:4px;}
+    padding:24px 28px 22px; box-shadow:var(--shadow-sm);}
+  .card-title{font-size:16px; font-weight:700; color:var(--ink-800); margin-bottom:4px;}
   .card-sub{font-size:12px; color:var(--ink-500); margin-bottom:18px;}
-  .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:11px; color:var(--ink-500); margin-bottom:10px;}
-  .lg-item{display:inline-flex; align-items:center; gap:5px;}
+
+  .legend{display:flex; flex-wrap:wrap; gap:14px; row-gap:8px; font-size:11.5px;
+    color:var(--ink-600); margin-bottom:10px; align-items:center;}
+  .lg-item{display:inline-flex; align-items:center; gap:6px;}
   .lg-dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
-  .lg-bar{width:11px; height:9px; border-radius:2px; display:inline-block;}
-  .chart-wrap{position:relative;}
+  .lg-bar{width:12px; height:9px; border-radius:2px; display:inline-block;}
+  .lg-sep{width:1px; height:12px; background:var(--ink-200);}
 
-  /* Insight callouts */
-  .insights{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:30px;}
-  .ins{background:#fff; border:1px solid var(--ink-100); border-left:4px solid var(--blue-500);
-    border-radius:0 12px 12px 0; padding:18px 20px; box-shadow:var(--shadow-sm);}
-  .ins.warn{border-left-color:var(--sun-500);}
-  .ins.danger{border-left-color:var(--rose-500);}
-  .ins.success{border-left-color:var(--mint-500);}
-  .ins-tag{font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--blue-600); margin-bottom:8px;}
-  .ins.warn .ins-tag{color:var(--sun-500);}
-  .ins.danger .ins-tag{color:var(--rose-500);}
-  .ins.success .ins-tag{color:var(--mint-500);}
-  .ins-head{font-size:18px; font-weight:800; color:var(--ink-900); margin-bottom:8px; letter-spacing:-.01em;}
-  .ins-body{font-size:13px; color:var(--ink-600); line-height:1.6;}
-  .ins-body b{color:var(--ink-900); font-weight:700;}
+  .chart-wrap{position:relative; height:540px;}
 
-  /* Data table */
-  .table-card{background:#fff; border:1px solid var(--ink-100); border-radius:14px;
-    padding:8px 0; box-shadow:var(--shadow-sm); overflow:hidden;}
-  table{width:100%; border-collapse:collapse; font-size:13.5px;}
-  thead th{
-    text-align:left; padding:14px 18px; font-family:var(--font-mono); font-size:10px;
-    font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-400);
-    background:var(--ink-50); border-bottom:2px solid var(--ink-200);
+  /* ── Tier callout overlays ───────────────────────────────── */
+  .tier-overlay{position:absolute; inset:0; pointer-events:none;}
+  .tier-callout{
+    position:absolute;
+    transform:translateX(-50%);
+    background:#fff;
+    border:1.5px solid currentColor;
+    border-radius:999px;
+    padding:5px 12px 5px 5px;
+    display:inline-flex; align-items:center; gap:8px;
+    white-space:nowrap;
+    box-shadow:0 6px 18px rgba(15,25,50,.10);
+    z-index:5;
   }
-  thead th.num{text-align:right;}
-  tbody td{padding:14px 18px; border-bottom:1px solid var(--ink-100); color:var(--ink-700);
-    font-variant-numeric:tabular-nums;}
-  tbody tr:last-child td{border-bottom:none;}
-  td.session{font-family:var(--font-mono); font-weight:700; color:var(--ink-800);}
-  td.num{text-align:right; font-family:var(--font-mono); font-weight:500;}
-  td.users{font-weight:700; color:var(--ink-900);}
-  td.rate-bar{position:relative; min-width:130px;}
-  .bar-track{height:8px; background:var(--ink-100); border-radius:4px; overflow:hidden; margin-bottom:4px;}
-  .bar-fill{height:100%; background:linear-gradient(90deg, var(--blue-400), var(--blue-600)); border-radius:4px;}
-  .bar-val{font-family:var(--font-mono); font-size:12px; font-weight:600; color:var(--ink-700);}
-  .churn-pill{display:inline-block; font-family:var(--font-mono); font-weight:600; font-size:12px;
-    padding:3px 8px; border-radius:4px;}
-  .churn-low{background:var(--mint-100); color:var(--mint-500);}
-  .churn-mid{background:var(--sun-100); color:#A37300;}
-  .churn-high{background:var(--rose-100); color:var(--rose-500);}
-  .churn-rev{background:var(--blue-100); color:var(--blue-700);}
-  .churn-na{color:var(--ink-400); font-family:var(--font-mono);}
-  .rationale{font-size:12px; color:var(--ink-500); line-height:1.5;}
-  .rationale b{color:var(--blue-600); font-weight:700;}
-  tr.hl-blue td{background:var(--blue-50);}
-  tr.hl-blue td.session{border-left:3px solid var(--blue-500);}
-  tr.hl-sun td{background:var(--sun-100);}
-  tr.hl-sun td.session{border-left:3px solid var(--sun-500);}
-  tr.hl-rose td{background:var(--rose-100);}
-  tr.hl-rose td.session{border-left:3px solid var(--rose-500);}
-  tr.hl-mint td{background:var(--mint-100);}
-  tr.hl-mint td.session{border-left:3px solid var(--mint-500);}
-  .badge{display:inline-block; font-family:var(--font-mono); font-size:10px; font-weight:700;
-    padding:2px 6px; border-radius:3px; margin-left:6px; letter-spacing:.04em;}
-  .badge.b-blue{background:var(--blue-500); color:#fff;}
-  .badge.b-sun{background:var(--sun-500); color:#fff;}
+  .tier-callout.right-anchor{ transform:translateX(-100%); }
+  .tier-callout .tier-name{
+    color:#fff;
+    background:currentColor;
+    padding:3px 9px;
+    border-radius:999px;
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.06em;
+  }
+  .tier-callout .tier-desc{
+    color:var(--ink-800);
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:12.5px;
+  }
+  .tier-callout .tier-stem{
+    position:absolute;
+    top:100%;
+    width:0;
+    border-left:1.5px dashed currentColor;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  .tier-callout.right-anchor .tier-stem{ left:auto; right:0; transform:none; }
+  .tier-callout .tier-stem::after{
+    content:'';
+    position:absolute;
+    bottom:-4px;
+    left:50%;
+    transform:translateX(-50%);
+    width:9px; height:9px;
+    border-radius:50%;
+    background:currentColor;
+    box-shadow:0 0 0 2px #fff;
+  }
+  .tier-callout.sun  { color:#F5B400; }
+  .tier-callout.blue { color:#2D5BFF; }
+  .tier-callout.mint { color:#10C390; }
 
-  /* Footer */
-  .foot{margin-top:30px; padding-top:20px; border-top:1px solid var(--ink-200);
-    display:flex; justify-content:space-between; align-items:center; font-size:11px;
+  /* ── Tier summary chips below chart ──────────────────────── */
+  .tier-row{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px;}
+  .tier-chip{
+    background:#fff; border:1px solid var(--ink-100); border-left:4px solid currentColor;
+    border-radius:0 12px 12px 0; padding:14px 18px; display:flex; align-items:center; gap:14px;
+  }
+  .tier-chip.sun  { color:#F5B400; }
+  .tier-chip.blue { color:#2D5BFF; }
+  .tier-chip.mint { color:#10C390; }
+  .tier-chip .tier-badge{
+    background:currentColor; color:#fff;
+    font-family:var(--font-mono); font-weight:700; font-size:11px;
+    letter-spacing:.08em; padding:5px 11px; border-radius:999px;
+    flex-shrink:0;
+  }
+  .tier-chip .tier-body{ flex:1; min-width:0; }
+  .tier-chip .tier-head{ font-size:14px; font-weight:700; color:var(--ink-900); margin-bottom:2px; }
+  .tier-chip .tier-note{ font-size:12px; color:var(--ink-500); line-height:1.45; }
+
+  .foot{margin-top:24px; padding-top:18px; border-top:1px solid var(--ink-200);
+    display:flex; justify-content:space-between; font-size:11px;
     color:var(--ink-400); font-family:var(--font-mono); letter-spacing:.08em; text-transform:uppercase;}
 
   @media (max-width: 900px){
     body{padding:24px 16px;}
-    h1.title{font-size:28px;}
-    .kpi-grid{grid-template-columns:repeat(2,1fr);}
-    .grid-2{grid-template-columns:1fr;}
-    .insights{grid-template-columns:1fr;}
-    table{font-size:12px;}
-    thead th, tbody td{padding:10px 12px;}
-    .rationale{font-size:11px;}
+    h1.title{font-size:24px;}
+    .card{padding:18px;}
+    .chart-wrap{height:460px;}
+    .tier-row{grid-template-columns:1fr;}
+    .tier-callout .tier-desc{font-size:11px;}
+    .tier-callout{padding:4px 9px 4px 4px;}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- HEADER -->
   <div class="eyebrow">RETENTION COHORT · TIER DESIGN</div>
-  <h1 class="title">회차별 잔존 코호트와 <span class="blue">쿠폰 트리거 설계 근거</span></h1>
+  <h1 class="title">회차별 잔존 유저 깔때기와 <span class="blue">등급 설계</span></h1>
   <p class="sub">
-    1~21회차 구매 코호트의 잔존·이탈·평균 구매 간격을 한눈에 정리한 분석.
-    <b>7회차·13회차</b>는 이탈 가속 구간 직전에 쿠폰을 배치해 잔존율을 방어하고,
-    <b>21회차 충성 고객 구간</b>에서는 추가 유지 트리거로 전환되도록 설계되었습니다.
+    1~21회차 구매 코호트의 잔존 흐름. 이탈이 가속되는 <b>7·13회차</b>에는 쿠폰 기반 등급 트리거를,
+    안정 구간인 <b>21회차+</b>에는 충성 고객 등급을 부여해 서비스 고착을 설계했습니다.
   </p>
 
-  <!-- KPI ROW -->
-  <div class="kpi-grid">
-    <div class="kpi">
-      <div class="kpi-lab">총 코호트 (1회차)</div>
-      <div class="kpi-val">638<span class="unit">명</span></div>
-      <div class="kpi-note">관찰 시작 시점의 구매 유저 기반</div>
+  <div class="card">
+    <div class="card-title">회차별 잔존 유저 깔때기</div>
+    <div class="card-sub">막대 = 잔존 유저 수 · 라인 = 잔존율(%) · 색상 막대 = 등급 부여 회차</div>
+    <div class="legend">
+      <span class="lg-item"><span class="lg-bar" style="background:#8FAEFF;"></span> 일반 회차</span>
+      <span class="lg-sep"></span>
+      <span class="lg-item"><span class="lg-bar" style="background:#F5B400;"></span> TIER 1 · 이탈 방어 쿠폰</span>
+      <span class="lg-item"><span class="lg-bar" style="background:#2D5BFF;"></span> TIER 2 · 서비스 고착 쿠폰</span>
+      <span class="lg-item"><span class="lg-bar" style="background:#10C390;"></span> TIER 3 · 충성 고객 (VIP)</span>
+      <span class="lg-sep"></span>
+      <span class="lg-item"><span class="lg-dot" style="background:#1F2837;"></span> 잔존율 (%)</span>
     </div>
-    <div class="kpi">
-      <div class="kpi-lab">10회차 도달률</div>
-      <div class="kpi-val">8.0<span class="unit">%</span></div>
-      <div class="kpi-note">638명 → <b>51명</b> · 누적 61.6일</div>
-    </div>
-    <div class="kpi accent">
-      <div class="kpi-lab">쿠폰 트리거 지점</div>
-      <div class="kpi-val">7 · 13<span class="unit">회차</span></div>
-      <div class="kpi-note">이탈 가속 직전 · 충성 전환 지점</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-lab">충성 고객 (21회차+)</div>
-      <div class="kpi-val">0.9<span class="unit">%</span></div>
-      <div class="kpi-note">6명 · 이탈율 <b>0.0%</b> · 평균 2.2일 간격</div>
+    <div class="chart-wrap">
+      <canvas id="c-funnel"></canvas>
+      <div id="tier-overlay" class="tier-overlay"></div>
     </div>
   </div>
 
-  <!-- CHARTS -->
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">회차별 잔존 유저 깔때기</div>
-      <div class="card-sub">막대 = 잔존 유저 수 · 라인 = 잔존율(%) · 강조 막대 = 쿠폰 트리거 회차</div>
-      <div class="legend">
-        <span class="lg-item"><span class="lg-bar" style="background:var(--blue-400);"></span> 잔존 유저</span>
-        <span class="lg-item"><span class="lg-bar" style="background:var(--sun-500);"></span> 쿠폰 트리거 회차</span>
-        <span class="lg-item"><span class="lg-dot" style="background:var(--ink-700);"></span> 잔존율</span>
-      </div>
-      <div class="chart-wrap" style="height:300px;">
-        <canvas id="c-funnel"></canvas>
+  <div class="tier-row">
+    <div class="tier-chip sun">
+      <span class="tier-badge">TIER 1</span>
+      <div class="tier-body">
+        <div class="tier-head">이탈 방어 쿠폰 · 7회차</div>
+        <div class="tier-note">이탈율 23.1% 도달 직전 발급 → 8회차 잔존율 16.0%로 방어</div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-title">이전 회차 대비 이탈율</div>
-      <div class="card-sub">노란 점 = 쿠폰 직전 위험 구간 · 파란 점 = 쿠폰 직후 잔존 방어</div>
-      <div class="legend">
-        <span class="lg-item"><span class="lg-dot" style="background:var(--rose-500);"></span> 이탈율</span>
-        <span class="lg-item"><span class="lg-dot" style="background:var(--sun-500);"></span> 위험(쿠폰 직전)</span>
-        <span class="lg-item"><span class="lg-dot" style="background:var(--blue-500);"></span> 방어(쿠폰 직후)</span>
-      </div>
-      <div class="chart-wrap" style="height:300px;">
-        <canvas id="c-churn"></canvas>
+    <div class="tier-chip blue">
+      <span class="tier-badge">TIER 2</span>
+      <div class="tier-body">
+        <div class="tier-head">서비스 고착 쿠폰 · 13회차</div>
+        <div class="tier-note">이탈율 27.5% → 3.6% 급락 · 평균 구매 간격 2.2일로 안착</div>
       </div>
     </div>
-  </div>
-
-  <!-- INSIGHTS -->
-  <div class="insights">
-    <div class="ins warn">
-      <div class="ins-tag">⚠️ 위험 구간</div>
-      <div class="ins-head">7회차 · 이탈율 23.1%</div>
-      <div class="ins-body">
-        평균 간격이 5.3일 → 4.6일로 좁혀지는 시점.
-        구매 빈도가 늘면서 <b>피로도가 누적</b>되어 이탈이 다시 가속화됩니다.
+    <div class="tier-chip mint">
+      <span class="tier-badge">TIER 3</span>
+      <div class="tier-body">
+        <div class="tier-head">충성 고객 (VIP) · 21회차+</div>
+        <div class="tier-note">잔존 6명 · 이탈율 0.0% · 누적 83.4일 이상 활성 유지</div>
       </div>
     </div>
-    <div class="ins danger">
-      <div class="ins-tag">🔻 이탈 정점</div>
-      <div class="ins-head">10회차 · 이탈율 31.1%</div>
-      <div class="ins-body">
-        전체 구간 중 <b>최대 이탈율</b>. 충성 고객 전환 전 마지막 고비 구간으로,
-        직전 7회차 쿠폰의 효과가 끝나는 지점이기도 합니다.
-      </div>
-    </div>
-    <div class="ins success">
-      <div class="ins-tag">✓ 서비스 고착</div>
-      <div class="ins-head">13회차 · 이탈율 3.6%</div>
-      <div class="ins-body">
-        쿠폰 이후 <b>이탈율이 27.5% → 3.6%로 급락</b>.
-        평균 2.2일 간격으로 안착하며 충성 고객(21회차)으로 이어집니다.
-      </div>
-    </div>
-  </div>
-
-  <!-- TABLE -->
-  <div class="table-card">
-    <table>
-      <thead>
-        <tr>
-          <th>회차</th>
-          <th class="num">잔존 유저</th>
-          <th>잔존율</th>
-          <th class="num">이전 대비 이탈율</th>
-          <th class="num">평균 간격</th>
-          <th class="num">누적 소요일</th>
-          <th>등급 설계 근거</th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
   </div>
 
   <div class="foot">
     <span>이도형 · GROWTH MARKETING LAB</span>
-    <span>RETENTION COHORT · 2026</span>
+    <span>RETENTION FUNNEL · TIER DESIGN</span>
   </div>
 </div>
 
 <script>
-  // ─── data ────────────────────────────────────────────────────────
   const rows = [
-    {n:'1회차',  u:638, r:100.0, c:null,        gap:10.9, cum:'10.9일',  flag:''},
-    {n:'2회차',  u:448, r:70.2,  c:29.8,        gap:8.4,  cum:'19.3일',  flag:'warn'},
-    {n:'3회차',  u:341, r:53.4,  c:23.9,        gap:7.8,  cum:'27.1일',  flag:''},
-    {n:'4회차',  u:280, r:43.9,  c:17.9,        gap:7.0,  cum:'34.1일',  flag:''},
-    {n:'5회차',  u:218, r:34.2,  c:22.1,        gap:6.0,  cum:'40.1일',  flag:''},
-    {n:'6회차',  u:173, r:27.1,  c:20.6,        gap:5.3,  cum:'45.4일',  flag:''},
-    {n:'7회차',  u:133, r:20.8,  c:23.1,        gap:4.6,  cum:'45.4일~', flag:'warn',   trigger:'쿠폰', rationale:'<b>쿠폰 트리거</b>로 이탈율 방어'},
-    {n:'8회차',  u:102, r:16.0,  c:23.3,        gap:5.2,  cum:'55.2일',  flag:''},
-    {n:'9회차',  u:74,  r:11.6,  c:27.5,        gap:3.2,  cum:'58.4일',  flag:'warn'},
-    {n:'10회차', u:51,  r:8.0,   c:31.1,        gap:3.2,  cum:'61.6일',  flag:'danger'},
-    {n:'11회차', u:37,  r:5.8,   c:27.5,        gap:2.8,  cum:'64.4일',  flag:''},
-    {n:'12회차', u:28,  r:4.4,   c:24.3,        gap:2.4,  cum:'66.8일',  flag:''},
-    {n:'13회차', u:27,  r:4.2,   c:3.6,  rev:true, gap:2.2, cum:'69.0일~', flag:'success',  trigger:'쿠폰', rationale:'<b>쿠폰</b>으로 서비스 고착화'},
-    {n:'21회차', u:6,   r:0.9,   c:0.0,         gap:2.2,  cum:'83.4일~', flag:'mint',   rationale:'<b>충성 고객</b> 유지'},
+    {n:'1회차',  u:638, r:100.0},
+    {n:'2회차',  u:448, r:70.2},
+    {n:'3회차',  u:341, r:53.4},
+    {n:'4회차',  u:280, r:43.9},
+    {n:'5회차',  u:218, r:34.2},
+    {n:'6회차',  u:173, r:27.1},
+    {n:'7회차',  u:133, r:20.8},
+    {n:'8회차',  u:102, r:16.0},
+    {n:'9회차',  u:74,  r:11.6},
+    {n:'10회차', u:51,  r:8.0},
+    {n:'11회차', u:37,  r:5.8},
+    {n:'12회차', u:28,  r:4.4},
+    {n:'13회차', u:27,  r:4.2},
+    {n:'21회차', u:6,   r:0.9},
   ];
 
-  // ─── table render ───────────────────────────────────────────────
-  const tbody = document.getElementById('tbody');
-  const churnClass = (c, rev) => {
-    if(c==null) return 'churn-na';
-    if(rev) return 'churn-rev';
-    if(c >= 27) return 'churn-high';
-    if(c >= 20) return 'churn-mid';
-    return 'churn-low';
-  };
-  const rowClass = (f) => {
-    if(f==='warn')   return 'hl-sun';
-    if(f==='danger') return 'hl-rose';
-    if(f==='success')return 'hl-blue';
-    if(f==='mint')   return 'hl-mint';
-    return '';
-  };
-  rows.forEach(r => {
-    const tr = document.createElement('tr');
-    if(rowClass(r.flag)) tr.className = rowClass(r.flag);
-    const trig = r.trigger ? `<span class="badge ${r.flag==='success'?'b-blue':'b-sun'}">${r.trigger}</span>` : '';
-    const churnTxt = r.c == null
-      ? '<span class="churn-na">—</span>'
-      : (r.rev
-          ? `<span class="churn-pill churn-rev">↓ ${r.c.toFixed(1)}%</span>`
-          : `<span class="churn-pill ${churnClass(r.c, false)}">${r.c >= 27 ? '⚠️ ' : ''}${r.c.toFixed(1)}%</span>`);
-    tr.innerHTML = `
-      <td class="session">${r.n}${trig}</td>
-      <td class="num users">${r.u.toLocaleString()}명</td>
-      <td class="rate-bar">
-        <div class="bar-track"><div class="bar-fill" style="width:${r.r}%"></div></div>
-        <div class="bar-val">${r.r.toFixed(1)}%</div>
-      </td>
-      <td class="num">${churnTxt}</td>
-      <td class="num">${r.gap.toFixed(1)}일</td>
-      <td class="num">${r.cum}</td>
-      <td class="rationale">${r.rationale || ''}</td>
-    `;
-    tbody.appendChild(tr);
-  });
+  const tiers = [
+    { idx:6,  cls:'sun',  bar:'#F5B400', name:'TIER 1', desc:'이탈 방어 쿠폰',  topPx:8,  anchor:'center' },
+    { idx:12, cls:'blue', bar:'#2D5BFF', name:'TIER 2', desc:'서비스 고착 쿠폰', topPx:8,  anchor:'center' },
+    { idx:13, cls:'mint', bar:'#10C390', name:'TIER 3', desc:'충성 고객 (VIP)',  topPx:62, anchor:'right'  },
+  ];
+  const tierByIdx = Object.fromEntries(tiers.map(t => [t.idx, t]));
 
-  // ─── chart styles ───────────────────────────────────────────────
-  const FONT = '"Pretendard Variable", -apple-system, sans-serif';
-  Chart.defaults.font.family = FONT;
+  Chart.defaults.font.family = '"Pretendard Variable", -apple-system, sans-serif';
   Chart.defaults.font.size = 11;
   Chart.defaults.color = '#5B6675';
   Chart.defaults.plugins.legend.display = false;
 
-  const labels = rows.map(r => r.n);
-  const triggerIdx = rows.map((r,i) => r.trigger ? i : -1).filter(i => i>=0);
-
-  // Funnel: bar (users) + line (retention %)
-  new Chart(document.getElementById('c-funnel'), {
+  const chart = new Chart(document.getElementById('c-funnel'), {
     type:'bar',
     data:{
-      labels,
+      labels: rows.map(r => r.n),
       datasets:[
         {
           type:'bar',
           label:'잔존 유저',
           data: rows.map(r => r.u),
-          backgroundColor: rows.map((r,i) => triggerIdx.includes(i) ? '#F5B400' : '#5C86FF'),
+          backgroundColor: rows.map((_,i) => tierByIdx[i]?.bar || '#8FAEFF'),
           borderRadius:5,
-          maxBarThickness:28,
+          maxBarThickness:34,
           yAxisID:'y',
           order:2,
         },
@@ -367,7 +262,8 @@
     },
     options:{
       maintainAspectRatio:false,
-      interaction:{mode:'index', intersect:false},
+      layout:{ padding:{ top:120 } },
+      interaction:{ mode:'index', intersect:false },
       plugins:{
         tooltip:{
           backgroundColor:'#0A0E16', titleColor:'#fff', bodyColor:'#DDE2EB',
@@ -380,68 +276,63 @@
         }
       },
       scales:{
-        x:{grid:{display:false}, ticks:{font:{size:10}}},
+        x:{ grid:{ display:false }, ticks:{ font:{ size:11 } } },
         y:{
           beginAtZero:true,
-          grid:{color:'#EEF1F6', drawBorder:false},
-          ticks:{font:{size:10}, callback:(v)=> v.toLocaleString()+'명'}
+          grid:{ color:'#EEF1F6', drawBorder:false },
+          ticks:{ font:{ size:10 }, callback:(v)=> v.toLocaleString()+'명' }
         },
         y1:{
           position:'right', beginAtZero:true, max:100,
-          grid:{display:false},
-          ticks:{font:{size:10}, callback:(v)=> v+'%'}
-        }
-      }
-    }
-  });
-
-  // Churn line
-  const churnPointColor = rows.map((r,i)=>{
-    if(r.c == null) return '#DDE2EB';
-    if(r.trigger) return '#2D5BFF';            // 쿠폰 직후 (defended)
-    if(i+1 < rows.length && rows[i+1].trigger) return '#F5B400'; // 쿠폰 직전 (warning)
-    if(r.c >= 27) return '#EF4444';
-    return '#1F2837';
-  });
-  new Chart(document.getElementById('c-churn'), {
-    type:'line',
-    data:{
-      labels,
-      datasets:[{
-        label:'이탈율',
-        data: rows.map(r => r.c),
-        borderColor:'#EF4444',
-        backgroundColor:'rgba(239,68,68,0.08)',
-        borderWidth:2,
-        tension:.3,
-        fill:true,
-        pointRadius: rows.map((r,i)=> churnPointColor[i] === '#1F2837' ? 3 : 6),
-        pointBackgroundColor: churnPointColor,
-        pointBorderColor:'#fff',
-        pointBorderWidth:2,
-        spanGaps:true,
-      }]
-    },
-    options:{
-      maintainAspectRatio:false,
-      plugins:{
-        tooltip:{
-          backgroundColor:'#0A0E16', titleColor:'#fff', bodyColor:'#DDE2EB',
-          padding:10, cornerRadius:8, displayColors:false,
-          callbacks:{
-            label:(ctx)=> ctx.parsed.y==null ? '—' : ` 이탈율: ${ctx.parsed.y.toFixed(1)}%`
-          }
+          grid:{ display:false },
+          ticks:{ font:{ size:10 }, callback:(v)=> v+'%' }
         }
       },
-      scales:{
-        x:{grid:{display:false}, ticks:{font:{size:10}}},
-        y:{
-          beginAtZero:true,
-          grid:{color:'#EEF1F6', drawBorder:false},
-          ticks:{font:{size:10}, callback:(v)=> v+'%'}
-        }
-      }
-    }
+      animation:{
+        duration: 800,
+        onComplete: placeTierLabels,
+      },
+    },
+    plugins:[{
+      id:'tierPlace',
+      afterUpdate(c){ requestAnimationFrame(placeTierLabels); },
+    }]
+  });
+
+  function placeTierLabels(){
+    const overlay = document.getElementById('tier-overlay');
+    if(!overlay || !chart) return;
+    overlay.innerHTML = '';
+    const meta = chart.getDatasetMeta(0);
+    if(!meta || !meta.data) return;
+
+    tiers.forEach(t => {
+      const bar = meta.data[t.idx];
+      if(!bar) return;
+      const x = bar.x;
+      const barTop = bar.y;
+
+      const callout = document.createElement('div');
+      callout.className = `tier-callout ${t.cls}` + (t.anchor==='right' ? ' right-anchor' : '');
+      callout.style.left = `${x}px`;
+      callout.style.top  = `${t.topPx}px`;
+
+      const calloutH = 30;
+      const stemH = Math.max(0, barTop - t.topPx - calloutH - 4);
+
+      callout.innerHTML = `
+        <span class="tier-name">${t.name}</span>
+        <span class="tier-desc">${t.desc}</span>
+        <span class="tier-stem" style="height:${stemH}px"></span>
+      `;
+      overlay.appendChild(callout);
+    });
+  }
+
+  let resizeT;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(placeTierLabels, 80);
   });
 </script>
 </body>
