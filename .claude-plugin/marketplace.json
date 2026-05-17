@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "marketing-lab-26-05-09",
+  "description": "도형의 마케팅 실험실 — 비주얼 작업 자동화 플러그인 모음",
+  "owner": {
+    "name": "hound600al"
+  },
+  "plugins": [
+    {
+      "name": "visual-tools",
+      "description": "웹 캡처 무드보드 생성(/moodboard)과 파일 날짜별 자동 정리(/sort-files). Playwright MCP 포함.",
+      "author": {
+        "name": "hound600al"
+      },
+      "category": "productivity",
+      "source": "./plugins/visual-tools"
+    }
+  ]
+}

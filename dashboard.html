@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ì»¤ë²ë§ ì ì²´ ì±ê³¼ ëìë³´ë</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; padding: 20px 24px 32px; }
+
+  .dash-header { margin-bottom: 20px; padding: 14px 18px; background: #F0F4FF; border-left: 4px solid #1A56DB; border-radius: 0 8px 8px 0; display: flex; align-items: baseline; gap: 10px; }
+  .dash-title { font-size: 15px; font-weight: 700; color: #1A56DB; }
+  .dash-period { font-size: 11px; color: #666; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .kpi { background: #f5f5f3; border-radius: 8px; padding: 12px 14px; }
+  .kpi-label { font-size: 10px; color: #888; margin-bottom: 4px; }
+  .kpi-value { font-size: 20px; font-weight: 600; color: #1a1a1a; }
+  .kpi-growth { font-size: 10px; color: #059669; margin-top: 2px; font-weight: 500; }
+
+  .section-title { font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 10px; letter-spacing: 0.02em; text-transform: uppercase; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .full { margin-bottom: 16px; }
+
+  .chart-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px 12px; }
+  .chart-title { font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+  .chart-sub { font-size: 10px; color: #9ca3af; margin-bottom: 10px; }
+  .chart-wrap { position: relative; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; font-size: 10px; color: #6b7280; align-items: center; }
+  .leg-item { display: flex; align-items: center; gap: 4px; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .leg-bar { width: 10px; height: 8px; border-radius: 2px; display: inline-block; }
+  .leg-ev { width: 1.5px; height: 12px; background: rgba(234,88,12,0.6); display: inline-block; }
+  .leg-sep { width: 0.5px; height: 12px; background: #e5e7eb; margin: 0 2px; display: inline-block; }
+
+  .note { font-size: 10px; color: #9ca3af; margin-top: 8px; line-height: 1.5; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } .grid-3 { grid-template-columns: 1fr; } .kpi-row { grid-template-columns: repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<div class="dash-header">
+  <span class="dash-title">ð ì»¤ë²ë§ ì ì²´ ì±ê³¼ ëìë³´ë</span>
+  <span class="dash-period">2024.01 ~ 2026.04 &nbsp;|&nbsp; ì´ëí ì¬ì§ ê¸°ê°: 2024.05.13 ~</span>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">ì ë§¤ì¶ (2026.04)</div>
+    <div class="kpi-value">17.6ìµ</div>
+    <div class="kpi-growth">â² ìì¬ ëë¹ +1,541%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">MAU (2026.03)</div>
+    <div class="kpi-value">56,736</div>
+    <div class="kpi-growth">â² ìì¬ ëë¹ +2,439%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">ì ê· ì ì  (2026.03)</div>
+    <div class="kpi-value">18,717</div>
+    <div class="kpi-growth">â² ìì¬ ëë¹ +2,066%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">ê³µíì´ìµë¥  (2026.01)</div>
+    <div class="kpi-value">35.9%</div>
+    <div class="kpi-growth">â² ë°ì´í° ìì ëë¹ +26.5pp</div>
+  </div>
+</div>
+
+<!-- Row 1: ë§¤ì¶ full width -->
+<div class="full chart-card">
+  <div class="chart-title">ì ì²´ ë§¤ì¶ (ë¶ê°ì¸ í¬í¨)</div>
+  <div class="chart-sub">ë¨ì: ìµì &nbsp;|&nbsp; ì£¼í© ì ì  = ì´ëí ìì¬ ìì  (2024.05)</div>
+  <div class="legend">
+    <div class="leg-item"><span class="leg-bar" style="background:#93C5FD;"></span> ë§¤ì¶</div>
+    <span class="leg-sep"></span>
+    <div class="leg-item"><span class="leg-ev"></span> ìì¬ ìì </div>
+  </div>
+  <div class="chart-wrap" style="height:220px;">
+    <canvas id="c-revenue"></canvas>
+  </div>
+</div>
+
+<!-- Row 2: ì ê·ì ì  + MAU -->
+<div class="grid-2">
+  <div class="chart-card">
+    <div class="chart-title">ì ê· ì ì  ì</div>
+    <div class="chart-sub">ë¨ì: ëª</div>
+    <div class="chart-wrap" style="height:190px;">
+      <canvas id="c-newuser"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">MAU (30ì¼ íì± ì ì )</div>
+    <div class="chart-sub">ë¨ì: ëª</div>
+    <div class="chart-wrap" style="height:190px;">
+      <canvas id="c-mau"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Row 3: ë§ì¼íë¹ + ê³µíì´ìµë¥  -->
+<div class="grid-2">
+  <div class="chart-card">
+    <div class="chart-title">ë§ì¼í ë¹ì©</div>
+    <div class="chart-sub">ë¨ì: ìµì</div>
+    <div class="chart-wrap" style="height:190px;">
+      <canvas id="c-mktcost"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">ë¶ê°ì¸ í ê³µíì´ìµë¥ </div>
+    <div class="chart-sub">ë¨ì: %</div>
+    <div class="chart-wrap" style="height:190px;">
+      <canvas id="c-margin"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Row 4: ììì´ìµë¥  + CAC -->
+<div class="grid-2">
+  <div class="chart-card">
+    <div class="chart-title">ììì´ìµë¥ </div>
+    <div class="chart-sub">ë¨ì: % &nbsp;|&nbsp; ì ì ì´ì ì¤ì´ë ê°ì  ì¶ì¸</div>
+    <div class="chart-wrap" style="height:190px;">
+      <canvas id="c-opinc"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">CAC (ì ê· ì ì  íë ë¹ì©)</div>
+    <div class="chart-sub">ë¨ì: ì &nbsp;|&nbsp; ìì¬ ìì ë¶í° ì¶ì </div>
+    <div class="chart-wrap" style="height:190px;">
+      <canvas id="c-cac"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="note">* ì¼ë¶ ì§íë ë°ì´í° ê¸°ë¡ ìì ìì ì´ ë¤ë¥¼ ì ìì &nbsp;|&nbsp; ì£¼í© ì ì : ì´ëí ìì¬ ìì (2024.05)</div>
+
+<script>
+const months = ['2024.01','2024.02','2024.03','2024.04','2024.05','2024.06','2024.07','2024.08','2024.09','2024.10','2024.11','2024.12','2025.01','2025.02','2025.03','2025.04','2025.05','2025.06','2025.07','2025.08','2025.09','2025.10','2025.11','2025.12','2026.01','2026.02','2026.03','2026.04'];
+
+const revenue = [61835700.223,71248774,76276477,88026517,107032587,99056069,176823278,212386043,204365316,241567668,241791183,256569395,290140406,331630160,381394182,449985376,520865048,601055339,743389269,810644472,839142451,954951892,950903259,1085256507,1215766356,1282992054,1671119065,1757436603];
+const revenueAuk = revenue.map(v => v === null ? null : Math.round(v/100000000*100)/100);
+
+const contrib = [null,null,null,null,null,null,null,null,null,0.09360603164849288,0.12668517678092608,0.1533711980611316,0.17292731147448998,0.1821650602413315,0.1802121631547424,0.18921851670790685,0.23308393764597543,0.22305251916851598,0.2351678492134528,0.25646024349870605,0.2688609413241437,0.2849799333880047,0.33226297471116223,0.29787832649868623,0.35884749431147106,0.2753776642471566,0.2985740172259958,null];
+const contribPct = contrib.map(v => v === null ? null : Math.round(v*1000)/10);
+
+const mktcost = [null,null,null,null,null,null,null,null,null,null,34979894,62278554,36407608,45177166,62151123,72416222,76489573,122808918,191892770,122914998,150679845,211320103,176878907,277621752,317420108,309667127,435443506,null];
+const mktAuk = mktcost.map(v => v === null ? null : Math.round(v/100000000*100)/100);
+
+const opinc = [null,null,null,null,null,null,null,null,null,null,-0.16719104781242478,-0.2436418979084793,-0.12772593561581705,-0.11689397200109179,-0.12936842638870272,-0.09917779711363388,-0.029414011173965367,-0.08772147881771605,-0.16010493446187898,-0.00971110672546472,-0.05486781210058332,-0.045605562200499765,-0.009310157779279678,-0.11763734331337233,-0.02625531210966664,-0.09423697794609896,-0.07378574880180663,null];
+const opincPct = opinc.map(v => v === null ? null : Math.round(v*1000)/10);
+
+const newuser = [363,548,501,600,864,1373,1807,2321,1853,1933,1893,2512,2691,2692,4896,5783,6235,7517,10211,9440,8441,10111,8802,12506,12051,12935,18717,null];
+
+const mau = [970,1296,1452,1721,2234,3182,4214,5583,6003,6662,7050,8183,8767,9952,12430,15366,17757,21671,26683,28965,30861,34597,35069,40222,43317,49125,56736,null];
+
+const cac = [null,null,null,null,14260,13394,13054,10515,11849,15735,19250,19056,14114,13223,12553,11940,12467,13197,16253,13626,14401,19461,20571,22596,22327,21305,23147,null];
+
+// Employment start index (2024.05 = index 4)
+const joinIdx = 4;
+
+// Annotation plugin: vertical dashed line
+const joinLinePlugin = {
+  id: 'joinLine',
+  afterDraw(chart) {
+    const {ctx, chartArea, scales} = chart;
+    if (!scales.x) return;
+    const xPos = scales.x.getPixelForValue(joinIdx);
+    if (xPos < chartArea.left || xPos > chartArea.right) return;
+    ctx.save();
+    ctx.beginPath();
+    ctx.setLineDash([4,3]);
+    ctx.strokeStyle = 'rgba(234,88,12,0.7)';
+    ctx.lineWidth = 1.5;
+    ctx.moveTo(xPos, chartArea.top);
+    ctx.lineTo(xPos, chartArea.bottom);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+};
+Chart.register(joinLinePlugin);
+
+const commonOpts = (yFmt, hasJoin=true) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      backgroundColor: 'rgba(17,24,39,0.85)',
+      padding: 8,
+      titleFont: { size: 11 },
+      bodyFont: { size: 11 },
+      callbacks: { label: ctx => yFmt(ctx.parsed.y) }
+    }
+  },
+  scales: {
+    x: {
+      grid: { display: false },
+      ticks: {
+        font: { size: 9 }, color: '#9ca3af',
+        maxRotation: 45, minRotation: 45,
+        callback: (val, idx) => {
+          const m = months[idx];
+          return m.endsWith('.01') ? m : m.split('.')[1] + 'ì';
+        }
+      }
+    },
+    y: {
+      grid: { color: '#f3f4f6', lineWidth: 1 },
+      border: { dash: [3,3] },
+      ticks: { font: { size: 9 }, color: '#9ca3af', callback: (v) => yFmt(v) }
+    }
+  }
+});
+
+// 1. Revenue chart
+new Chart(document.getElementById('c-revenue'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      data: revenueAuk,
+      backgroundColor: months.map((m,i) => i >= joinIdx ? '#93C5FD' : '#BFDBFE'),
+      borderColor: months.map((m,i) => i >= joinIdx ? '#3B82F6' : '#93C5FD'),
+      borderWidth: 1,
+      borderRadius: 3,
+      spanGaps: true
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toFixed(1) + 'ìµ'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toFixed(1) + 'ìµì' : '' }
+      }
+    }
+  }
+});
+
+// 2. New Users
+new Chart(document.getElementById('c-newuser'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      data: newuser,
+      backgroundColor: months.map((m,i) => i >= joinIdx ? '#6EE7B7' : '#D1FAE5'),
+      borderColor: months.map((m,i) => i >= joinIdx ? '#10B981' : '#6EE7B7'),
+      borderWidth: 1,
+      borderRadius: 3,
+      spanGaps: true
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toLocaleString() + 'ëª'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toLocaleString() + 'ëª' : '' }
+      }
+    }
+  }
+});
+
+// 3. MAU
+new Chart(document.getElementById('c-mau'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      data: mau,
+      borderColor: '#0D9488',
+      backgroundColor: 'rgba(13,148,136,0.08)',
+      borderWidth: 2,
+      pointRadius: 2.5,
+      pointHoverRadius: 5,
+      tension: 0.3,
+      fill: true,
+      spanGaps: true
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toLocaleString() + 'ëª'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toLocaleString() + 'ëª' : '' }
+      }
+    }
+  }
+});
+
+// 4. Marketing Cost
+new Chart(document.getElementById('c-mktcost'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      data: mktAuk,
+      backgroundColor: '#FCD34D',
+      borderColor: '#F59E0B',
+      borderWidth: 1,
+      borderRadius: 3,
+      spanGaps: true
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toFixed(1) + 'ìµ'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toFixed(1) + 'ìµì' : '' }
+      }
+    }
+  }
+});
+
+// 5. Contribution Margin
+new Chart(document.getElementById('c-margin'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      data: contribPct,
+      borderColor: '#059669',
+      backgroundColor: 'rgba(5,150,105,0.07)',
+      borderWidth: 2,
+      pointRadius: 2.5,
+      pointHoverRadius: 5,
+      tension: 0.3,
+      fill: true,
+      spanGaps: false
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toFixed(1) + '%'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toFixed(1) + '%' : '' }
+      }
+    }
+  }
+});
+
+// 6. Operating Income
+new Chart(document.getElementById('c-opinc'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      data: opincPct,
+      borderColor: '#7C3AED',
+      backgroundColor: 'rgba(124,58,237,0.07)',
+      borderWidth: 2,
+      pointRadius: 2.5,
+      pointHoverRadius: 5,
+      tension: 0.3,
+      fill: true,
+      spanGaps: false
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toFixed(1) + '%'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toFixed(1) + '%' : '' }
+      }
+    },
+    scales: {
+      ...commonOpts(v => v).scales,
+      y: {
+        ...commonOpts(v => v).scales.y,
+        ticks: { font: { size: 9 }, color: '#9ca3af', callback: v => v.toFixed(0) + '%' }
+      }
+    }
+  }
+});
+
+// 7. CAC
+new Chart(document.getElementById('c-cac'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      data: cac,
+      borderColor: '#EF4444',
+      backgroundColor: 'rgba(239,68,68,0.07)',
+      borderWidth: 2,
+      pointRadius: 2.5,
+      pointHoverRadius: 5,
+      tension: 0.3,
+      fill: false,
+      spanGaps: false
+    }]
+  },
+  options: {
+    ...commonOpts(v => v === null ? '' : v.toLocaleString() + 'ì'),
+    plugins: {
+      ...commonOpts(v => v).plugins,
+      tooltip: {
+        ...commonOpts(v => v).plugins.tooltip,
+        callbacks: { label: ctx => ctx.parsed.y !== null ? ctx.parsed.y.toLocaleString() + 'ì' : '' }
+      }
+    },
+    scales: {
+      ...commonOpts(v => v).scales,
+      y: {
+        ...commonOpts(v => v).scales.y,
+        ticks: { font: { size: 9 }, color: '#9ca3af', callback: v => (v/10000).toFixed(0) + 'ë§' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
