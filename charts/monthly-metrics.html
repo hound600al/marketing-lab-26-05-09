@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>월별 핵심 지표 — 16개월 트렌드</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --blue-300:#8FAEFF; --blue-400:#5C86FF; --blue-500:#2D5BFF; --blue-600:#1B45E0;
+    --blue-100:#DCE5FF;
+    --ink-50:#F7F9FD; --ink-100:#EEF1F6; --ink-200:#DDE2EB;
+    --ink-400:#8B95A6; --ink-500:#5B6675; --ink-700:#1F2837; --ink-800:#131A26; --ink-900:#0A0E16;
+    --mint-500:#10C390; --mint-700:#067B5A; --mint-100:#D5F5E8;
+    --sun-500:#F5B400; --sun-700:#A37300; --sun-100:#FFF1C9;
+    --rose-500:#EF4444;
+    --font-sans:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--font-sans); color:var(--ink-800); background:var(--ink-50);
+    font-feature-settings:"ss01" 1,"tnum" 1;
+    -webkit-font-smoothing:antialiased; padding:18px 20px;}
+  .wrap{max-width:1080px; margin:0 auto;}
+
+  .eyebrow{font-family:var(--font-mono); font-size:10px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--blue-500); margin-bottom:6px;}
+  h1.title{font-size:20px; font-weight:800; letter-spacing:-.015em; line-height:1.25;
+    margin:0 0 6px; color:var(--ink-900);}
+  h1.title .blue{color:var(--blue-500);}
+  .sub{font-size:12.5px; color:var(--ink-500); line-height:1.55; margin:0 0 14px;}
+  .sub b{color:var(--ink-800); font-weight:700;}
+  .ms{display:inline-block; font-family:var(--font-mono); font-size:10.5px;
+    font-weight:700; padding:2px 7px; border-radius:4px; margin-right:4px;}
+  .ms.start{background:var(--blue-100); color:var(--blue-600);}
+  .ms.multi{background:var(--mint-100); color:var(--mint-700);}
+
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .card{background:#fff; border:1px solid var(--ink-100); border-radius:10px;
+    padding:13px 14px 11px; display:flex; flex-direction:column;}
+  .c-title{font-size:10.5px; font-weight:700; color:var(--ink-500); margin-bottom:4px;
+    font-family:var(--font-mono); letter-spacing:.06em; text-transform:uppercase;}
+  .c-stat{font-size:22px; font-weight:800; color:var(--ink-900); letter-spacing:-.02em;
+    line-height:1.05; font-variant-numeric:tabular-nums;}
+  .c-stat .unit{font-size:12px; font-weight:600; color:var(--ink-400); margin-left:2px;}
+  .c-delta{font-family:var(--font-mono); font-size:10px; font-weight:600;
+    margin-top:3px; margin-bottom:8px; line-height:1.3;}
+  .c-delta.up{color:#067B5A;}
+  .c-delta.down{color:#EF4444;}
+  .c-delta.neutral{color:var(--ink-500);}
+  .chart-wrap{position:relative; height:110px; margin-top:auto;}
+
+  @media (max-width: 760px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .chart-wrap{height:120px;}
+  }
+  @media (max-width: 480px){
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">B2C MONTHLY METRICS · 16M TREND</div>
+  <h1 class="title">월별 핵심 지표 — <span class="blue">매출 ×13배 · 흑자 전환</span></h1>
+  <p class="sub">
+    <span class="ms start">2024-05 입사</span> → <b>2025-08</b> · 16개월 6개 핵심 지표 추이.
+    <span class="ms multi">2025-01 멀티채널 시작</span> 이후 매출·유저 동시 폭발.
+  </p>
+
+  <div class="grid">
+    <!-- Row 1: 성과 -->
+    <div class="card">
+      <div class="c-title">B2C 매출</div>
+      <div class="c-stat">7.54<span class="unit">억</span></div>
+      <div class="c-delta up">↑ ×13배 vs 2024-05 (0.58억)</div>
+      <div class="chart-wrap"><canvas id="c-revenue"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="c-title">매출 성장률 (MoM)</div>
+      <div class="c-stat">+22<span class="unit">% 평균</span></div>
+      <div class="c-delta up">최대 +84.5% · 2025-06</div>
+      <div class="chart-wrap"><canvas id="c-growth"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="c-title">신규 유저</div>
+      <div class="c-stat">9,440<span class="unit">명</span></div>
+      <div class="c-delta up">↑ ×15.7배 vs 2024-05 (600명)</div>
+      <div class="chart-wrap"><canvas id="c-users"></canvas></div>
+    </div>
+
+    <!-- Row 2: 효율/비용 -->
+    <div class="card">
+      <div class="c-title">마케팅비</div>
+      <div class="c-stat">1.14<span class="unit">억</span></div>
+      <div class="c-delta neutral">최대 1.40억 · 2025-07</div>
+      <div class="chart-wrap"><canvas id="c-marketing"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="c-title">CAC</div>
+      <div class="c-stat">13,626<span class="unit">원</span></div>
+      <div class="c-delta down">최저 10,515원 · 2024-08</div>
+      <div class="chart-wrap"><canvas id="c-cac"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="c-title">공헌이익률</div>
+      <div class="c-stat">+25.6<span class="unit">%</span></div>
+      <div class="c-delta up">-5.1% → +25.6% (+30.7%p · 흑자 전환)</div>
+      <div class="chart-wrap"><canvas id="c-contrib"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── data (2024-05 ~ 2025-08) ─────────────────────────
+  const labels    = ['24.05','06','07','08','09','10','11','12','25.01','02','03','04','05','06','07','08'];
+  const revenue   = [0.578,0.7428,1.006,1.349,1.435,1.733,1.685,1.735,1.914,2.410,2.410,3.778,4.447,4.447,6.901,7.535]; // 억
+  const marketing = [0.0433,0.1630,0.2279,0.2368,0.2030,0.2854,0.3461,0.3498,0.6228,0.3303,0.4518,0.6679,0.7480,0.7649,1.40,1.14]; // 억
+  const growth    = [null,28.5,35.4,34.1,6.4,20.8,-2.8,3.0,10.3,14.3,25.9,18.0,15.8,84.5,23.7,9.0]; // %
+  const contrib   = [-5.1,-32.8,9.8,12.1,12.6,16.4,13.1,19.1,19.1,18.2,21.9,18.9,23.3,27.0,23.5,25.6]; // %
+  const cac       = [14260,13394,13054,10515,11849,15735,19250,19056,19056,13223,13223,11940,12467,12467,16253,13626]; // 원
+  const newUsers  = [600,864,1373,1807,2321,1853,1933,1893,2512,2692,2692,5783,6235,6235,10211,9440]; // 명
+
+  // 2025-01 멀티채널 시작 = index 8
+  const MILESTONE = 8;
+
+  Chart.defaults.font.family = '"Pretendard Variable", -apple-system, sans-serif';
+  Chart.defaults.font.size = 9.5;
+  Chart.defaults.color = '#8B95A6';
+  Chart.defaults.plugins.legend.display = false;
+
+  const tipBase = {
+    backgroundColor:'#0A0E16', titleColor:'#fff', bodyColor:'#DDE2EB',
+    padding:8, cornerRadius:6, displayColors:false,
+  };
+
+  function scales(yCallback, beginAtZero = true){
+    return {
+      x: {
+        grid: { display: false },
+        ticks: { font: { size: 8.5 }, maxRotation: 0, autoSkip: true, autoSkipPadding: 4 }
+      },
+      y: {
+        beginAtZero,
+        grid: { color: '#EEF1F6', drawBorder: false },
+        ticks: { font: { size: 8.5 }, callback: yCallback, maxTicksLimit: 4 }
+      }
+    };
+  }
+
+  // ─── B2C 매출 ──────────────────────────────────────────
+  new Chart(document.getElementById('c-revenue'), {
+    type: 'bar',
+    data: { labels, datasets: [{
+      data: revenue,
+      backgroundColor: revenue.map((_,i) => i === MILESTONE ? '#1B45E0' : '#5C86FF'),
+      borderRadius: 3, maxBarThickness: 14,
+    }] },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` 매출 ${c.parsed.y.toFixed(2)}억` } } },
+      scales: scales(v => v + '억')
+    }
+  });
+
+  // ─── 매출 성장률 ────────────────────────────────────────
+  new Chart(document.getElementById('c-growth'), {
+    type: 'bar',
+    data: { labels, datasets: [{
+      data: growth,
+      backgroundColor: growth.map(v => v == null ? '#DDE2EB' : v < 0 ? '#EF4444' : '#10C390'),
+      borderRadius: 3, maxBarThickness: 14,
+    }] },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y > 0 ? '+' : ''}${c.parsed.y.toFixed(1)}%` } } },
+      scales: scales(v => v + '%', false)
+    }
+  });
+
+  // ─── 신규 유저 ─────────────────────────────────────────
+  new Chart(document.getElementById('c-users'), {
+    type: 'bar',
+    data: { labels, datasets: [{
+      data: newUsers,
+      backgroundColor: newUsers.map((_,i) => i === MILESTONE ? '#067B5A' : '#10C390'),
+      borderRadius: 3, maxBarThickness: 14,
+    }] },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y.toLocaleString()}명` } } },
+      scales: scales(v => v >= 1000 ? (v/1000) + 'k' : v)
+    }
+  });
+
+  // ─── 마케팅비 ──────────────────────────────────────────
+  new Chart(document.getElementById('c-marketing'), {
+    type: 'bar',
+    data: { labels, datasets: [{
+      data: marketing,
+      backgroundColor: marketing.map((_,i) => i === MILESTONE ? '#A37300' : '#F5B400'),
+      borderRadius: 3, maxBarThickness: 14,
+    }] },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${Math.round(c.parsed.y * 10000).toLocaleString()}만원` } } },
+      scales: scales(v => v >= 1 ? v.toFixed(1) + '억' : Math.round(v*10000) + '만')
+    }
+  });
+
+  // ─── CAC ────────────────────────────────────────────
+  new Chart(document.getElementById('c-cac'), {
+    type: 'line',
+    data: { labels, datasets: [{
+      data: cac,
+      borderColor: '#1F2837',
+      backgroundColor: 'rgba(31,40,55,0.07)',
+      borderWidth: 1.8,
+      tension: .25,
+      fill: true,
+      pointRadius: cac.map((_,i) => i === MILESTONE ? 4 : 2),
+      pointBackgroundColor: cac.map((_,i) => i === MILESTONE ? '#EF4444' : '#1F2837'),
+      pointBorderColor: '#fff',
+      pointBorderWidth: 1,
+    }] },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y.toLocaleString()}원` } } },
+      scales: scales(v => (v/1000).toFixed(0) + 'k', false)
+    }
+  });
+
+  // ─── 공헌이익률 ────────────────────────────────────────
+  new Chart(document.getElementById('c-contrib'), {
+    type: 'bar',
+    data: { labels, datasets: [{
+      data: contrib,
+      backgroundColor: contrib.map(v => v < 0 ? '#EF4444' : '#10C390'),
+      borderRadius: 3, maxBarThickness: 14,
+    }] },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y > 0 ? '+' : ''}${c.parsed.y.toFixed(1)}%` } } },
+      scales: scales(v => v + '%', false)
+    }
+  });
+</script>
+</body>
+</html>
