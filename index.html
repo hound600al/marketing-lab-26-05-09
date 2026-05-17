@@ -115,60 +115,6 @@
 
 <div class="container">
 
-  <!-- ── KPI 카드 (스파크라인) ── -->
-  <div class="section-title">핵심 지표 요약</div>
-  <div class="kpi-grid">
-
-    <div class="kpi-card">
-      <div class="kpi-label">30DAU</div>
-      <div class="kpi-value">63,845</div>
-      <div class="kpi-delta up">▲ 28.6× 성장 (입사 대비)</div>
-      <div class="kpi-sub">2026-04 기준</div>
-      <div class="kpi-spark"><canvas id="sp-dau"></canvas></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">신규 유저 수</div>
-      <div class="kpi-value">20,123</div>
-      <div class="kpi-delta up">▲ 23.3× 성장 (입사 대비)</div>
-      <div class="kpi-sub">2026-04 기준</div>
-      <div class="kpi-spark"><canvas id="sp-newuser"></canvas></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">공헌이익률 (부가세 전)</div>
-      <div class="kpi-value">33.4%</div>
-      <div class="kpi-delta up">▲ +38.5%p 개선 (입사 초 –5.1%)</div>
-      <div class="kpi-sub">2026-04 기준</div>
-      <div class="kpi-spark"><canvas id="sp-cm"></canvas></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">총 앱 설치수</div>
-      <div class="kpi-value">63,902</div>
-      <div class="kpi-delta up">▲ 10× 성장 (입사 대비)</div>
-      <div class="kpi-sub">2026-04 기준 월별</div>
-      <div class="kpi-spark"><canvas id="sp-install"></canvas></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">신규 가입자 수</div>
-      <div class="kpi-value">38,970</div>
-      <div class="kpi-delta up">▲ 18× 성장 (입사 시 2,170명)</div>
-      <div class="kpi-sub">2026-04 기준</div>
-      <div class="kpi-spark"><canvas id="sp-signup"></canvas></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">첫 이용 수</div>
-      <div class="kpi-value">20,328</div>
-      <div class="kpi-delta up">▲ 23.5× 성장 (입사 시 864명)</div>
-      <div class="kpi-sub">2026-04 기준</div>
-      <div class="kpi-spark"><canvas id="sp-firstuse"></canvas></div>
-    </div>
-
-  </div>
-
   <!-- ── 통합 차트 ── -->
   <div class="section-title">전체 지표 통합 추이</div>
 
@@ -219,65 +165,6 @@ const joinLine = {
   label:{ display:true, content:'입사', position:'start', color:'#60A5FA', font:{size:10,weight:'bold'}, backgroundColor:'rgba(17,24,39,0.85)', padding:{x:6,y:3}, yAdjust:-8 }
 };
 
-/* ── 스파크라인 헬퍼 ── */
-function spark(id, data, color, filled) {
-  const ctx = document.getElementById(id).getContext('2d');
-  // 입사 이전 vs 이후 색상 분리
-  const bg = (canvas) => {
-    const g = canvas.createLinearGradient(0,0,canvas.canvas.width,0);
-    g.addColorStop(JOIN/data.length, 'rgba(200,200,200,0.3)');
-    g.addColorStop(JOIN/data.length, color + '33');
-    g.addColorStop(1, color + '22');
-    return g;
-  };
-  const g2 = ctx.createLinearGradient(0,0,0,60);
-  g2.addColorStop(0, color + '40');
-  g2.addColorStop(1, color + '00');
-
-  // 세그먼트 색상: 입사 전 회색, 입사 후 컬러
-  const pointColors = data.map((_, i) => i < JOIN ? '#D1D5DB' : color);
-  const segColors = data.map((_, i) => i < JOIN ? '#D1D5DB' : color);
-
-  new Chart(ctx, {
-    type:'line',
-    data:{
-      labels,
-      datasets:[{
-        data,
-        borderColor: (ctx2) => {
-          const i = ctx2.dataIndex;
-          return i < JOIN ? '#D1D5DB' : color;
-        },
-        segment:{ borderColor: ctx2 => ctx2.p0DataIndex < JOIN ? '#D1D5DB' : color },
-        backgroundColor: g2,
-        borderWidth: 1.8,
-        pointRadius: 0,
-        fill: true,
-        tension: 0.35,
-        spanGaps: true
-      }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false}, tooltip:{enabled:false},
-        annotation:{ annotations:{ j:{
-          type:'line', xMin:JOIN-0.5, xMax:JOIN-0.5,
-          borderColor:'rgba(96,165,250,0.6)', borderWidth:1.5, borderDash:[3,3]
-        }}}
-      },
-      scales:{ x:{display:false}, y:{display:false} },
-      animation:false
-    }
-  });
-}
-
-/* ── 스파크라인 렌더 ── */
-spark('sp-dau',     dau30,      '#1A56DB');
-spark('sp-newuser', newUser,    '#10B981');
-spark('sp-cm',      cmRate,     '#F59E0B');
-spark('sp-install', appInstall, '#6366F1');
-spark('sp-signup',  newSignup,  '#8B5CF6');
-spark('sp-firstuse',firstUse,   '#EC4899');
 
 /* ── 정규화: 입사 시점(index 4) 값을 100으로 변환 ── */
 function normalize(arr, baseIdx) {
