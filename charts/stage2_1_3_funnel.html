@@ -148,22 +148,13 @@
   </div>
 
   <div class="card">
-    <div class="card-title">전환율 비교 + 모수/전환자 비교</div>
+    <div class="card-title">봉투 → 수거 전환율 비교</div>
     <div class="card-sub">모수 감소(-1,361명)에도 전환율 +9.4%p 상승 · 알림톡 효과 명확</div>
     <div class="legend">
       <span class="lg-item"><span class="lg-bar" style="background:#FEE2E2; border:1px solid #EF4444;"></span> 도입 전 3개월</span>
       <span class="lg-item"><span class="lg-bar" style="background:#D5F5E8; border:1px solid #10C390;"></span> 도입 후 3개월</span>
     </div>
-    <div class="grid-2">
-      <div>
-        <div style="font-size:11px; color:var(--ink-500); margin-bottom:4px; font-weight:600; text-align:center;">봉투 → 수거 전환율 (%)</div>
-        <div class="chart-wrap"><canvas id="c-rate"></canvas></div>
-      </div>
-      <div>
-        <div style="font-size:11px; color:var(--ink-500); margin-bottom:4px; font-weight:600; text-align:center;">봉투 신청자 / 수거 전환자 (명)</div>
-        <div class="chart-wrap"><canvas id="c-counts"></canvas></div>
-      </div>
-    </div>
+    <div class="chart-wrap" style="max-width:480px; margin:0 auto;"><canvas id="c-rate"></canvas></div>
   </div>
 
   <div class="card">
@@ -199,15 +190,6 @@
         </tr>
       </tbody>
     </table>
-
-    <div class="needed">
-      <h4>📌 쿼리 정의 · BigQuery <code>covering-app-ccd23.secure_dataset.order</code></h4>
-      <ol>
-        <li>봉투 신청: <code>name IN ('FREE_HOME_KIT_DELIVERY', 'PAID_HOME_KIT_DELIVERY')</code> · <code>status IN ('PAYMENT_COMPLETED', 'COMPLETED')</code></li>
-        <li>수거 전환: <code>name = 'DEFAULT_GARBAGE'</code> · 봉투 신청 후 <code>90일 이내</code> · 취소·실패 제외</li>
-        <li>도입일 <b>2024-08-28</b>은 CRM 자동화 도입일 기준 추정 — 봉투 전용 알림 정확한 도입일 확인 시 재계산 필요</li>
-      </ol>
-    </div>
   </div>
 
   <details class="ref">
@@ -259,45 +241,6 @@
     }
   });
 
-  // ─── 모수/전환자 비교 ─────────────────────────────────
-  new Chart(document.getElementById('c-counts'), {
-    type:'bar',
-    data:{
-      labels:['봉투 신청자','수거 전환자'],
-      datasets:[
-        {
-          label:'도입 전',
-          data:[5721, 3647],
-          backgroundColor:'#FEE2E2',
-          borderColor:'#EF4444',
-          borderWidth:1.5, borderRadius:5, maxBarThickness:36,
-        },
-        {
-          label:'도입 후',
-          data:[4360, 3185],
-          backgroundColor:'#D5F5E8',
-          borderColor:'#10C390',
-          borderWidth:1.5, borderRadius:5, maxBarThickness:36,
-        }
-      ]
-    },
-    options:{
-      maintainAspectRatio:false,
-      plugins:{
-        tooltip:{
-          backgroundColor:'#0A0E16', titleColor:'#fff', bodyColor:'#DDE2EB',
-          padding:9, cornerRadius:7, displayColors:true, boxWidth:8, boxHeight:8,
-          callbacks:{ label:(c)=> ` ${c.dataset.label}: ${c.parsed.y.toLocaleString()}명` }
-        }
-      },
-      scales:{
-        x:{ grid:{ display:false }, ticks:{ font:{ size:11, weight:'600' } } },
-        y:{ beginAtZero:true,
-          grid:{ color:'#EEF1F6', drawBorder:false },
-          ticks:{ callback:(v)=> v.toLocaleString()+'명', font:{ size:9.5 } } }
-      }
-    }
-  });
 </script>
 </body>
 </html>
