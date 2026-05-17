@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>월별 핵심 지표 — 16개월 트렌드</title>
+<title>월별 핵심 지표 — 6대 지표 통합 (16개월)</title>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <style>
   :root{
     --blue-300:#8FAEFF; --blue-400:#5C86FF; --blue-500:#2D5BFF; --blue-600:#1B45E0;
-    --blue-100:#DCE5FF;
+    --blue-100:#DCE5FF; --blue-50:#EEF3FF;
     --ink-50:#F7F9FD; --ink-100:#EEF1F6; --ink-200:#DDE2EB;
     --ink-400:#8B95A6; --ink-500:#5B6675; --ink-700:#1F2837; --ink-800:#131A26; --ink-900:#0A0E16;
     --mint-500:#10C390; --mint-700:#067B5A; --mint-100:#D5F5E8;
@@ -38,218 +39,208 @@
   .ms.start{background:var(--blue-100); color:var(--blue-600);}
   .ms.multi{background:var(--mint-100); color:var(--mint-700);}
 
-  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
   .card{background:#fff; border:1px solid var(--ink-100); border-radius:10px;
-    padding:13px 14px 11px; display:flex; flex-direction:column;}
-  .c-title{font-size:10.5px; font-weight:700; color:var(--ink-500); margin-bottom:4px;
-    font-family:var(--font-mono); letter-spacing:.06em; text-transform:uppercase;}
-  .c-stat{font-size:22px; font-weight:800; color:var(--ink-900); letter-spacing:-.02em;
-    line-height:1.05; font-variant-numeric:tabular-nums;}
-  .c-stat .unit{font-size:12px; font-weight:600; color:var(--ink-400); margin-left:2px;}
-  .c-delta{font-family:var(--font-mono); font-size:10px; font-weight:600;
-    margin-top:3px; margin-bottom:8px; line-height:1.3;}
-  .c-delta.up{color:#067B5A;}
-  .c-delta.down{color:#EF4444;}
-  .c-delta.neutral{color:var(--ink-500);}
-  .chart-wrap{position:relative; height:110px; margin-top:auto;}
+    padding:14px 16px 12px;}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; row-gap:7px;
+    font-size:11px; color:var(--ink-600); margin-bottom:10px; align-items:center;}
+  .lg-item{display:inline-flex; align-items:center; gap:5px;}
+  .lg-line{width:14px; height:2.5px; border-radius:2px; display:inline-block;}
+  .lg-dash{width:14px; height:0; border-top:2px dashed currentColor; display:inline-block;}
+  .lg-bar{width:10px; height:8px; border-radius:1.5px; display:inline-block; opacity:.5;}
+  .lg-sep{width:1px; height:11px; background:var(--ink-200);}
+  .chart-wrap{position:relative; height:380px;}
 
-  @media (max-width: 760px){
-    .grid{grid-template-columns:repeat(2,1fr);}
-    .chart-wrap{height:120px;}
-  }
-  @media (max-width: 480px){
-    .grid{grid-template-columns:1fr;}
+  @media (max-width: 700px){
+    .chart-wrap{height:340px;}
+    .legend{font-size:10.5px;}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="eyebrow">B2C MONTHLY METRICS · 16M TREND</div>
-  <h1 class="title">월별 핵심 지표 — <span class="blue">매출 ×13배 · 흑자 전환</span></h1>
+  <div class="eyebrow">B2C 6 METRICS · 16M INDEX</div>
+  <h1 class="title">월별 6대 지표 통합 — <span class="blue">매출 ×13 · CAC 안정 · 흑자 전환</span></h1>
   <p class="sub">
-    <span class="ms start">2024-05 입사</span> → <b>2025-08</b> · 16개월 6개 핵심 지표 추이.
-    <span class="ms multi">2025-01 멀티채널 시작</span> 이후 매출·유저 동시 폭발.
+    <span class="ms start">2024-05 입사 = 100</span> 기준 정규화 ·
+    <span class="ms multi">2025-01 멀티채널 시작</span> 이후 매출·유저 동시 폭발 · 우측 축: 공헌이익률 + MoM 성장률(%)
   </p>
 
-  <div class="grid">
-    <!-- Row 1: 성과 -->
-    <div class="card">
-      <div class="c-title">B2C 매출</div>
-      <div class="c-stat">7.54<span class="unit">억</span></div>
-      <div class="c-delta up">↑ ×13배 vs 2024-05 (0.58억)</div>
-      <div class="chart-wrap"><canvas id="c-revenue"></canvas></div>
+  <div class="card">
+    <div class="legend">
+      <span class="lg-item" style="color:#2D5BFF;"><span class="lg-line" style="background:#2D5BFF;"></span> B2C 매출</span>
+      <span class="lg-item" style="color:#10C390;"><span class="lg-line" style="background:#10C390;"></span> 신규 유저</span>
+      <span class="lg-item" style="color:#F5B400;"><span class="lg-line" style="background:#F5B400;"></span> 마케팅비</span>
+      <span class="lg-item" style="color:#1F2837;"><span class="lg-dash"></span> CAC</span>
+      <span class="lg-sep"></span>
+      <span class="lg-item" style="color:#EF4444;"><span class="lg-line" style="background:#EF4444;"></span> 공헌이익률 (우축 %)</span>
+      <span class="lg-item" style="color:#8B95A6;"><span class="lg-bar" style="background:#8B95A6;"></span> MoM 성장률 (우축 %)</span>
     </div>
-
-    <div class="card">
-      <div class="c-title">매출 성장률 (MoM)</div>
-      <div class="c-stat">+22<span class="unit">% 평균</span></div>
-      <div class="c-delta up">최대 +84.5% · 2025-06</div>
-      <div class="chart-wrap"><canvas id="c-growth"></canvas></div>
-    </div>
-
-    <div class="card">
-      <div class="c-title">신규 유저</div>
-      <div class="c-stat">9,440<span class="unit">명</span></div>
-      <div class="c-delta up">↑ ×15.7배 vs 2024-05 (600명)</div>
-      <div class="chart-wrap"><canvas id="c-users"></canvas></div>
-    </div>
-
-    <!-- Row 2: 효율/비용 -->
-    <div class="card">
-      <div class="c-title">마케팅비</div>
-      <div class="c-stat">1.14<span class="unit">억</span></div>
-      <div class="c-delta neutral">최대 1.40억 · 2025-07</div>
-      <div class="chart-wrap"><canvas id="c-marketing"></canvas></div>
-    </div>
-
-    <div class="card">
-      <div class="c-title">CAC</div>
-      <div class="c-stat">13,626<span class="unit">원</span></div>
-      <div class="c-delta down">최저 10,515원 · 2024-08</div>
-      <div class="chart-wrap"><canvas id="c-cac"></canvas></div>
-    </div>
-
-    <div class="card">
-      <div class="c-title">공헌이익률</div>
-      <div class="c-stat">+25.6<span class="unit">%</span></div>
-      <div class="c-delta up">-5.1% → +25.6% (+30.7%p · 흑자 전환)</div>
-      <div class="chart-wrap"><canvas id="c-contrib"></canvas></div>
-    </div>
+    <div class="chart-wrap"><canvas id="c-all"></canvas></div>
   </div>
 </div>
 
 <script>
-  // ─── data (2024-05 ~ 2025-08) ─────────────────────────
+  // ─── data ────────────────────────────────────────────────
   const labels    = ['24.05','06','07','08','09','10','11','12','25.01','02','03','04','05','06','07','08'];
   const revenue   = [0.578,0.7428,1.006,1.349,1.435,1.733,1.685,1.735,1.914,2.410,2.410,3.778,4.447,4.447,6.901,7.535]; // 억
   const marketing = [0.0433,0.1630,0.2279,0.2368,0.2030,0.2854,0.3461,0.3498,0.6228,0.3303,0.4518,0.6679,0.7480,0.7649,1.40,1.14]; // 억
-  const growth    = [null,28.5,35.4,34.1,6.4,20.8,-2.8,3.0,10.3,14.3,25.9,18.0,15.8,84.5,23.7,9.0]; // %
-  const contrib   = [-5.1,-32.8,9.8,12.1,12.6,16.4,13.1,19.1,19.1,18.2,21.9,18.9,23.3,27.0,23.5,25.6]; // %
-  const cac       = [14260,13394,13054,10515,11849,15735,19250,19056,19056,13223,13223,11940,12467,12467,16253,13626]; // 원
   const newUsers  = [600,864,1373,1807,2321,1853,1933,1893,2512,2692,2692,5783,6235,6235,10211,9440]; // 명
+  const cac       = [14260,13394,13054,10515,11849,15735,19250,19056,19056,13223,13223,11940,12467,12467,16253,13626]; // 원
+  const contrib   = [-5.1,-32.8,9.8,12.1,12.6,16.4,13.1,19.1,19.1,18.2,21.9,18.9,23.3,27.0,23.5,25.6]; // %
+  const growth    = [null,28.5,35.4,34.1,6.4,20.8,-2.8,3.0,10.3,14.3,25.9,18.0,15.8,84.5,23.7,9.0]; // %
 
-  // 2025-01 멀티채널 시작 = index 8
-  const MILESTONE = 8;
+  // 입사(2024-05 = index 0) 기준 정규화
+  function norm(arr){ const base = arr[0]; return arr.map(v => v == null ? null : +(v/base*100).toFixed(2)); }
 
-  Chart.defaults.font.family = '"Pretendard Variable", -apple-system, sans-serif';
-  Chart.defaults.font.size = 9.5;
-  Chart.defaults.color = '#8B95A6';
-  Chart.defaults.plugins.legend.display = false;
-
-  const tipBase = {
-    backgroundColor:'#0A0E16', titleColor:'#fff', bodyColor:'#DDE2EB',
-    padding:8, cornerRadius:6, displayColors:false,
+  // 절대값 포맷
+  const fmt = {
+    revenue:   v => v.toFixed(2) + '억',
+    marketing: v => v >= 1 ? v.toFixed(2) + '억' : Math.round(v*10000).toLocaleString() + '만원',
+    newUsers:  v => v.toLocaleString() + '명',
+    cac:       v => v.toLocaleString() + '원',
   };
 
-  function scales(yCallback, beginAtZero = true){
-    return {
-      x: {
-        grid: { display: false },
-        ticks: { font: { size: 8.5 }, maxRotation: 0, autoSkip: true, autoSkipPadding: 4 }
-      },
-      y: {
-        beginAtZero,
-        grid: { color: '#EEF1F6', drawBorder: false },
-        ticks: { font: { size: 8.5 }, callback: yCallback, maxTicksLimit: 4 }
-      }
-    };
-  }
+  const MILESTONE_IDX = 8; // 2025-01 멀티채널 시작
 
-  // ─── B2C 매출 ──────────────────────────────────────────
-  new Chart(document.getElementById('c-revenue'), {
-    type: 'bar',
-    data: { labels, datasets: [{
-      data: revenue,
-      backgroundColor: revenue.map((_,i) => i === MILESTONE ? '#1B45E0' : '#5C86FF'),
-      borderRadius: 3, maxBarThickness: 14,
-    }] },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` 매출 ${c.parsed.y.toFixed(2)}억` } } },
-      scales: scales(v => v + '억')
-    }
-  });
+  Chart.defaults.font.family = '"Pretendard Variable", -apple-system, sans-serif';
+  Chart.defaults.font.size = 10.5;
+  Chart.defaults.color = '#5B6675';
 
-  // ─── 매출 성장률 ────────────────────────────────────────
-  new Chart(document.getElementById('c-growth'), {
-    type: 'bar',
-    data: { labels, datasets: [{
-      data: growth,
-      backgroundColor: growth.map(v => v == null ? '#DDE2EB' : v < 0 ? '#EF4444' : '#10C390'),
-      borderRadius: 3, maxBarThickness: 14,
-    }] },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y > 0 ? '+' : ''}${c.parsed.y.toFixed(1)}%` } } },
-      scales: scales(v => v + '%', false)
-    }
-  });
-
-  // ─── 신규 유저 ─────────────────────────────────────────
-  new Chart(document.getElementById('c-users'), {
-    type: 'bar',
-    data: { labels, datasets: [{
-      data: newUsers,
-      backgroundColor: newUsers.map((_,i) => i === MILESTONE ? '#067B5A' : '#10C390'),
-      borderRadius: 3, maxBarThickness: 14,
-    }] },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y.toLocaleString()}명` } } },
-      scales: scales(v => v >= 1000 ? (v/1000) + 'k' : v)
-    }
-  });
-
-  // ─── 마케팅비 ──────────────────────────────────────────
-  new Chart(document.getElementById('c-marketing'), {
-    type: 'bar',
-    data: { labels, datasets: [{
-      data: marketing,
-      backgroundColor: marketing.map((_,i) => i === MILESTONE ? '#A37300' : '#F5B400'),
-      borderRadius: 3, maxBarThickness: 14,
-    }] },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${Math.round(c.parsed.y * 10000).toLocaleString()}만원` } } },
-      scales: scales(v => v >= 1 ? v.toFixed(1) + '억' : Math.round(v*10000) + '만')
-    }
-  });
-
-  // ─── CAC ────────────────────────────────────────────
-  new Chart(document.getElementById('c-cac'), {
+  new Chart(document.getElementById('c-all'), {
     type: 'line',
-    data: { labels, datasets: [{
-      data: cac,
-      borderColor: '#1F2837',
-      backgroundColor: 'rgba(31,40,55,0.07)',
-      borderWidth: 1.8,
-      tension: .25,
-      fill: true,
-      pointRadius: cac.map((_,i) => i === MILESTONE ? 4 : 2),
-      pointBackgroundColor: cac.map((_,i) => i === MILESTONE ? '#EF4444' : '#1F2837'),
-      pointBorderColor: '#fff',
-      pointBorderWidth: 1,
-    }] },
+    data: {
+      labels,
+      datasets: [
+        // 배경 막대: MoM 성장률 (우축)
+        {
+          type:'bar',
+          label:'MoM 성장률',
+          data: growth,
+          backgroundColor: growth.map(v => v == null ? 'transparent' : v < 0 ? 'rgba(239,68,68,0.18)' : 'rgba(139,149,166,0.28)'),
+          borderColor: 'transparent',
+          borderRadius: 2,
+          maxBarThickness: 16,
+          yAxisID: 'y2',
+          order: 5,
+        },
+        // 좌축 정규화 라인들
+        {
+          type:'line', label:'B2C 매출',
+          data: norm(revenue),
+          borderColor:'#2D5BFF', backgroundColor:'rgba(45,91,255,0.06)',
+          borderWidth: 2.6, tension: .3, pointRadius: 2.5, pointHoverRadius: 5,
+          pointBackgroundColor:'#2D5BFF', pointBorderColor:'#fff', pointBorderWidth: 1,
+          yAxisID: 'y', order: 1,
+          _abs: revenue, _fmt: 'revenue',
+        },
+        {
+          type:'line', label:'신규 유저',
+          data: norm(newUsers),
+          borderColor:'#10C390', backgroundColor:'transparent',
+          borderWidth: 2.2, tension: .3, pointRadius: 2.5, pointHoverRadius: 5,
+          pointBackgroundColor:'#10C390', pointBorderColor:'#fff', pointBorderWidth: 1,
+          yAxisID: 'y', order: 2,
+          _abs: newUsers, _fmt: 'newUsers',
+        },
+        {
+          type:'line', label:'마케팅비',
+          data: norm(marketing),
+          borderColor:'#F5B400', backgroundColor:'transparent',
+          borderWidth: 2.2, tension: .3, pointRadius: 2.5, pointHoverRadius: 5,
+          pointBackgroundColor:'#F5B400', pointBorderColor:'#fff', pointBorderWidth: 1,
+          yAxisID: 'y', order: 3,
+          _abs: marketing, _fmt: 'marketing',
+        },
+        {
+          type:'line', label:'CAC',
+          data: norm(cac),
+          borderColor:'#1F2837', backgroundColor:'transparent',
+          borderWidth: 1.8, tension: .3, borderDash:[4,3],
+          pointRadius: 2, pointHoverRadius: 4,
+          pointBackgroundColor:'#1F2837', pointBorderColor:'#fff', pointBorderWidth: 1,
+          yAxisID: 'y', order: 4,
+          _abs: cac, _fmt: 'cac',
+        },
+        // 우축 라인: 공헌이익률 (실제 %)
+        {
+          type:'line', label:'공헌이익률',
+          data: contrib,
+          borderColor:'#EF4444', backgroundColor:'transparent',
+          borderWidth: 2.4, tension: .3, pointRadius: 2.5, pointHoverRadius: 5,
+          pointBackgroundColor:'#EF4444', pointBorderColor:'#fff', pointBorderWidth: 1,
+          yAxisID: 'y2', order: 0,
+        },
+      ]
+    },
     options: {
+      responsive: true,
       maintainAspectRatio: false,
-      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y.toLocaleString()}원` } } },
-      scales: scales(v => (v/1000).toFixed(0) + 'k', false)
-    }
-  });
-
-  // ─── 공헌이익률 ────────────────────────────────────────
-  new Chart(document.getElementById('c-contrib'), {
-    type: 'bar',
-    data: { labels, datasets: [{
-      data: contrib,
-      backgroundColor: contrib.map(v => v < 0 ? '#EF4444' : '#10C390'),
-      borderRadius: 3, maxBarThickness: 14,
-    }] },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { tooltip: { ...tipBase, callbacks: { label: c => ` ${c.parsed.y > 0 ? '+' : ''}${c.parsed.y.toFixed(1)}%` } } },
-      scales: scales(v => v + '%', false)
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor:'#0A0E16', titleColor:'#fff', bodyColor:'#DDE2EB',
+          padding: 10, cornerRadius: 7, displayColors: true, boxWidth: 8, boxHeight: 8,
+          callbacks: {
+            title: items => '20' + items[0].label.replace('.','-') + '월'.replace('월','') + (items[0].label.includes('.') ? '' : ''),
+            label: ctx => {
+              const ds = ctx.dataset;
+              if(ds.label === '공헌이익률') return ` 공헌이익률: ${ctx.parsed.y.toFixed(1)}%`;
+              if(ds.label === 'MoM 성장률') {
+                if(ctx.parsed.y == null) return ` MoM 성장률: —`;
+                return ` MoM 성장률: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y.toFixed(1)}%`;
+              }
+              const abs = ds._abs[ctx.dataIndex];
+              const absStr = abs == null ? '—' : fmt[ds._fmt](abs);
+              return ` ${ds.label}: ${ctx.parsed.y.toFixed(0)} (${absStr})`;
+            },
+          },
+        },
+        annotation: {
+          annotations: {
+            base100: {
+              type:'line', yMin: 100, yMax: 100, yScaleID: 'y',
+              borderColor: 'rgba(139,149,166,0.45)', borderWidth: 1, borderDash:[3,3],
+              label: {
+                display: true, content: '기준선 100', position: 'start',
+                color: '#8B95A6', font: { size: 9 },
+                backgroundColor: 'rgba(255,255,255,0.85)', padding: { x: 5, y: 2 }, yAdjust: -2,
+              }
+            },
+            multi: {
+              type:'line', xMin: MILESTONE_IDX, xMax: MILESTONE_IDX,
+              borderColor: '#067B5A', borderWidth: 1.8, borderDash:[5,4],
+              label: {
+                display: true, content: '멀티채널 시작', position: 'start',
+                color: '#fff', font: { size: 9.5, weight: 'bold' },
+                backgroundColor: '#067B5A', padding: { x: 6, y: 3 }, yAdjust: -2,
+              }
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 10 }, maxRotation: 0, autoSkip: true, autoSkipPadding: 4 },
+        },
+        y: {
+          position: 'left',
+          beginAtZero: true,
+          title: { display: true, text: '성장 지수 (입사=100)', color: '#5B6675', font: { size: 10.5, weight: '600' } },
+          grid: { color: '#EEF1F6', drawBorder: false },
+          ticks: { font: { size: 9.5 }, callback: v => v.toLocaleString() },
+        },
+        y2: {
+          position: 'right',
+          title: { display: true, text: '비율 (%)', color: '#EF4444', font: { size: 10.5, weight: '600' } },
+          grid: { display: false },
+          ticks: { font: { size: 9.5 }, callback: v => v + '%' },
+          suggestedMin: -40,
+          suggestedMax: 100,
+        }
+      }
     }
   });
 </script>
