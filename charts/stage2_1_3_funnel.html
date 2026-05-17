@@ -98,12 +98,12 @@
   <p class="sub">
     봉투 사용 유도 알림(봉투 신청 후 D+16 미신청 시 발송) 도입 효과 측정 ·
     <b>도입 전 3개월 vs 도입 후 3개월</b> 코호트의 봉투 신청자 → 수거 전환율 비교 ·
-    도입일 기준 <b>2024-08-28</b> (CRM 자동화 도입일)
+    도입일 기준 <b>2024-07-11</b>
   </p>
 
   <div class="card">
     <div class="card-title">도입 전/후 전환율 비교</div>
-    <div class="card-sub">도입 전: 2024-05-29 ~ 2024-08-27 · 도입 후: 2024-08-28 ~ 2024-11-26 · 측정 윈도우: 봉투 신청 후 90일</div>
+    <div class="card-sub">도입 전: 2024-04-11 ~ 2024-07-10 · 도입 후: 2024-07-11 ~ 2024-10-09 · 측정 윈도우: 봉투 신청 후 90일</div>
     <table class="cmp">
       <thead>
         <tr>
@@ -116,21 +116,21 @@
       <tbody>
         <tr>
           <td class="label">봉투 신청자 (분모)</td>
-          <td class="num">5,721명</td>
-          <td class="num">4,360명</td>
+          <td class="num">3,548명</td>
+          <td class="num">5,138명</td>
           <td class="num">—</td>
         </tr>
         <tr>
           <td class="label">수거 신청 전환자 (분자)</td>
-          <td class="num">3,647명</td>
-          <td class="num">3,185명</td>
+          <td class="num">2,177명</td>
+          <td class="num">3,643명</td>
           <td class="num">—</td>
         </tr>
         <tr class="improve">
           <td class="label">봉투 → 수거 전환율</td>
-          <td class="num">63.7%</td>
-          <td class="num">73.1%</td>
-          <td class="num" style="color:var(--mint-500)">+9.4pp (+14.8%)</td>
+          <td class="num">61.4%</td>
+          <td class="num">70.9%</td>
+          <td class="num" style="color:var(--mint-500)">+9.5pp (+15.5%)</td>
         </tr>
       </tbody>
     </table>
@@ -140,7 +140,7 @@
       <ol>
         <li>봉투 신청: <code>name IN ('FREE_HOME_KIT_DELIVERY', 'PAID_HOME_KIT_DELIVERY')</code> · <code>status IN ('PAYMENT_COMPLETED', 'COMPLETED')</code></li>
         <li>수거 전환: <code>name = 'DEFAULT_GARBAGE'</code> · 봉투 신청 후 <code>90일 이내</code> · 취소·실패 제외</li>
-        <li>도입일 <b>2024-08-28</b>은 CRM 자동화 도입일 기준 추정 — 봉투 전용 알림 정확한 도입일 확인 시 재계산 필요</li>
+        <li>도입일 <b>2024-07-11</b> 확인 완료</li>
       </ol>
     </div>
   </div>
