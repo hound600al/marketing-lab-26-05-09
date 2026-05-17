@@ -34,10 +34,11 @@
 </head>
 <body>
 <div class="card">
-  <h3>6대 성장 지표 통합 (입사 시점 = 100 기준)</h3>
+  <h3>7대 성장 지표 통합 (입사 시점 = 100 기준)</h3>
   <div class="desc">입사(2024-05) 당시 값을 100으로 정규화 — 공헌이익률은 우측 축 실제 % 값</div>
   <div class="chart-wrap"><canvas id="chartAll"></canvas></div>
   <div class="legend-row">
+    <div class="legend-item"><span class="legend-dot" style="background:#DC2626"></span>매출</div>
     <div class="legend-item"><span class="legend-dot" style="background:#1A56DB"></span>30DAU</div>
     <div class="legend-item"><span class="legend-dot" style="background:#10B981"></span>신규 유저</div>
     <div class="legend-item"><span class="legend-dot" style="background:#8B5CF6"></span>신규 가입자</div>
@@ -59,6 +60,7 @@ const labels = [
 const JOIN = 4;
 
 const cmRate    = [-25.3,-30.0,-32.7,-32.8,-5.1,-39.3,9.8,12.1,12.6,13.1,16.4,19.1,21.0,21.9,21.7,22.6,27.0,26.0,27.2,29.4,30.6,32.2,37.0,33.5,39.6,31.3,32.6,33.4];
+const revenue   = [61835700.223,71248774,76276477,88026517,107032587,99056069,176823278,212386043,204365316,241567668,241791183,256569395,290140406,331630160,381394182,449985376,520865048,601055339,743389269,810644472,839142451,954951892,950903259,1085256507,1215766356,1282992054,1671119065,1757436603];
 const dau30     = [970,1296,1452,1721,2234,3182,4214,5583,6003,6662,7050,8183,8767,9952,12430,15366,17757,21671,26683,28965,30861,34597,35069,40222,43317,49125,56736,63845];
 const newUser   = [363,548,501,600,864,1373,1807,2321,1853,1933,1893,2512,2691,2692,4896,5783,6235,7517,10211,9440,8441,10111,8802,12506,12051,12935,18717,20123];
 const appInstall= [2808,3286,3427,3562,6389,10975,12251,12794,11022,14758,17492,22584,14594,11658,21594,17815,19561,25741,35054,41421,36364,43324,29265,38275,47724,53362,71316,63902];
@@ -81,6 +83,7 @@ new Chart(document.getElementById('chartAll').getContext('2d'), {
   data: {
     labels,
     datasets: [
+      { label:'매출',     data:normalize(revenue,JOIN),   borderColor:'#DC2626', backgroundColor:'transparent', borderWidth:3,   pointRadius:2.5, tension:0.35, yAxisID:'y' },
       { label:'30DAU',    data:normalize(dau30,JOIN),     borderColor:'#1A56DB', backgroundColor:'transparent', borderWidth:2.5, pointRadius:2, tension:0.35, yAxisID:'y' },
       { label:'신규 유저', data:normalize(newUser,JOIN),   borderColor:'#10B981', backgroundColor:'transparent', borderWidth:2.5, pointRadius:2, tension:0.35, yAxisID:'y' },
       { label:'신규 가입자',data:normalize(newSignup,JOIN),borderColor:'#8B5CF6', backgroundColor:'transparent', borderWidth:2,   pointRadius:2, tension:0.35, borderDash:[4,3], yAxisID:'y' },
