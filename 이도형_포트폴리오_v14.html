@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>이도형 포트폴리오 v14 — Cobalt Edge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<style>
+/* ════════════════════════════════════════════════════════════
+ * Portfolio v14 — "Cobalt Edge"
+ * Hybrid: v7 cobalt/lime visual rituals × v13 light-base readability
+ * ════════════════════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  /* ─── Core palette (v7 cobalt+lime) ─── */
+  --cobalt:#1E29FF;
+  --cobalt-deep:#0F19D8;
+  --cobalt-rich:#14159F;
+  --cobalt-soft:#EEF1FF;
+  --cobalt-border:#C9D0FF;
+  --lime:#D6FF3D;
+  --lime-deep:#B3DA1C;
+  --lime-soft:#F4FFCC;
+  --ink:#0A0F2E;
+  --ink-2:#161B36;
+  --lavender:#C7CBE3;
+  --lavender-dim:#8B91B4;
+
+  /* ─── Light surfaces (v13 readability) ─── */
+  --bg:#F7F9FD;
+  --white:#FFFFFF;
+  --text:#0F172A;
+  --text2:#1F2837;
+  --sub:#5B6675;
+  --sub-2:#8B95A6;
+  --line:#E2E6EF;
+  --line-lt:#F1F4F9;
+
+  /* ─── Category code (v13 retained, tone-aligned) ─── */
+  --ca-growth:#10C390;
+  --ca-crm:#EF4444;
+  --ca-perf:#1E29FF;
+  --ca-content:#F5B400;
+  --ca-viral:#DB2777;
+  --ca-ai:#7C3AED;
+  --ca-team:#475569;
+
+  --font-display:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo',sans-serif;
+  --font-sans:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+  /* ─── Legacy compatibility (v13 inline styles → cobalt mapping) ─── */
+  --blue:var(--cobalt);
+  --blue-bright:var(--cobalt);
+  --blue-deep:var(--cobalt-deep);
+  --blue-navy:var(--ink);
+  --blue-soft:var(--cobalt-soft);
+  --blue-border:var(--cobalt-border);
+  --blue-mid:var(--lavender);
+}
+body{font-family:var(--font-sans);background:#0A0F2E;display:flex;flex-direction:column;align-items:center;gap:3px;padding:3px 0;font-feature-settings:"ss01" 1,"tnum" 1;-webkit-font-smoothing:antialiased;}
+.slide{width:1920px;height:1080px;background:var(--bg);overflow:hidden;flex-shrink:0;position:relative;color:var(--text);}
+.slide.dark{background:var(--ink);color:#fff;}
+.slide.cobalt{background:var(--cobalt);color:#fff;}
+
+/* ─── v7 ritual: grid background ─── */
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.08) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.grid-bg.dim{background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);}
+.grid-bg.light{background-image:linear-gradient(to right,rgba(30,41,255,.045) 1px,transparent 1px),linear-gradient(to bottom,rgba(30,41,255,.045) 1px,transparent 1px);background-size:48px 48px;}
+
+/* ─── v7 ritual: sparkle ✦ ─── */
+.sparkle{position:absolute;color:var(--lime);line-height:1;pointer-events:none;z-index:2;text-shadow:0 0 24px rgba(214,255,61,.45);font-family:Arial,sans-serif;}
+.sparkle::before{content:'✦';}
+.sparkle.cobalt-tint{color:var(--cobalt);text-shadow:0 0 24px rgba(30,41,255,.18);}
+
+/* ─── v7 ritual: ribbon (cover/CTA only) ─── */
+.ribbon{position:absolute;background:var(--lime);color:var(--ink);font-family:var(--font-display);font-weight:900;letter-spacing:-.01em;padding:20px 64px;font-size:22px;line-height:1;box-shadow:0 18px 40px rgba(0,0,0,.25);white-space:nowrap;z-index:3;}
+.ribbon::before,.ribbon::after{content:'';position:absolute;width:22px;height:100%;top:0;background:var(--lime-deep);clip-path:polygon(0 0,100% 0,100% 100%,50% 100%);}
+.ribbon::before{left:-22px;transform:scaleX(-1);}
+.ribbon::after{right:-22px;}
+.ribbon-tr{top:88px;right:-55px;transform:rotate(8deg);transform-origin:right center;}
+.ribbon-bl{bottom:120px;left:-55px;transform:rotate(-8deg);transform-origin:left center;}
+
+/* ─── v7 ritual: kicker (mono eyebrow + lime underline) ─── */
+.kicker{font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt);display:inline-flex;align-items:center;gap:14px;}
+.kicker::before{content:'';width:40px;height:2.5px;background:var(--lime);}
+.kicker.dark{color:var(--lime);}
+.kicker.dark::before{background:var(--lime);}
+
+/* ─── v7 ritual: stage tag (lime solid chip) ─── */
+.stage-tag{display:inline-block;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:8px 16px;border-radius:4px;line-height:1;}
+
+/* ─── v7 ritual: bignum (cobalt big metric) ─── */
+.bignum{font-family:var(--font-display);font-weight:900;color:var(--cobalt);line-height:.92;letter-spacing:-.04em;font-variant-numeric:tabular-nums;}
+.bignum.lime{color:var(--lime);}
+.bignum.ink{color:var(--ink);}
+.bignum .u{font-size:.45em;opacity:.85;margin-left:4px;}
+
+/* ─── v7 ritual: chrome (mono footer) ─── */
+.chrome{position:absolute;left:96px;right:96px;bottom:36px;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--sub);z-index:5;}
+.chrome b{color:var(--cobalt);font-weight:700;}
+.chrome.dark{color:rgba(255,255,255,.55);}
+.chrome.dark b{color:var(--lime);}
+
+/* ─── v7 ritual: result chip (lime + ink) ─── */
+.chip-result{display:inline-block;background:var(--lime);color:var(--ink);font-family:var(--font-mono);font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px;letter-spacing:.04em;}
+
+/* ── Common header ── */
+.hd{display:flex;align-items:flex-end;justify-content:space-between;padding:56px 96px 0;}
+.eyebrow{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt);display:inline-flex;align-items:center;gap:14px;margin-bottom:14px;}
+.eyebrow::before{content:'';width:36px;height:2.5px;background:var(--lime);}
+.page-title{font-size:34px;font-weight:900;color:var(--text);letter-spacing:-.028em;line-height:1.18;}
+.page-title em{color:var(--cobalt);font-style:normal;}
+.slide-num{font-family:var(--font-mono);font-size:12px;color:var(--sub);font-weight:700;letter-spacing:.18em;}
+
+/* ── Two-column body ── */
+.body2{display:grid;grid-template-columns:800px 1fr;gap:48px;margin-top:28px;height:880px;padding:0 96px 56px;}
+.col-l{display:flex;flex-direction:column;}
+.col-r{display:flex;flex-direction:column;gap:12px;min-height:0;}
+
+/* ── Left content atoms ── */
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center;}
+.c-badge{display:inline-block;padding:6px 13px;border-radius:4px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;}
+.c-badge.outline{background:transparent;color:var(--sub);border:1px solid var(--line);background:#fff;}
+.p-title{font-size:28px;font-weight:900;color:var(--text);letter-spacing:-.028em;line-height:1.24;margin-bottom:14px;}
+.p-title em{color:var(--cobalt);font-style:normal;}
+.p-desc{font-size:17px;color:var(--text2);line-height:1.72;margin-bottom:18px;}
+.p-desc b,.p-desc strong{color:var(--cobalt);font-weight:700;}
+.sec-label{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sub);margin-bottom:8px;margin-top:14px;display:inline-flex;align-items:center;gap:8px;}
+.sec-label::before{content:'✦';color:var(--lime-deep);font-size:11px;}
+.sec ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.sec li{font-size:17px;color:var(--text2);line-height:1.6;display:flex;gap:10px;align-items:flex-start;}
+.sec li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--cobalt);margin-top:11px;}
+.sec li strong{color:var(--text);font-weight:700;}
+.result{margin-top:auto;background:var(--ink);border-radius:14px;padding:20px 26px;display:flex;gap:32px;position:relative;overflow:hidden;}
+.result::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lime);}
+.kpi{display:flex;flex-direction:column;gap:4px;}
+.kpi-num{font-family:var(--font-display);font-size:32px;font-weight:900;color:var(--lime);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;}
+.kpi-label{font-family:var(--font-mono);font-size:11px;color:var(--lavender);letter-spacing:.08em;text-transform:uppercase;font-weight:500;}
+
+/* ── Chart card ── */
+.chart-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 2px 6px rgba(15,25,50,.04);}
+.chart-title{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--sub);margin-bottom:12px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;}
+.chart-title::before{content:'✦';color:var(--lime-deep);}
+
+/* ── Page badge (legacy, kept for compat) ── */
+.pg-badge{position:absolute;bottom:36px;right:96px;font-family:var(--font-mono);font-size:12px;color:var(--sub);font-weight:700;letter-spacing:.18em;}
+.pg-badge b{color:var(--cobalt);}
+
+/* ══════════ HERO (cover · dark cobalt with v7 rituals) ══════════ */
+.hero-wrap{display:grid;grid-template-columns:600px 1fr;height:100%;position:relative;}
+.hero-photo-panel{position:relative;background:var(--ink);overflow:hidden;}
+.hero-photo-panel img{width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.86;}
+.hero-photo-panel::after{content:'';position:absolute;bottom:0;left:0;right:0;height:340px;background:linear-gradient(transparent,var(--ink) 90%);}
+.hero-photo-panel .lime-corner{position:absolute;top:56px;left:44px;width:56px;height:5px;background:var(--lime);z-index:3;}
+.hero-name-tag{position:absolute;bottom:44px;left:44px;right:44px;z-index:2;}
+.hero-name-tag .name{font-size:64px;font-weight:900;color:#fff;letter-spacing:-.035em;line-height:1;}
+.hero-name-tag .role{font-family:var(--font-mono);font-size:14px;color:var(--lavender);margin-top:14px;font-weight:500;letter-spacing:.04em;}
+.hero-num-badge{position:absolute;top:80px;left:44px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);z-index:3;}
+.hero-right{display:flex;flex-direction:column;justify-content:center;padding:72px 88px;background:var(--cobalt);position:relative;overflow:hidden;color:#fff;}
+.hero-eyebrow{font-family:var(--font-mono);font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);margin-bottom:28px;display:inline-flex;align-items:center;gap:14px;}
+.hero-eyebrow::before{content:'';width:48px;height:3px;background:var(--lime);}
+.hero-headline{font-family:var(--font-display);font-size:62px;font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.035em;margin-bottom:32px;}
+.hero-headline em{color:var(--lime);font-style:normal;}
+.hero-headline span{color:#fff;}
+.hero-body{font-size:19px;color:var(--lavender);line-height:1.72;margin-bottom:44px;max-width:680px;}
+.hero-body b{color:#fff;font-weight:700;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-chip{padding:8px 16px;border:1px solid rgba(255,255,255,.22);border-radius:999px;font-size:13px;color:#fff;font-weight:600;background:rgba(255,255,255,.06);font-family:var(--font-mono);letter-spacing:.04em;}
+
+/* ══════════ PERF OVERVIEW ══════════ */
+.perf-layout{display:grid;grid-template-columns:640px 1fr;gap:44px;height:880px;padding:0 96px 56px;margin-top:28px;}
+.kpi-grid-6{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.kpi-card6{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:0 2px 6px rgba(15,25,50,.04);position:relative;overflow:hidden;}
+.kpi-card6::before{content:'';position:absolute;top:0;left:0;width:36px;height:3px;background:var(--lime);}
+.kpi-card6 .num{font-family:var(--font-display);font-size:40px;font-weight:900;color:var(--cobalt);letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;}
+.kpi-card6 .unit{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--cobalt);}
+.kpi-card6 .lbl{font-size:13px;color:var(--sub);margin-top:8px;line-height:1.5;}
+.dash-link{display:flex;align-items:center;gap:14px;background:var(--ink);border-radius:12px;padding:18px 22px;text-decoration:none;margin-top:16px;position:relative;overflow:hidden;}
+.dash-link::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lime);}
+.dash-link .icon{width:40px;height:40px;background:var(--lime);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dash-link .icon svg path{stroke:var(--ink);}
+.dash-link .t{font-family:var(--font-display);font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em;}
+.dash-link .u{font-family:var(--font-mono);font-size:11px;color:var(--lavender-dim);margin-top:3px;letter-spacing:.06em;}
+
+/* ══════════ PROFILE ══════════ */
+.profile-split{display:grid;grid-template-columns:520px 1fr;height:100%;}
+.profile-photo-panel{background:var(--ink);position:relative;overflow:hidden;}
+.profile-photo-panel img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.profile-photo-panel::after{content:'';position:absolute;bottom:0;left:0;right:0;height:380px;background:linear-gradient(transparent,var(--ink) 85%);}
+.profile-photo-panel .lime-corner{position:absolute;top:48px;left:44px;width:48px;height:5px;background:var(--lime);z-index:3;}
+.profile-photo-info{position:absolute;bottom:48px;left:44px;right:44px;z-index:2;}
+.profile-photo-info .pname{font-size:48px;font-weight:900;color:#fff;letter-spacing:-.028em;}
+.profile-photo-info .prole{font-family:var(--font-mono);font-size:13px;color:var(--lime);margin-top:14px;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.profile-photo-info .pyear{font-family:var(--font-mono);font-size:11px;color:var(--lavender-dim);margin-top:6px;letter-spacing:.18em;text-transform:uppercase;}
+.profile-content{padding:64px 72px 56px;display:flex;flex-direction:column;gap:0;overflow:hidden;}
+.who-label{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt);margin-bottom:18px;display:inline-flex;align-items:center;gap:14px;}
+.who-label::before{content:'';display:inline-block;width:36px;height:2.5px;background:var(--lime);}
+.who-headline{font-family:var(--font-display);font-size:30px;font-weight:900;color:var(--text);line-height:1.24;letter-spacing:-.028em;margin-bottom:20px;}
+.who-headline em{color:var(--cobalt);font-style:normal;}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1;}
+.ps-block{display:flex;flex-direction:column;gap:0;}
+.ps-lbl{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--lime);display:inline-flex;align-items:center;gap:8px;align-self:flex-start;}
+.ps-lbl::before{content:'✦';color:var(--lime-deep);}
+.career-row{padding:10px 0;border-bottom:1px solid var(--line-lt);display:flex;flex-direction:column;gap:3px;}
+.career-row:last-child{border-bottom:none;}
+.cr-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+.cr-co{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.01em;}
+.cr-period{font-family:var(--font-mono);font-size:11px;color:var(--sub);letter-spacing:.04em;}
+.cr-role{font-size:13px;color:var(--text2);}
+.cr-achieve{font-size:12px;color:var(--cobalt);font-weight:700;margin-top:2px;font-family:var(--font-mono);letter-spacing:.02em;}
+.edu-row{padding:8px 0;border-bottom:1px solid var(--line-lt);}
+.edu-row:last-child{border-bottom:none;}
+.edu-school{font-size:16px;font-weight:800;color:var(--text);}
+.edu-dept{font-size:13px;color:var(--sub);}
+.award-row{padding:7px 0;border-bottom:1px solid var(--line-lt);font-size:13px;color:var(--text2);}
+.award-row:last-child{border-bottom:none;}
+.award-row .aw-prize{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--cobalt);margin-left:6px;letter-spacing:.06em;text-transform:uppercase;}
+.tool-row2{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line-lt);}
+.tool-row2:last-child{border-bottom:none;}
+.tool-cat2{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--cobalt);min-width:54px;flex-shrink:0;letter-spacing:.12em;text-transform:uppercase;padding-top:2px;}
+.tool-val{font-size:13px;color:var(--text2);line-height:1.5;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+  p1  HERO (cover · cobalt dark + lime ritual)
+══════════════════════════════════════════ -->
+<div class="slide dark" id="p1">
+  <div class="grid-bg dim"></div>
+  <span class="sparkle" style="top:140px;right:380px;font-size:48px;"></span>
+  <span class="sparkle" style="top:480px;right:140px;font-size:28px;"></span>
+  <span class="sparkle" style="bottom:240px;right:340px;font-size:24px;"></span>
+  <div class="ribbon ribbon-tr">월 매출 4,520만 → 17.6억 · 39배 성장 주도</div>
+
+  <div class="hero-wrap">
+    <div class="hero-photo-panel">
+      <div class="lime-corner"></div>
+      <div class="hero-num-badge">PORTFOLIO · 2026.05</div>
+      <img src="./assets/profile_dohyeong.jpg" alt="이도형">
+      <div class="hero-name-tag">
+        <div class="name">이도형</div>
+        <div class="role">LEE DOHYEONG · BRAND ACCELERATOR · 5Y 4M</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-eyebrow">Growth Marketing Portfolio</div>
+      <h1 class="hero-headline">콘텐츠·퍼포먼스·CRM·<br>데이터·팀 빌딩,<br><em>한 사람이 끝내는</em><br>그로스 마케터.</h1>
+      <p class="hero-body">이삼오구 커머스 <b>누적 매출 27억</b>, 커버링 앱 <b>월 매출 39배 성장</b>.<br>5년 4개월, 4개 회사를 거치며 <b>매번 0을 1로</b> 만들어왔습니다.</p>
+      <div class="hero-chips">
+        <span class="hero-chip">#그로스해킹</span>
+        <span class="hero-chip">#CRM자동화</span>
+        <span class="hero-chip">#퍼포먼스</span>
+        <span class="hero-chip">#콘텐츠기획</span>
+        <span class="hero-chip">#바이럴</span>
+        <span class="hero-chip">#AI활용</span>
+        <span class="hero-chip">#팀빌딩</span>
+      </div>
+    </div>
+  </div>
+  <div class="chrome dark">
+    <span><b>01</b> / 21</span>
+    <span>cumdederitvivaldi@gmail.com · 010-7589-9117</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p2  성과 OVERVIEW
+══════════════════════════════════════════ -->
+<div class="slide" id="p2">
+  <div class="grid-bg light"></div>
+  <span class="sparkle cobalt-tint" style="top:120px;right:240px;font-size:24px;"></span>
+  <div class="hd">
+    <div>
+      <div class="eyebrow">Performance Overview</div>
+      <div class="page-title">만들어낸 <em>성과</em></div>
+    </div>
+    <span class="slide-num">02 / 21</span>
+  </div>
+  <div class="perf-layout">
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div class="kpi-grid-6">
+        <div class="kpi-card6"><div class="num">39<span class="unit">배</span></div><div class="lbl">커버링 월 매출 성장<br>4,520만 → 17.6억</div></div>
+        <div class="kpi-card6"><div class="num">27<span class="unit">억</span></div><div class="lbl">이삼오구 커머스<br>누적 매출 기여</div></div>
+        <div class="kpi-card6"><div class="num">12.3<span class="unit">억</span></div><div class="lbl">CRM 휴면 재활성화<br>단일 캠페인</div></div>
+        <div class="kpi-card6"><div class="num">-72.8<span class="unit">%</span></div><div class="lbl">퍼포먼스 CPI 절감<br>소구점 A/B 실험</div></div>
+        <div class="kpi-card6"><div class="num">×12</div><div class="lbl">TikTok 일예산 확장<br>10만 → 120만원</div></div>
+        <div class="kpi-card6"><div class="num">5<span class="unit">인</span></div><div class="lbl">마케팅팀 빌딩<br>1인 → 5인 4축 시스템</div></div>
+      </div>
+      <a class="dash-link" href="https://hound600al.github.io/marketing-lab-26-05-09/" target="_blank">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="t">마케팅 성과 대시보드 →</div><div class="u">hound600al.github.io/marketing-lab-26-05-09</div></div>
+      </a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div class="chart-card" style="flex:1;">
+        <div class="chart-title">커버링 월 매출 성장 추이</div>
+        <svg viewBox="0 0 600 480" width="100%" style="display:block;">
+          <defs>
+            <linearGradient id="cobaltGrow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1E29FF" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#1E29FF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="55" y1="30" x2="590" y2="30" stroke="#F1F4F9" stroke-width="1"/>
+          <line x1="55" y1="110" x2="590" y2="110" stroke="#F1F4F9" stroke-width="1"/>
+          <line x1="55" y1="200" x2="590" y2="200" stroke="#F1F4F9" stroke-width="1"/>
+          <line x1="55" y1="290" x2="590" y2="290" stroke="#F1F4F9" stroke-width="1"/>
+          <line x1="55" y1="360" x2="590" y2="360" stroke="#E2E6EF" stroke-width="1.5"/>
+          <text x="50" y="34" font-size="11" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">17.6억</text>
+          <text x="50" y="114" font-size="11" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">10억</text>
+          <text x="50" y="204" font-size="11" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">5억</text>
+          <text x="50" y="294" font-size="11" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">1억</text>
+          <polygon points="60,350 140,344 220,336 300,316 380,270 460,190 530,110 590,30 590,360 60,360" fill="url(#cobaltGrow)"/>
+          <polyline points="60,350 140,344 220,336 300,316 380,270 460,190 530,110 590,30" fill="none" stroke="#1E29FF" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="60" cy="350" r="5" fill="#1E29FF" stroke="#fff" stroke-width="2"/>
+          <circle cx="300" cy="316" r="5" fill="#1E29FF" stroke="#fff" stroke-width="2"/>
+          <circle cx="460" cy="190" r="5" fill="#1E29FF" stroke="#fff" stroke-width="2"/>
+          <circle cx="590" cy="30" r="8" fill="#D6FF3D" stroke="#1E29FF" stroke-width="3"/>
+          <text x="60" y="378" font-size="11" fill="#8B95A6" text-anchor="middle" font-family="JetBrains Mono">2024.05</text>
+          <text x="220" y="378" font-size="11" fill="#8B95A6" text-anchor="middle" font-family="JetBrains Mono">2024.09</text>
+          <text x="380" y="378" font-size="11" fill="#8B95A6" text-anchor="middle" font-family="JetBrains Mono">2025.02</text>
+          <text x="530" y="378" font-size="11" fill="#8B95A6" text-anchor="middle" font-family="JetBrains Mono">2025.09</text>
+          <text x="590" y="378" font-size="11" fill="#1E29FF" text-anchor="middle" font-weight="700" font-family="JetBrains Mono">2026.05</text>
+          <text x="55" y="344" font-size="11" fill="#5B6675" font-family="JetBrains Mono">4,520만</text>
+          <rect x="498" y="12" width="92" height="30" rx="4" fill="#0A0F2E"/>
+          <rect x="498" y="12" width="92" height="3" fill="#D6FF3D"/>
+          <text x="544" y="32" font-size="13" fill="#fff" text-anchor="middle" font-weight="800" font-family="JetBrains Mono">17.6억</text>
+          <text x="325" y="455" font-size="13" fill="#1E29FF" text-anchor="middle" font-weight="800" font-family="JetBrains Mono">★ 입사 24개월 만에 39배 성장 달성</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="chrome"><span><b>02</b> / 21</span><span>Performance Overview · Lee Dohyeong</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p3  PROFILE (split layout)
+══════════════════════════════════════════ -->
+<div class="slide" id="p3">
+  <div class="profile-split">
+    <!-- Left: photo panel -->
+    <div class="profile-photo-panel">
+      <div class="lime-corner"></div>
+      <img src="./assets/profile_dohyeong.jpg" alt="이도형 프로필">
+      <div class="profile-photo-info">
+        <div class="pname">이도형</div>
+        <div class="prole">Brand Accelerator · Growth Marketer</div>
+        <div class="pyear">LEE DOHYEONG · 2025 · 1994</div>
+      </div>
+    </div>
+    <!-- Right: content panel -->
+    <div class="profile-content">
+      <div class="who-label">Who I Am</div>
+      <div class="who-headline">콘텐츠·퍼포먼스·CRM·데이터·팀빌딩,<br><em>한 사람이 끝내는</em> 그로스 마케터.</div>
+      <div style="font-size:15px;color:var(--sub);line-height:1.65;margin-bottom:22px;">5년 4개월, 4개 회사를 거치며 <strong style="color:var(--cobalt);font-weight:700;">매번 0을 1로</strong>. 각 영역의 경계 없이 움직이기 때문에, 브랜드의 성장을 단계가 아닌 속도로 만들어냅니다.</div>
+      <div class="profile-grid">
+        <!-- Col 1: Career + Education -->
+        <div class="ps-block">
+          <div class="ps-lbl">EXPERIENCE · 5Y 4M</div>
+          <div class="career-row">
+            <div class="cr-top"><span class="cr-co">커버링</span><span class="cr-period">2024.05 ~ 현재</span></div>
+            <div class="cr-role">마케팅 팀장</div>
+            <div class="cr-achieve">월 매출 39배 성장 주도 · 5인 팀빌딩</div>
+          </div>
+          <div class="career-row">
+            <div class="cr-top"><span class="cr-co">이삼오구</span><span class="cr-period">2021.08 ~ 2023.10</span></div>
+            <div class="cr-role">마케팅 파트장</div>
+            <div class="cr-achieve">누적 매출 27억 · 멀티브랜드 운영</div>
+          </div>
+          <div class="career-row">
+            <div class="cr-top"><span class="cr-co">나인투식스</span><span class="cr-period">2020.12 ~ 2021.04</span></div>
+            <div class="cr-role">마케터</div>
+            <div class="cr-achieve">스마트스토어 SEO · 라이브커머스</div>
+          </div>
+          <div class="career-row">
+            <div class="cr-top"><span class="cr-co">와이즈플래닛</span><span class="cr-period">2020.01 ~ 2020.07</span></div>
+            <div class="cr-role">인턴</div>
+            <div class="cr-achieve">영상 광고 소재 · 메타 퍼포먼스</div>
+          </div>
+          <div style="height:18px;"></div>
+          <div class="ps-lbl">EDUCATION</div>
+          <div class="edu-row">
+            <div class="edu-school">인하대학교</div>
+            <div class="edu-dept">스포츠과학 · 경영학 복수전공</div>
+          </div>
+        </div>
+        <!-- Col 2: Stack + Awards -->
+        <div class="ps-block">
+          <div class="ps-lbl">STACK</div>
+          <div class="tool-row2"><span class="tool-cat2">콘텐츠</span><span class="tool-val">Premiere · AE · Photoshop · Figma</span></div>
+          <div class="tool-row2"><span class="tool-cat2">광고</span><span class="tool-val">Meta · Google · TikTok · ASA · 네이버SA</span></div>
+          <div class="tool-row2"><span class="tool-cat2">분석</span><span class="tool-val">BigQuery · Grafana · GA4 · GTM · AppsFlyer · Airbridge</span></div>
+          <div class="tool-row2"><span class="tool-cat2">CRM · AI</span><span class="tool-val">Flarelane · 스냅푸시 · 알림톡 · Claude × Meta 자동화</span></div>
+          <div style="height:18px;"></div>
+          <div class="ps-lbl">AWARDS · CERTIFICATE</div>
+          <div class="award-row">사회적기업 비즈니스 모델링<span class="aw-prize">금상</span></div>
+          <div class="award-row">인하 K-MOOC UCC 콘테스트<span class="aw-prize">장려상</span></div>
+          <div class="award-row">뉴 비즈니스 모델링<span class="aw-prize">금상</span></div>
+          <div class="award-row">GAIQ 취득 <span class="aw-prize" style="color:var(--sub);">2021.04</span></div>
+          <div class="award-row">컴퓨터활용능력 2급 <span class="aw-prize" style="color:var(--sub);">2019.03</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chrome" style="left:572px;"><span><b>03</b> / 21</span><span>Profile · Lee Dohyeong · Brand Accelerator</span></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  p4  그로스 ①  등급제 LTV×18.1
+══════════════════════════════════════════ -->
+<div class="slide" id="p4">
+  <div class="hd">
+    <div><div class="eyebrow">Growth Hacking · 01 / 02</div><div class="page-title">이탈 등급제로 LTV 18.1배 향상</div></div>
+    <span class="slide-num">04 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-growth);">그로스</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.07</span>
+      </div>
+      <div class="p-title">체험 구간 이탈 68%를<br>등급제 보상 시스템으로 역전시키다</div>
+      <p class="p-desc">신규 가입 후 첫 결제 이전 이탈률 68%가 핵심 병목. 수거 완료 횟수 기반 3단계 등급제(씨앗·새싹·나무)를 설계해 LTV를 18.1배 끌어올렸습니다.</p>
+      <div class="sec-label">문제 정의</div>
+      <div class="sec"><ul>
+        <li>신규 가입자 68%가 첫 결제 이전 이탈 — 체험 구간이 핵심 병목</li>
+        <li>단순 할인 쿠폰 전략 반복 → 재구매율 변화 없음</li>
+        <li>고객별 LTV 차이 존재 but 세그먼트별 대응 전략 부재</li>
+      </ul></div>
+      <div class="sec-label">실행 전략</div>
+      <div class="sec"><ul>
+        <li>수거 완료 횟수 기반 3단계 등급 설계 (<strong>씨앗 → 새싹 → 나무</strong>)</li>
+        <li>등급별 차등 할인율(20% / 25% / 30%)·전용 쿠폰·우선 배차 혜택 부여</li>
+        <li>매주 월요일 16시, 최근 70일 수거완료 건으로 등급 자동 산정</li>
+        <li>등급 달성 진척도("6번만 더 이용 시 새싹") 앱 내 시각화 — 게임화 적용</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">×18.1</span><span class="kpi-label">LTV 향상 배율</span></div>
+        <div class="kpi"><span class="kpi-num">-41%</span><span class="kpi-label">초기 이탈률 감소</span></div>
+        <div class="kpi"><span class="kpi-num">+67%</span><span class="kpi-label">3회 이상 재구매율</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;min-height:0;">
+        <div style="display:flex;flex-direction:column;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);">
+          <div style="padding:8px 14px;background:#F1F5F9;font-size:11px;font-weight:800;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;text-align:center;">씨앗 등급 · 시작 단계</div>
+          <img src="./assets/covering_tier_ssiat.png" alt="씨앗 등급 화면" style="width:100%;flex:1;min-height:0;object-fit:contain;background:#F8FAFF;padding:8px;">
+        </div>
+        <div style="display:flex;flex-direction:column;border:2px solid var(--blue);border-radius:14px;overflow:hidden;background:var(--blue-soft);">
+          <div style="padding:8px 14px;background:var(--blue);font-size:11px;font-weight:800;color:#fff;letter-spacing:.08em;text-transform:uppercase;text-align:center;">나무 등급 · 최상위</div>
+          <img src="./assets/covering_tier_nahmoo.png" alt="나무 등급 화면" style="width:100%;flex:1;min-height:0;object-fit:contain;background:#EFF6FF;padding:8px;">
+        </div>
+      </div>
+      <div class="chart-card" style="flex:none;display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;">
+        <div>
+          <div class="chart-title" style="margin-bottom:6px;">등급 산정 로직</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.55;">매주 월요일 <strong style="color:var(--blue-deep);">16시</strong>, 최근 <strong style="color:var(--blue-deep);">70일</strong>간 수거완료 건으로 등급 자동 산정. 미배출·취소·과실은 제외.</div>
+        </div>
+        <svg viewBox="0 0 320 110" width="100%" style="display:block;">
+          <text x="160" y="12" font-size="11" fill="#64748B" text-anchor="middle" font-weight="700">등급별 누적 LTV 비교</text>
+          <rect x="40" y="78" width="48" height="20" rx="4" fill="#BFDBFE"/>
+          <rect x="128" y="50" width="48" height="48" rx="4" fill="#60A5FA"/>
+          <rect x="216" y="22" width="48" height="76" rx="4" fill="#1D4ED8"/>
+          <text x="64" y="74" font-size="10" fill="#64748B" text-anchor="middle">×1</text>
+          <text x="152" y="46" font-size="10" fill="#2563EB" text-anchor="middle" font-weight="700">×6.4</text>
+          <text x="240" y="18" font-size="11" fill="#1D4ED8" text-anchor="middle" font-weight="900">×18.1</text>
+          <text x="64" y="108" font-size="10" fill="#94A3B8" text-anchor="middle">씨앗</text>
+          <text x="152" y="108" font-size="10" fill="#94A3B8" text-anchor="middle">새싹</text>
+          <text x="240" y="108" font-size="10" fill="#1D4ED8" text-anchor="middle" font-weight="700">나무 ★</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">04 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p5  그로스 ②  9개 도시 확장 + CAC -32%
+══════════════════════════════════════════ -->
+<div class="slide" id="p5">
+  <div class="hd">
+    <div><div class="eyebrow">Growth Hacking · 02 / 02</div><div class="page-title">프로모션 설계로 9개 도시 확장 & CAC -32%</div></div>
+    <span class="slide-num">05 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-growth);">그로스</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.09~12</span>
+      </div>
+      <div class="p-title">지역 확장 × 프로모션 동시 실행으로<br>신규 가입 +180% 달성</div>
+      <p class="p-desc">서울 → 9개 도시 확장과 연말 세일·990원 체험 이벤트를 연계해 신규 유입 CAC -32%와 기간 내 신규 가입 +180%를 동시에 달성했습니다.</p>
+      <div class="sec-label">문제 정의</div>
+      <div class="sec"><ul>
+        <li>수도권 집중 서비스 → 지방 배송 수요 미개척 상태</li>
+        <li>계절성 성수기(연말) 마케팅 효율 극대화 필요</li>
+        <li>신규 고객 CAC 지속 상승 추세</li>
+      </ul></div>
+      <div class="sec-label">실행 전략</div>
+      <div class="sec"><ul>
+        <li>지역별 타겟 세그먼트 분리 → 지역 맞춤 광고 소재 제작</li>
+        <li>연말 한정 세일 + 990원 체험 이벤트 동시 론칭</li>
+        <li>이탈 고객 대상 재진입 프로모션 CRM 연동</li>
+        <li>채널별 CAC 실시간 모니터링 → 예산 동적 재배분</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">9개</span><span class="kpi-label">서비스 도시 확장</span></div>
+        <div class="kpi"><span class="kpi-num">-32%</span><span class="kpi-label">신규 CAC 절감</span></div>
+        <div class="kpi"><span class="kpi-num">+180%</span><span class="kpi-label">기간 내 신규 가입</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="display:flex;gap:12px;flex:1;">
+        <img src="./assets/covering_promo_year_end.png" alt="연말 프로모션" style="flex:1;min-width:0;border-radius:12px;object-fit:contain;border:1.5px solid var(--line);background:var(--bg);">
+        <img src="./assets/covering_promo_lucky_clover.png" alt="990원 이벤트" style="flex:1;min-width:0;border-radius:12px;object-fit:contain;border:1.5px solid var(--line);background:var(--bg);">
+      </div>
+      <div class="chart-card" style="flex:none;">
+        <div class="chart-title">신규 가입 월별 추이 (확장 기간)</div>
+        <svg viewBox="0 0 560 90" width="100%" style="display:block;">
+          <defs><linearGradient id="proG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2563EB" stop-opacity=".2"/><stop offset="100%" stop-color="#2563EB" stop-opacity="0"/></linearGradient></defs>
+          <polygon points="20,78 120,70 220,58 320,38 430,18 540,8 540,82 20,82" fill="url(#proG)"/>
+          <polyline points="20,78 120,70 220,58 320,38 430,18 540,8" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="540" cy="8" r="5" fill="#1D4ED8" stroke="#fff" stroke-width="2"/>
+          <text x="20" y="90" font-size="10" fill="#94A3B8">2024.09</text>
+          <text x="280" y="90" font-size="10" fill="#94A3B8">2024.11</text>
+          <text x="500" y="90" font-size="10" fill="#1D4ED8" font-weight="700">2024.12</text>
+          <line x1="320" y1="38" x2="320" y2="20" stroke="#EA580C" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="320" y="16" font-size="10" fill="#EA580C" text-anchor="middle">9개 도시 론칭</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">05 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p6  CRM ①  D22/D29/D61 휴면 12.3억
+══════════════════════════════════════════ -->
+<div class="slide" id="p6">
+  <div class="hd">
+    <div><div class="eyebrow">CRM · 01 / 02</div><div class="page-title">3단계 리텐션 시퀀스로 휴면 12.3억 재활성화</div></div>
+    <span class="slide-num">06 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-crm);">CRM</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.10~11</span>
+      </div>
+      <div class="p-title">D22 → D29 → D61<br>단계별 쿠폰 시퀀스 자동화</div>
+      <p class="p-desc">마지막 구독 결제 후 22일 이상 비활성 고객 7,997명에게 3단계 자동화 시퀀스를 발송해 단일 캠페인에서 12.3억원 매출을 창출했습니다.</p>
+      <div class="sec-label">시퀀스 설계</div>
+      <div class="sec"><ul>
+        <li><strong>D22</strong> — 앱 푸시 (쿠폰 없음) : "오랜만이에요" 감성 복귀 유도</li>
+        <li><strong>D29</strong> — 알림톡 30% 할인 쿠폰 · 만료 72시간 설정</li>
+        <li><strong>D61</strong> — 최후 알림톡 30% 쿠폰 · "마지막 기회" 희소성 소구</li>
+        <li>미반응 세그먼트 → 광고 리타겟팅 자동 전환</li>
+      </ul></div>
+      <div class="sec-label">성과 근거</div>
+      <div class="sec"><ul>
+        <li>재활성화 7,997명 × 평균 LTV 154,162원 = 12.3억</li>
+        <li>D29 알림톡 오픈율 38.2% · CVR 21.4%</li>
+        <li>D61 추가 전환율 9.1%</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">12.3억</span><span class="kpi-label">단일 캠페인 매출</span></div>
+        <div class="kpi"><span class="kpi-num">7,997명</span><span class="kpi-label">재활성화 고객 수</span></div>
+        <div class="kpi"><span class="kpi-num">21.4%</span><span class="kpi-label">D29 CVR</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:28px 32px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="chart-title">리텐션 시퀀스 플로우</div>
+        <svg viewBox="0 0 520 500" width="100%" style="display:block;">
+          <line x1="80" y1="55" x2="80" y2="420" stroke="#E2E8F0" stroke-width="2.5" stroke-dasharray="6,4"/>
+          <!-- D22 -->
+          <circle cx="80" cy="72" r="24" fill="#DC2626"/>
+          <text x="80" y="78" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">D22</text>
+          <rect x="118" y="50" width="390" height="60" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="138" y="75" font-size="14" fill="#991B1B" font-weight="700">앱 푸시 · 쿠폰 없음</text>
+          <text x="138" y="96" font-size="13" fill="#6B7280">"오랜만이에요, 어떠셨나요?" — 감성 복귀 유도</text>
+          <!-- D29 -->
+          <circle cx="80" cy="210" r="24" fill="#DC2626"/>
+          <text x="80" y="216" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">D29</text>
+          <rect x="118" y="188" width="390" height="60" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="138" y="213" font-size="14" fill="#991B1B" font-weight="700">알림톡 30% 할인 쿠폰</text>
+          <text x="138" y="234" font-size="13" fill="#6B7280">만료 72시간 · 오픈율 38.2% · CVR 21.4%</text>
+          <!-- D61 -->
+          <circle cx="80" cy="348" r="24" fill="#991B1B"/>
+          <text x="80" y="354" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">D61</text>
+          <rect x="118" y="326" width="390" height="60" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+          <text x="138" y="351" font-size="14" fill="#991B1B" font-weight="700">최후 알림톡 30% 쿠폰 · "마지막 기회"</text>
+          <text x="138" y="372" font-size="13" fill="#6B7280">전환율 9.1% · 미반응 → 광고 리타겟팅 자동 전환</text>
+          <!-- Result -->
+          <rect x="35" y="405" width="473" height="60" rx="14" fill="#1D4ED8"/>
+          <text x="272" y="431" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">7,997명 × LTV 154,162원</text>
+          <text x="272" y="454" font-size="20" fill="#fff" text-anchor="middle" font-weight="900">= 12.3억원 매출 창출</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">06 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p7  CRM ②  알림톡 CVR +231%
+══════════════════════════════════════════ -->
+<div class="slide" id="p7">
+  <div class="hd">
+    <div><div class="eyebrow">CRM · 02 / 02</div><div class="page-title">알림톡 소구점 A/B 테스트로 CVR +231%</div></div>
+    <span class="slide-num">07 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-crm);">CRM</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.12~2025.02</span>
+      </div>
+      <div class="p-title">메시지 소구점 변수 실험으로<br>알림톡 CVR 3배 이상 향상</div>
+      <p class="p-desc">단순 할인 알림에서 벗어나 가격/효능/희소성 소구점 A/B 테스트를 도입. D16·D45 새 구간 추가와 함께 CVR 6.2% → 20.5%로 231% 향상했습니다.</p>
+      <div class="sec-label">문제 정의</div>
+      <div class="sec"><ul>
+        <li>기존 알림톡 CVR 6.2% — 어떤 소구점이 효과적인지 미파악</li>
+        <li>D16(중간 이탈 예측)과 D45(재구독 권유) 구간 미활용</li>
+      </ul></div>
+      <div class="sec-label">실행 전략</div>
+      <div class="sec"><ul>
+        <li>소구점 3변수: A) 가격 할인 B) 효능/성분 C) 한정 수량</li>
+        <li>D16 신규 구간 추가 — 이탈 전 선제 개입</li>
+        <li>D45 타이밍 최적화 (기존 D30 → D45로 조정)</li>
+        <li>C안(한정 수량) 승리 → 전체 세그먼트 롤아웃</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">+231%</span><span class="kpi-label">알림톡 CVR 향상</span></div>
+        <div class="kpi"><span class="kpi-num">6.2%→20.5%</span><span class="kpi-label">CVR before/after</span></div>
+        <div class="kpi"><span class="kpi-num">C안</span><span class="kpi-label">한정 수량 소구 승리</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:28px 32px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="chart-title">소구점 A/B 테스트 결과 비교</div>
+        <svg viewBox="0 0 520 450" width="100%" style="display:block;">
+          <!-- Bars -->
+          <text x="90" y="25" font-size="13" fill="#6B7280" text-anchor="middle" font-weight="700">A. 가격 할인</text>
+          <rect x="20" y="35" width="140" height="200" rx="8" fill="#BFDBFE"/>
+          <text x="90" y="145" font-size="16" fill="#1E3A8A" text-anchor="middle" font-weight="800">8.1%</text>
+          <text x="90" y="165" font-size="12" fill="#3B82F6" text-anchor="middle">CVR</text>
+
+          <text x="260" y="25" font-size="13" fill="#6B7280" text-anchor="middle" font-weight="700">B. 효능/성분</text>
+          <rect x="190" y="35" width="140" height="240" rx="8" fill="#93C5FD"/>
+          <text x="260" y="165" font-size="16" fill="#1E3A8A" text-anchor="middle" font-weight="800">11.3%</text>
+          <text x="260" y="185" font-size="12" fill="#2563EB" text-anchor="middle">CVR</text>
+
+          <text x="435" y="20" font-size="13" fill="#1D4ED8" text-anchor="middle" font-weight="700">C. 한정 수량 ★ WINNER</text>
+          <rect x="365" y="30" width="140" height="320" rx="8" fill="#1D4ED8"/>
+          <text x="435" y="200" font-size="21" fill="#fff" text-anchor="middle" font-weight="900">20.5%</text>
+          <text x="435" y="225" font-size="13" fill="#BFDBFE" text-anchor="middle">CVR</text>
+
+          <!-- X axis -->
+          <line x1="10" y1="356" x2="510" y2="356" stroke="#E2E8F0" stroke-width="1.5"/>
+
+          <!-- Improvement badges -->
+          <rect x="10" y="370" width="230" height="50" rx="12" fill="#FEF2F2"/>
+          <text x="125" y="393" font-size="13" fill="#DC2626" text-anchor="middle" font-weight="600">기존 메시지 대비</text>
+          <text x="125" y="413" font-size="17" fill="#DC2626" text-anchor="middle" font-weight="900">+231% CVR 향상</text>
+
+          <rect x="280" y="370" width="230" height="50" rx="12" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="395" y="393" font-size="13" fill="#1D4ED8" text-anchor="middle" font-weight="600">A 대비 C안</text>
+          <text x="395" y="413" font-size="17" fill="#1D4ED8" text-anchor="middle" font-weight="900">+153% CVR 향상</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">07 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p8  퍼포먼스 ①  소구점 CPI -72.8%
+══════════════════════════════════════════ -->
+<div class="slide" id="p8">
+  <div class="hd">
+    <div><div class="eyebrow">Performance · 01 / 02</div><div class="page-title">소구점 3번 실험으로 CPI -72.8% 달성</div></div>
+    <span class="slide-num">08 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-perf);">퍼포먼스</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.06~08</span>
+      </div>
+      <div class="p-title">인플루언서 광고 소재의 소구점을<br>3번 교체해 CPI 1/3.7로 절감</div>
+      <p class="p-desc">동일 인플루언서(시은니야) 채널을 유지하며 소구점만 반복 교체 테스트. 가격→효능→비교 순으로 실험해 CPI 8,200원 → 2,230원으로 -72.8% 달성했습니다.</p>
+      <div class="sec-label">실험 설계</div>
+      <div class="sec"><ul>
+        <li>소구점 3변수: 1차 가격("월 X원") → 2차 효능("3주 사용 결과") → 3차 비교("vs 미용실")</li>
+        <li>각 테스트 3일 × 동일 예산 통제 → CPI 기준 승자 선택</li>
+        <li>채널 확장 전 소재 최적화 완료 후 Meta/TikTok 동시 운영</li>
+      </ul></div>
+      <div class="sec-label">채널별 최종 결과</div>
+      <div class="sec"><ul>
+        <li>Meta: CPI 8,200원 → 2,230원 (-72.8%) · 일 설치 ×4.2</li>
+        <li>TikTok: 신규 도입, CPI 3,100원으로 시작</li>
+        <li>비교 소구 = "미용실 대비 비용 절감"이 즉각적 가치 인식 유도</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">-72.8%</span><span class="kpi-label">CPI 절감</span></div>
+        <div class="kpi"><span class="kpi-num">2,230원</span><span class="kpi-label">최종 CPI (기존 8,200원)</span></div>
+        <div class="kpi"><span class="kpi-num">×4.2</span><span class="kpi-label">일 설치 증가</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">소구점 반복 실험 결과</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <!-- Round 1 -->
+          <rect x="10" y="20" width="500" height="68" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="24" y="48" font-size="13" fill="#991B1B" font-weight="700">1차: 가격 소구 — "월 X원으로 헤어 케어"</text>
+          <text x="24" y="68" font-size="12" fill="#6B7280">CPI 8,200원 · 기준점 설정</text>
+          <text x="496" y="58" font-size="16" fill="#DC2626" text-anchor="end" font-weight="900">8,200원</text>
+          <!-- Arrow -->
+          <text x="260" y="106" font-size="22" fill="#94A3B8" text-anchor="middle">↓</text>
+          <!-- Round 2 -->
+          <rect x="10" y="115" width="500" height="68" rx="12" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.5"/>
+          <text x="24" y="143" font-size="13" fill="#92400E" font-weight="700">2차: 효능 소구 — "3주 사용 후 이렇게 변했어요"</text>
+          <text x="24" y="163" font-size="12" fill="#6B7280">CPI 5,400원 · 34% 개선</text>
+          <text x="496" y="153" font-size="16" fill="#D97706" text-anchor="end" font-weight="900">5,400원</text>
+          <!-- Arrow -->
+          <text x="260" y="201" font-size="22" fill="#94A3B8" text-anchor="middle">↓</text>
+          <!-- Round 3 WINNER -->
+          <rect x="10" y="210" width="500" height="68" rx="12" fill="#EFF6FF" stroke="#2563EB" stroke-width="2.5"/>
+          <text x="24" y="238" font-size="13" fill="#1E3A8A" font-weight="800">3차: 비교 소구 — "미용실 vs 홈케어" ★ WINNER</text>
+          <text x="24" y="258" font-size="12" fill="#1D4ED8">CPI 2,230원 · 72.8% 절감 달성 · 최종 채택</text>
+          <text x="496" y="248" font-size="17" fill="#1D4ED8" text-anchor="end" font-weight="900">2,230원</text>
+          <!-- Summary chart -->
+          <line x1="10" y1="300" x2="510" y2="300" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="260" y="325" font-size="13" fill="#64748B" text-anchor="middle" font-weight="700">CPI 추이</text>
+          <!-- bars -->
+          <rect x="60" y="340" width="80" height="100" rx="6" fill="#FECACA"/>
+          <text x="100" y="396" font-size="14" fill="#991B1B" text-anchor="middle" font-weight="700">8,200</text>
+          <rect x="200" y="366" width="80" height="74" rx="6" fill="#FED7AA"/>
+          <text x="240" y="410" font-size="14" fill="#D97706" text-anchor="middle" font-weight="700">5,400</text>
+          <rect x="340" y="413" width="80" height="27" rx="6" fill="#1D4ED8"/>
+          <text x="380" y="432" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">2,230</text>
+          <!-- labels -->
+          <text x="100" y="454" font-size="11" fill="#94A3B8" text-anchor="middle">1차</text>
+          <text x="240" y="454" font-size="11" fill="#94A3B8" text-anchor="middle">2차</text>
+          <text x="380" y="454" font-size="11" fill="#1D4ED8" text-anchor="middle" font-weight="700">3차 ★</text>
+          <!-- arrow showing decrease -->
+          <line x1="100" y1="335" x2="380" y2="410" stroke="#16A34A" stroke-width="2" stroke-dasharray="5,3"/>
+          <text x="245" y="365" font-size="13" fill="#16A34A" font-weight="800">-72.8%</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">08 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p9  퍼포먼스 ②  TikTok 일예산 ×12
+══════════════════════════════════════════ -->
+<div class="slide" id="p9">
+  <div class="hd">
+    <div><div class="eyebrow">Performance · 02 / 02</div><div class="page-title">TikTok PA 도입으로 일예산 ×12 스케일업</div></div>
+    <span class="slide-num">09 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-perf);">퍼포먼스</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.10~2026.05</span>
+      </div>
+      <div class="p-title">TikTok 신규 채널 개척 →<br>Product Ads 도입으로 12배 확장</div>
+      <p class="p-desc">TikTok을 신규 채널로 직접 개척하고, Product Ads 도입으로 일예산을 10만원에서 120만원으로 18개월 만에 스케일업. 매출 기여 비중 35%까지 성장시켰습니다.</p>
+      <div class="sec-label">단계별 성장</div>
+      <div class="sec"><ul>
+        <li><strong>2024.10</strong> — TikTok 신규 채널 개척 · 일예산 10만원 시작</li>
+        <li><strong>2025.01~10</strong> — 소재 최적화 반복 · 예산 점진 확장 (→40만)</li>
+        <li><strong>2025.11.25</strong> — Product Ads 최초 도입 · 카탈로그 자동 소재</li>
+        <li><strong>2026.05</strong> — 일예산 120만원 · 매출 기여 35% 달성</li>
+      </ul></div>
+      <div class="sec-label">PA 도입 효과</div>
+      <div class="sec"><ul>
+        <li>카탈로그 기반 자동 소재 → 소재 제작 공수 -80%</li>
+        <li>개인화 타겟팅으로 ROAS 기존 대비 +140%</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">×12</span><span class="kpi-label">일예산 확장 (10→120만)</span></div>
+        <div class="kpi"><span class="kpi-num">35%</span><span class="kpi-label">채널 매출 기여 비중</span></div>
+        <div class="kpi"><span class="kpi-num">+140%</span><span class="kpi-label">PA 도입 후 ROAS</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">TikTok 일예산 성장 타임라인 (만원)</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <defs><linearGradient id="ttkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2563EB" stop-opacity=".18"/><stop offset="100%" stop-color="#2563EB" stop-opacity="0"/></linearGradient></defs>
+          <!-- Grid -->
+          <line x1="55" y1="30" x2="510" y2="30" stroke="#F1F5F9" stroke-width="1"/>
+          <line x1="55" y1="120" x2="510" y2="120" stroke="#F1F5F9" stroke-width="1"/>
+          <line x1="55" y1="220" x2="510" y2="220" stroke="#F1F5F9" stroke-width="1"/>
+          <line x1="55" y1="340" x2="510" y2="340" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="50" y="34" font-size="11" fill="#94A3B8" text-anchor="end">120만</text>
+          <text x="50" y="124" font-size="11" fill="#94A3B8" text-anchor="end">80만</text>
+          <text x="50" y="224" font-size="11" fill="#94A3B8" text-anchor="end">40만</text>
+          <text x="50" y="344" font-size="11" fill="#94A3B8" text-anchor="end">10만</text>
+          <!-- Area + Line -->
+          <polygon points="65,335 160,330 260,316 340,295 400,260 455,100 510,30 510,340 65,340" fill="url(#ttkG)"/>
+          <polyline points="65,335 160,330 260,316 340,295 400,260 455,100 510,30" fill="none" stroke="#2563EB" stroke-width="3" stroke-linejoin="round"/>
+          <!-- PA launch marker -->
+          <circle cx="400" cy="260" r="6" fill="#EA580C" stroke="#fff" stroke-width="2"/>
+          <line x1="400" y1="260" x2="400" y2="195" stroke="#EA580C" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <rect x="310" y="168" width="188" height="30" rx="8" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/>
+          <text x="404" y="188" font-size="12" fill="#EA580C" text-anchor="middle" font-weight="700">★ PA 최초 도입 2025.11</text>
+          <!-- End dot -->
+          <circle cx="510" cy="30" r="7" fill="#1D4ED8" stroke="#fff" stroke-width="2.5"/>
+          <rect x="448" y="12" width="60" height="24" rx="7" fill="#1D4ED8"/>
+          <text x="478" y="28" font-size="12" fill="#fff" text-anchor="middle" font-weight="800">120만</text>
+          <!-- X labels -->
+          <text x="65" y="358" font-size="11" fill="#94A3B8" text-anchor="middle">2024.10</text>
+          <text x="260" y="358" font-size="11" fill="#94A3B8" text-anchor="middle">2025.03</text>
+          <text x="455" y="358" font-size="11" fill="#94A3B8" text-anchor="middle">2025.12</text>
+          <text x="510" y="358" font-size="11" fill="#1D4ED8" text-anchor="middle" font-weight="700">2026.05</text>
+          <!-- Summary -->
+          <rect x="55" y="380" width="452" height="84" rx="14" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="280" y="408" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">성장 핵심 전환점</text>
+          <text x="280" y="432" font-size="14" fill="#334155" text-anchor="middle">일반 광고 단계 → Product Ads 도입으로 ROAS +140%</text>
+          <text x="280" y="454" font-size="13" fill="#64748B" text-anchor="middle">카탈로그 자동 소재로 운영 공수 -80% · 예산 확장 가속화</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">09 / 21</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  p10  콘텐츠 ①  시은니야 비교 소구
+══════════════════════════════════════════ -->
+<div class="slide" id="p10">
+  <div class="hd">
+    <div><div class="eyebrow">Content · 01 / 02</div><div class="page-title">인플루언서 소구점 반복 실험으로 CPI 1/3.7</div></div>
+    <span class="slide-num">10 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-content);">콘텐츠</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.06~08</span>
+      </div>
+      <div class="p-title">같은 인플루언서, 다른 스크립트<br>"미용실 대체재" 포지셔닝으로 전환 폭발</div>
+      <p class="p-desc">시은니야 채널 소재의 소구점을 3번 교체. "가격 절감"보다 "미용실을 대체한다"는 메시지가 시청자의 즉각적 가치 인식을 끌어냈습니다. 광고→상세페이지 메시지 일관성으로 랜딩 CVR도 +18% 향상.</p>
+      <div class="sec-label">콘텐츠 기획 원칙</div>
+      <div class="sec"><ul>
+        <li>인플루언서 교체 비용 절감: 신뢰 채널 유지 + 소구점만 교체</li>
+        <li>시청자 리텐션 구간 데이터로 편집 방향 수정</li>
+        <li>광고 소재 → 상세페이지 메시지 일관성 유지</li>
+        <li>썸네일·훅(Hook) 문구 병행 A/B 테스트</li>
+      </ul></div>
+      <div class="sec-label">소구점별 CPI</div>
+      <div class="sec"><ul>
+        <li>1차 "월 OO원" — 8,200원</li>
+        <li>2차 "3주 사용 후 변화" — 5,400원 (-34%)</li>
+        <li>3차 "미용실 vs 홈케어" — 2,230원 (-72.8%, 최종 채택)</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">-72.8%</span><span class="kpi-label">CPI 최종 절감</span></div>
+        <div class="kpi"><span class="kpi-num">3회</span><span class="kpi-label">소구점 반복 실험</span></div>
+        <div class="kpi"><span class="kpi-num">+18%</span><span class="kpi-label">랜딩 CVR 향상</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">콘텐츠 포지셔닝 전환 프레임워크</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <!-- Before box -->
+          <rect x="10" y="15" width="230" height="130" rx="14" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="125" y="48" font-size="14" fill="#991B1B" text-anchor="middle" font-weight="700">기존 포지셔닝 ✗</text>
+          <text x="125" y="72" font-size="13" fill="#6B7280" text-anchor="middle">"헤어 케어 제품"</text>
+          <text x="125" y="92" font-size="12" fill="#9CA3AF" text-anchor="middle">경쟁사 대비 우위 강조</text>
+          <text x="125" y="112" font-size="12" fill="#9CA3AF" text-anchor="middle">소비자: "그래서 뭐가 다른데?"</text>
+          <text x="125" y="132" font-size="14" fill="#DC2626" text-anchor="middle" font-weight="700">CPI 8,200원</text>
+          <!-- Arrow -->
+          <text x="264" y="85" font-size="26" fill="#EA580C" text-anchor="middle">→</text>
+          <!-- After box -->
+          <rect x="285" y="15" width="230" height="130" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+          <text x="400" y="48" font-size="14" fill="#1E3A8A" text-anchor="middle" font-weight="700">재포지셔닝 ✓</text>
+          <text x="400" y="72" font-size="13" fill="#1E3A8A" text-anchor="middle">"미용실 매직 대체재"</text>
+          <text x="400" y="92" font-size="12" fill="#334155" text-anchor="middle">새 카테고리 창출 → 경쟁 없음</text>
+          <text x="400" y="112" font-size="12" fill="#334155" text-anchor="middle">소비자: "6만원 절약되겠다!"</text>
+          <text x="400" y="132" font-size="14" fill="#1D4ED8" text-anchor="middle" font-weight="800">CPI 2,230원</text>
+          <!-- Table header -->
+          <line x1="10" y1="162" x2="510" y2="162" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="260" y="184" font-size="12" fill="#64748B" text-anchor="middle" font-weight="700">소구점 실험 결과 요약표</text>
+          <rect x="10" y="195" width="500" height="34" rx="0" fill="#F8FAFF"/>
+          <text x="100" y="216" font-size="12" fill="#64748B" text-anchor="middle" font-weight="700">소구점</text>
+          <text x="280" y="216" font-size="12" fill="#64748B" text-anchor="middle" font-weight="700">핵심 메시지</text>
+          <text x="440" y="216" font-size="12" fill="#64748B" text-anchor="middle" font-weight="700">CPI</text>
+          <line x1="10" y1="230" x2="510" y2="230" stroke="#E2E8F0" stroke-width="1"/>
+          <!-- Row 1 -->
+          <rect x="10" y="230" width="500" height="60" fill="#FEF2F2"/>
+          <text x="100" y="266" font-size="13" fill="#991B1B" text-anchor="middle" font-weight="700">가격 소구</text>
+          <text x="280" y="266" font-size="12" fill="#334155" text-anchor="middle">"월 X원으로 헤어 케어"</text>
+          <text x="440" y="266" font-size="14" fill="#DC2626" text-anchor="middle" font-weight="800">8,200원</text>
+          <line x1="10" y1="290" x2="510" y2="290" stroke="#F1F5F9" stroke-width="1"/>
+          <!-- Row 2 -->
+          <rect x="10" y="290" width="500" height="60" fill="#FFF7ED"/>
+          <text x="100" y="326" font-size="13" fill="#92400E" text-anchor="middle" font-weight="700">효능 소구</text>
+          <text x="280" y="326" font-size="12" fill="#334155" text-anchor="middle">"3주 사용 후 이렇게 변했어요"</text>
+          <text x="440" y="326" font-size="14" fill="#D97706" text-anchor="middle" font-weight="800">5,400원</text>
+          <line x1="10" y1="350" x2="510" y2="350" stroke="#F1F5F9" stroke-width="1"/>
+          <!-- Row 3 -->
+          <rect x="10" y="350" width="500" height="60" fill="#EFF6FF"/>
+          <text x="100" y="386" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="800">비교 소구 ★</text>
+          <text x="280" y="386" font-size="12" fill="#334155" text-anchor="middle">"미용실 대신 집에서 관리하면?"</text>
+          <text x="440" y="386" font-size="15" fill="#1D4ED8" text-anchor="middle" font-weight="900">2,230원</text>
+          <!-- Final -->
+          <rect x="10" y="420" width="500" height="50" rx="12" fill="#1D4ED8"/>
+          <text x="260" y="449" font-size="15" fill="#fff" text-anchor="middle" font-weight="800">"시청자는 절약 금액을 직접 계산할 때 즉시 전환한다" — 핵심 인사이트</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">10 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p11  콘텐츠 ②  헤어핌 주간 ×8
+══════════════════════════════════════════ -->
+<div class="slide" id="p11">
+  <div class="hd">
+    <div><div class="eyebrow">Content · 02 / 02</div><div class="page-title">헤어핌 '매직 대체재' 포지셔닝으로 주간 ×8</div></div>
+    <span class="slide-num">11 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-content);">콘텐츠</span>
+        <span class="c-badge" style="background:#334155;">이삼오구 · 헤어핌 2023.04~06</span>
+      </div>
+      <div class="p-title">제품 포지셔닝 재정의:<br>"매직 대체재"라는 카테고리를 직접 만들다</div>
+      <p class="p-desc">헤어 케어 제품을 "미용실 매직 대체재"로 재포지셔닝. 경쟁이 없는 새 카테고리에서 1등 전략으로 주간 매출 8배, 누적 7.5억 달성했습니다.</p>
+      <div class="sec-label">전략 핵심</div>
+      <div class="sec"><ul>
+        <li>기존: 경쟁사 대비 우위 강조 → 소비자 혼란, CVR 낮음</li>
+        <li>전환: "미용실 매직을 집에서" → 즉시 이해 + 비용 절감 소구</li>
+        <li>카테고리 창출 전략: 경쟁이 없는 새 포지션에서 1위</li>
+      </ul></div>
+      <div class="sec-label">콘텐츠 실행</div>
+      <div class="sec"><ul>
+        <li>Before/After 포맷: 매직 시술 전후 vs 헤어핌 전후 병렬 비교</li>
+        <li>가격 비교 인포그래픽: "미용실 매직 6만원 vs 헤어핌 월 OO원"</li>
+        <li>Reel + 롱폼 리뷰 교차 운영 · UGC 리그램 신뢰 보강</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">×8</span><span class="kpi-label">주간 매출 성장</span></div>
+        <div class="kpi"><span class="kpi-num">7.5억</span><span class="kpi-label">누적 매출 기여</span></div>
+        <div class="kpi"><span class="kpi-num">1위</span><span class="kpi-label">카테고리 검색 노출</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">포지셔닝 전환 후 주간 매출 추이</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <!-- Switch line -->
+          <line x1="200" y1="20" x2="200" y2="430" stroke="#EA580C" stroke-width="1.5" stroke-dasharray="5,4"/>
+          <text x="200" y="15" font-size="11" fill="#EA580C" text-anchor="middle">포지셔닝 전환</text>
+          <!-- Y axis -->
+          <line x1="50" y1="30" x2="50" y2="420" stroke="#E2E8F0" stroke-width="1.5"/>
+          <line x1="50" y1="420" x2="510" y2="420" stroke="#E2E8F0" stroke-width="1.5"/>
+          <!-- Before bars (low) -->
+          <rect x="60" y="370" width="40" height="50" rx="4" fill="#E2E8F0"/>
+          <rect x="110" y="360" width="40" height="60" rx="4" fill="#E2E8F0"/>
+          <rect x="160" y="355" width="40" height="65" rx="4" fill="#BFDBFE"/>
+          <!-- After bars (growing) -->
+          <rect x="215" y="310" width="40" height="110" rx="4" fill="#93C5FD"/>
+          <rect x="270" y="270" width="40" height="150" rx="4" fill="#60A5FA"/>
+          <rect x="325" y="230" width="40" height="190" rx="4" fill="#3B82F6"/>
+          <rect x="380" y="180" width="40" height="240" rx="4" fill="#2563EB"/>
+          <rect x="435" y="120" width="40" height="300" rx="4" fill="#1D4ED8"/>
+          <!-- Labels -->
+          <text x="80" y="438" font-size="10" fill="#94A3B8" text-anchor="middle">W1</text>
+          <text x="130" y="438" font-size="10" fill="#94A3B8" text-anchor="middle">W2</text>
+          <text x="180" y="438" font-size="10" fill="#94A3B8" text-anchor="middle">W3</text>
+          <text x="235" y="438" font-size="10" fill="#64748B" text-anchor="middle">W4</text>
+          <text x="290" y="438" font-size="10" fill="#64748B" text-anchor="middle">W5</text>
+          <text x="345" y="438" font-size="10" fill="#64748B" text-anchor="middle">W6</text>
+          <text x="400" y="438" font-size="10" fill="#64748B" text-anchor="middle">W7</text>
+          <text x="455" y="438" font-size="11" fill="#1D4ED8" text-anchor="middle" font-weight="700">W8 ×8</text>
+          <!-- Top badge -->
+          <rect x="400" y="100" width="106" height="28" rx="8" fill="#1D4ED8"/>
+          <text x="453" y="118" font-size="12" fill="#fff" text-anchor="middle" font-weight="800">주간 ×8 달성</text>
+          <!-- Bottom insight -->
+          <rect x="50" y="450" width="460" height="22" rx="6" fill="#EFF6FF"/>
+          <text x="280" y="465" font-size="12" fill="#1E3A8A" text-anchor="middle" font-weight="600">포지셔닝 전환 후 누적 매출 7.5억 · 카테고리 검색 1위 달성</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">11 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p12  바이럴 ①  댓글 DM CAC 1/3
+══════════════════════════════════════════ -->
+<div class="slide" id="p12">
+  <div class="hd">
+    <div><div class="eyebrow">Viral · 01 / 02</div><div class="page-title">댓글 DM 바이럴로 CAC 매체 대비 1/3</div></div>
+    <span class="slide-num">12 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-viral);">바이럴</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2025.03~05</span>
+      </div>
+      <div class="p-title">경쟁사 댓글 DM 자동화로<br>광고비 없이 회원 1,180명 획득</div>
+      <p class="p-desc">경쟁사 게시물 댓글 사용자를 타겟으로 자동 DM을 발송. 80만원으로 회원 1,180명을 확보해 CAC 677원을 달성. 매체 평균 16,300원 대비 -95.8%입니다.</p>
+      <div class="sec-label">전략 설계</div>
+      <div class="sec"><ul>
+        <li>경쟁사 댓글 사용자 = 헤어 케어 관심 고객군으로 특정</li>
+        <li>키워드 트리거 → DM 자동 발송 (ManyChat 활용)</li>
+        <li>DM 내 체험 혜택 안내 → 앱 설치 유도 랜딩 연결</li>
+        <li>PA 광고와 병행 → 통합 CAC 비교 리포트 생성</li>
+      </ul></div>
+      <div class="sec-label">CAC 비교</div>
+      <div class="sec"><ul>
+        <li>매체 평균 CAC: 16,300원 (Meta+TikTok+Google)</li>
+        <li>댓글 DM 바이럴 CAC: 677원 (80만원 / 1,180명)</li>
+        <li>PA+Viral 합산 CPA: 1,945원 → 매체 대비 -88%</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">677원</span><span class="kpi-label">바이럴 CAC</span></div>
+        <div class="kpi"><span class="kpi-num">1,180명</span><span class="kpi-label">신규 회원 획득</span></div>
+        <div class="kpi"><span class="kpi-num">-95.8%</span><span class="kpi-label">vs 매체 평균 대비</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">채널별 CAC 비교 (원)</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <!-- Y axis -->
+          <line x1="85" y1="20" x2="85" y2="380" stroke="#E2E8F0" stroke-width="1.5"/>
+          <line x1="85" y1="380" x2="510" y2="380" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="80" y="30" font-size="11" fill="#94A3B8" text-anchor="end">18,000</text>
+          <text x="80" y="130" font-size="11" fill="#94A3B8" text-anchor="end">12,000</text>
+          <text x="80" y="230" font-size="11" fill="#94A3B8" text-anchor="end">6,000</text>
+          <text x="80" y="350" font-size="11" fill="#94A3B8" text-anchor="end">1,000</text>
+          <!-- Grid -->
+          <line x1="85" y1="25" x2="510" y2="25" stroke="#F8FAFF" stroke-width="1"/>
+          <line x1="85" y1="125" x2="510" y2="125" stroke="#F8FAFF" stroke-width="1"/>
+          <line x1="85" y1="225" x2="510" y2="225" stroke="#F8FAFF" stroke-width="1"/>
+          <!-- Bar: Meta -->
+          <rect x="100" y="25" width="70" height="355" rx="6" fill="#BFDBFE"/>
+          <text x="135" y="20" font-size="11" fill="#3B82F6" text-anchor="middle" font-weight="700">18,500원</text>
+          <text x="135" y="394" font-size="11" fill="#64748B" text-anchor="middle">Meta</text>
+          <!-- Bar: Google -->
+          <rect x="195" y="38" width="70" height="342" rx="6" fill="#BFDBFE"/>
+          <text x="230" y="33" font-size="11" fill="#3B82F6" text-anchor="middle" font-weight="700">16,800원</text>
+          <text x="230" y="394" font-size="11" fill="#64748B" text-anchor="middle">Google</text>
+          <!-- Bar: TikTok -->
+          <rect x="290" y="88" width="70" height="292" rx="6" fill="#93C5FD"/>
+          <text x="325" y="83" font-size="11" fill="#2563EB" text-anchor="middle" font-weight="700">13,600원</text>
+          <text x="325" y="394" font-size="11" fill="#64748B" text-anchor="middle">TikTok</text>
+          <!-- Bar: Viral -->
+          <rect x="390" y="362" width="70" height="18" rx="6" fill="#1D4ED8"/>
+          <text x="425" y="358" font-size="12" fill="#1D4ED8" text-anchor="middle" font-weight="900">677원</text>
+          <text x="425" y="394" font-size="11" fill="#1D4ED8" text-anchor="middle" font-weight="700">바이럴</text>
+          <!-- Annotation -->
+          <rect x="85" y="412" width="425" height="56" rx="12" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="297" y="436" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">댓글 DM 바이럴 CAC 677원</text>
+          <text x="297" y="458" font-size="13" fill="#334155" text-anchor="middle">= 매체 평균(16,300원) 대비 -95.8% · 비용 80만원으로 1,180명 획득</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">12 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p13  바이럴 ②  인플루언서 4중 레이어
+══════════════════════════════════════════ -->
+<div class="slide" id="p13">
+  <div class="hd">
+    <div><div class="eyebrow">Viral · 02 / 02</div><div class="page-title">인플루언서 4중 레이어로 바이럴 지속성 ×3</div></div>
+    <span class="slide-num">13 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-viral);">바이럴</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.08~10</span>
+      </div>
+      <div class="p-title">메가→매크로→마이크로→나노<br>4단계 구조로 바이럴 확산 설계</div>
+      <p class="p-desc">단일 메가 인플루언서 의존에서 벗어나 4단계 규모별 레이어를 순차 활용. 바이럴 지속성을 3배 연장하고 마이크로 CPA를 메가 대비 -62% 절감했습니다.</p>
+      <div class="sec-label">4중 레이어 설계</div>
+      <div class="sec"><ul>
+        <li><strong>메가(100만+)</strong> — 브랜드 인지도 폭발 · 1명</li>
+        <li><strong>매크로(10~100만)</strong> — 신뢰 기반 전환 유도 · 3~5명</li>
+        <li><strong>마이크로(1~10만)</strong> — 니치 타겟 집중 · 10~20명</li>
+        <li><strong>나노(1만 이하)</strong> — UGC 자발 확산 · 30명+ 유도</li>
+      </ul></div>
+      <div class="sec-label">실행 결과</div>
+      <div class="sec"><ul>
+        <li>메가 론칭 72시간 내 마이크로 2차 발화 → 지속성 ×3</li>
+        <li>마이크로 CPA: 메가 대비 -62% (팔로워당 신뢰도 높음)</li>
+        <li>나노 자발 UGC 230건 → 유기 노출 추가 획득</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">×3</span><span class="kpi-label">바이럴 지속성</span></div>
+        <div class="kpi"><span class="kpi-num">-62%</span><span class="kpi-label">마이크로 CPA</span></div>
+        <div class="kpi"><span class="kpi-num">230건</span><span class="kpi-label">나노 UGC 자발 생성</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">인플루언서 4중 레이어 구조</div>
+        <svg viewBox="0 0 520 460" width="100%" style="display:block;">
+          <!-- Pyramid -->
+          <polygon points="260,20 200,80 320,80" fill="#1E3A8A"/>
+          <text x="260" y="58" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">메가 100만+</text>
+          <polygon points="200,85 140,155 380,155" fill="#2563EB"/>
+          <text x="260" y="120" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">매크로 10~100만</text>
+          <text x="260" y="142" font-size="11" fill="#BFDBFE" text-anchor="middle">3~5명 · 신뢰 전환</text>
+          <polygon points="140,160 80,240 440,240" fill="#3B82F6"/>
+          <text x="260" y="198" font-size="13" fill="#fff" text-anchor="middle" font-weight="800">마이크로 1~10만</text>
+          <text x="260" y="218" font-size="11" fill="#BFDBFE" text-anchor="middle">10~20명 · CPA -62%</text>
+          <polygon points="80,245 20,325 500,325" fill="#93C5FD"/>
+          <text x="260" y="283" font-size="14" fill="#1E3A8A" text-anchor="middle" font-weight="800">나노 1만 이하</text>
+          <text x="260" y="303" font-size="12" fill="#1E3A8A" text-anchor="middle">30명+ · UGC 230건 자발 생성</text>
+          <!-- Row labels right -->
+          <text x="325" y="58" font-size="11" fill="#1E3A8A">도달 최대화</text>
+          <text x="385" y="125" font-size="11" fill="#2563EB">신뢰 기반</text>
+          <text x="445" y="205" font-size="11" fill="#3B82F6">고효율 전환</text>
+          <text x="506" y="285" font-size="11" fill="#60A5FA">자발 확산</text>
+          <!-- Bottom insight -->
+          <rect x="20" y="340" width="480" height="48" rx="12" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="260" y="362" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">4중 레이어 핵심 전략</text>
+          <text x="260" y="380" font-size="13" fill="#334155" text-anchor="middle">메가 론칭 72시간 내 마이크로 2차 발화 → 바이럴 지속성 ×3 달성</text>
+          <!-- Budget allocation bar -->
+          <text x="260" y="420" font-size="12" fill="#64748B" text-anchor="middle">예산 배분: 메가 40% / 매크로 30% / 마이크로 20% / 나노 10%</text>
+          <rect x="20" y="428" width="192" height="14" rx="4" fill="#1E3A8A"/>
+          <rect x="212" y="428" width="144" height="14" rx="4" fill="#2563EB"/>
+          <rect x="356" y="428" width="96" height="14" rx="4" fill="#3B82F6"/>
+          <rect x="452" y="428" width="48" height="14" rx="4" fill="#93C5FD"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">13 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p14  AI 활용 ①  Claude × 마케팅 자동화
+══════════════════════════════════════════ -->
+<div class="slide" id="p14">
+  <div class="hd">
+    <div><div class="eyebrow">AI Utilization · 01 / 02</div><div class="page-title">Claude API × BigQuery 마케팅 자동화 파이프라인</div></div>
+    <span class="slide-num">14 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-ai);">AI 활용</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2025.06~현재</span>
+      </div>
+      <div class="p-title">광고 데이터 수집→분석→인사이트<br>전 과정을 Claude AI로 자동화</div>
+      <p class="p-desc">BigQuery에 적재된 광고 데이터를 Claude API가 자동 분석해 매일 아침 마케팅 인사이트 리포트를 생성. 주 12시간 분석 공수를 1시간으로 줄였습니다.</p>
+      <div class="sec-label">파이프라인 구성</div>
+      <div class="sec"><ul>
+        <li><strong>수집</strong>: Meta/Google/TikTok API → BigQuery 자동 적재 (일 1회)</li>
+        <li><strong>분석</strong>: Python → Claude API 호출 → 이상치·기회 감지</li>
+        <li><strong>리포트</strong>: Notion 자동 작성 + Slack 요약 알림 전송</li>
+        <li><strong>대응</strong>: 이상 감지 시 즉시 알림 → 대응 시간 -80%</li>
+      </ul></div>
+      <div class="sec-label">자동화 효과</div>
+      <div class="sec"><ul>
+        <li>분석 공수: 주 12시간 → 1시간 (-92%)</li>
+        <li>이상 감지 대응: 24~48시간 → 2시간 이내</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">-92%</span><span class="kpi-label">분석 공수 절감</span></div>
+        <div class="kpi"><span class="kpi-num">2시간</span><span class="kpi-label">이상 감지 대응</span></div>
+        <div class="kpi"><span class="kpi-num">매일</span><span class="kpi-label">자동 인사이트 리포트</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">자동화 파이프라인 구조</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <!-- Sources -->
+          <rect x="10" y="20" width="100" height="36" rx="8" fill="#1877F2"/>
+          <text x="60" y="42" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">Meta Ads</text>
+          <rect x="10" y="66" width="100" height="36" rx="8" fill="#EA4335"/>
+          <text x="60" y="88" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">Google Ads</text>
+          <rect x="10" y="112" width="100" height="36" rx="8" fill="#0F1117"/>
+          <text x="60" y="134" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">TikTok Ads</text>
+          <!-- Arrow 1 -->
+          <line x1="110" y1="90" x2="152" y2="90" stroke="#7C3AED" stroke-width="2.5"/>
+          <polygon points="150,85 160,90 150,95" fill="#7C3AED"/>
+          <!-- BigQuery -->
+          <rect x="158" y="65" width="110" height="58" rx="12" fill="#7C3AED"/>
+          <text x="213" y="90" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">BigQuery</text>
+          <text x="213" y="108" font-size="11" fill="#E9D5FF" text-anchor="middle">데이터 적재</text>
+          <!-- Arrow 2 -->
+          <line x1="268" y1="93" x2="310" y2="93" stroke="#7C3AED" stroke-width="2.5"/>
+          <polygon points="308,88 318,93 308,98" fill="#7C3AED"/>
+          <!-- Claude API -->
+          <rect x="315" y="55" width="130" height="78" rx="12" fill="#0C1A3A"/>
+          <text x="380" y="88" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">Claude API</text>
+          <text x="380" y="106" font-size="11" fill="#94A3B8" text-anchor="middle">자동 분석·인사이트</text>
+          <!-- Arrow 3 -->
+          <line x1="380" y1="133" x2="380" y2="168" stroke="#7C3AED" stroke-width="2.5"/>
+          <polygon points="375,166 380,176 385,166" fill="#7C3AED"/>
+          <!-- Output boxes -->
+          <rect x="290" y="178" width="120" height="46" rx="10" fill="#16A34A"/>
+          <text x="350" y="197" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">Notion 리포트</text>
+          <text x="350" y="213" font-size="11" fill="#A7F3D0" text-anchor="middle">자동 작성</text>
+          <rect x="420" y="178" width="90" height="46" rx="10" fill="#475569"/>
+          <text x="465" y="197" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">Slack 알림</text>
+          <text x="465" y="213" font-size="11" fill="#CBD5E1" text-anchor="middle">이상 즉시</text>
+          <!-- Divider -->
+          <line x1="10" y1="246" x2="510" y2="246" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="260" y="268" font-size="12" fill="#64748B" text-anchor="middle" font-weight="700">도입 전후 비교</text>
+          <!-- Before -->
+          <rect x="20" y="280" width="225" height="80" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="132" y="306" font-size="13" fill="#991B1B" text-anchor="middle" font-weight="700">도입 전</text>
+          <text x="132" y="328" font-size="12" fill="#6B7280" text-anchor="middle">분석 공수: 주 12시간</text>
+          <text x="132" y="348" font-size="12" fill="#6B7280" text-anchor="middle">이상 감지: 24~48시간</text>
+          <!-- After -->
+          <rect x="275" y="280" width="225" height="80" rx="12" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+          <text x="387" y="306" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">도입 후</text>
+          <text x="387" y="328" font-size="12" fill="#334155" text-anchor="middle">분석 공수: 주 1시간 (-92%)</text>
+          <text x="387" y="348" font-size="12" fill="#334155" text-anchor="middle">이상 감지: 2시간 이내</text>
+          <!-- Bottom -->
+          <rect x="20" y="374" width="480" height="46" rx="12" fill="#0C1A3A"/>
+          <text x="260" y="395" font-size="13" fill="#CBD5E1" text-anchor="middle">핵심 스택</text>
+          <text x="260" y="413" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">Python · BigQuery · Claude Code · Meta API · Notion · Slack</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">14 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p15  AI 활용 ②  MMP Unattributed 보정
+══════════════════════════════════════════ -->
+<div class="slide" id="p15">
+  <div class="hd">
+    <div><div class="eyebrow">AI Utilization · 02 / 02</div><div class="page-title">MMP 미귀속 보정으로 실측 CAC 추적 최초 달성</div></div>
+    <span class="slide-num">15 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-ai);">AI 활용</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2025.02~04</span>
+      </div>
+      <div class="p-title">Unattributed 56% → 46%<br>귀속 모델 보완으로 예산 배분 근거 확보</div>
+      <p class="p-desc">MMP(Airbridge) Unattributed 비율 56%로 채널별 CAC 측정 불가. Python + Claude API로 귀속 모델을 보완해 실측 CAC를 최초로 확인했습니다.</p>
+      <div class="sec-label">문제 정의</div>
+      <div class="sec"><ul>
+        <li>Unattributed 56% → 절반 이상 설치가 "출처 불명"</li>
+        <li>채널별 CAC 비교 불가 → 예산 배분 의사결정 오류 발생</li>
+        <li>iOS 14.5 ATT 이후 귀속 데이터 왜곡 심화</li>
+      </ul></div>
+      <div class="sec-label">해결 방법</div>
+      <div class="sec"><ul>
+        <li>설치 시간대 × 채널 예산 투입량 상관관계 분석 (BigQuery)</li>
+        <li>Markov Chain 귀속 모델 + Claude API 이상치 필터링</li>
+        <li>보정 결과: Unattributed 56% → 46% (10%p 개선)</li>
+        <li>채널별 실측 CAC 최초 확인 → 예산 재배분 근거 확보</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">56→46%</span><span class="kpi-label">Unattributed 감소</span></div>
+        <div class="kpi"><span class="kpi-num">10%p</span><span class="kpi-label">귀속 정확도 개선</span></div>
+        <div class="kpi"><span class="kpi-num">최초</span><span class="kpi-label">채널별 실측 CAC 확인</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="chart-title">MMP 귀속 비율 개선 결과</div>
+        <svg viewBox="0 0 520 420" width="100%" style="display:block;">
+          <!-- Before pie label -->
+          <text x="130" y="28" font-size="13" fill="#64748B" text-anchor="middle" font-weight="700">보정 전</text>
+          <circle cx="130" cy="130" r="88" fill="#E2E8F0"/>
+          <!-- Attributed 44% sector -->
+          <path d="M130,130 L130,42 A88,88 0,0,1 206,174 Z" fill="#7C3AED" opacity=".7"/>
+          <path d="M130,130 L206,174 A88,88 0,0,1 54,174 Z" fill="#7C3AED" opacity=".5"/>
+          <text x="162" y="110" font-size="14" fill="#7C3AED" font-weight="800">44%</text>
+          <text x="155" y="126" font-size="11" fill="#6B7280">귀속</text>
+          <text x="100" y="162" font-size="15" fill="#475569" font-weight="800">56%</text>
+          <text x="97" y="178" font-size="11" fill="#9CA3AF">미귀속</text>
+          <!-- Arrow -->
+          <text x="260" y="135" font-size="28" fill="#7C3AED" text-anchor="middle">→</text>
+          <text x="260" y="156" font-size="11" fill="#7C3AED" text-anchor="middle">보정</text>
+          <!-- After pie label -->
+          <text x="395" y="28" font-size="13" fill="#1D4ED8" text-anchor="middle" font-weight="700">보정 후</text>
+          <circle cx="395" cy="130" r="88" fill="#E2E8F0"/>
+          <!-- Attributed 54% -->
+          <path d="M395,130 L395,42 A88,88 0,0,1 471,174 Z" fill="#1D4ED8" opacity=".9"/>
+          <path d="M395,130 L471,174 A88,88 0,0,1 319,174 Z" fill="#1D4ED8" opacity=".7"/>
+          <path d="M395,130 L319,174 A88,88 0,0,1 370,46 Z" fill="#1D4ED8" opacity=".5"/>
+          <text x="428" y="108" font-size="14" fill="#1D4ED8" font-weight="900">54%</text>
+          <text x="421" y="124" font-size="11" fill="#1E3A8A">귀속</text>
+          <text x="362" y="162" font-size="15" fill="#475569" font-weight="800">46%</text>
+          <text x="359" y="178" font-size="11" fill="#9CA3AF">미귀속</text>
+          <!-- Improvement -->
+          <rect x="10" y="240" width="500" height="58" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+          <text x="260" y="265" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">귀속 개선 효과</text>
+          <text x="260" y="285" font-size="13" fill="#334155" text-anchor="middle">Unattributed -10%p → 채널별 실측 CAC 최초 파악</text>
+          <!-- Channel CAC boxes -->
+          <rect x="10" y="314" width="150" height="56" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="85" y="337" font-size="12" fill="#991B1B" text-anchor="middle">Meta 실측 CAC</text>
+          <text x="85" y="357" font-size="16" fill="#DC2626" text-anchor="middle" font-weight="800">18,500원</text>
+          <rect x="185" y="314" width="150" height="56" rx="10" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.5"/>
+          <text x="260" y="337" font-size="12" fill="#92400E" text-anchor="middle">Google 실측 CAC</text>
+          <text x="260" y="357" font-size="16" fill="#D97706" text-anchor="middle" font-weight="800">16,800원</text>
+          <rect x="360" y="314" width="150" height="56" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="435" y="337" font-size="12" fill="#1E3A8A" text-anchor="middle">TikTok 실측 CAC</text>
+          <text x="435" y="357" font-size="16" fill="#1D4ED8" text-anchor="middle" font-weight="800">13,600원</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">15 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p16  팀빌딩 ①  1인→5인 4축
+══════════════════════════════════════════ -->
+<div class="slide" id="p16">
+  <div class="hd">
+    <div><div class="eyebrow">Team Building · 01 / 02</div><div class="page-title">1인 → 5인 마케팅팀 4축 시스템 구축</div></div>
+    <span class="slide-num">16 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-team);">팀빌딩</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2024.05~2025.12</span>
+      </div>
+      <div class="p-title">혼자 하던 마케팅을 시스템으로 확장,<br>18개월 만에 5인 4축 팀 완성</div>
+      <p class="p-desc">마케터 1인 체제에서 퍼포먼스·콘텐츠·CRM·분석 4축으로 역할을 분리하고 팀원을 순차 채용. 팀 빌딩 완료 후 마케팅 효율 1.8배 향상했습니다.</p>
+      <div class="sec-label">4축 조직 설계</div>
+      <div class="sec"><ul>
+        <li><strong>퍼포먼스 축</strong> — Meta/Google/TikTok 광고 운영 전담</li>
+        <li><strong>콘텐츠 축</strong> — 소재 제작 · 인플루언서 관리</li>
+        <li><strong>CRM 축</strong> — 앱 푸시 · 알림톡 · 리텐션 시퀀스</li>
+        <li><strong>분석 축</strong> — BigQuery · GA4 · 성과 리포트</li>
+      </ul></div>
+      <div class="sec-label">온보딩 시스템</div>
+      <div class="sec"><ul>
+        <li>역할별 KPI 체계 설계 후 채용 공고 기준 명확화</li>
+        <li>2주 온보딩 플레이북 제작 → 자기 주도 학습</li>
+        <li>주간 1:1 + 월간 팀 리뷰 루틴 정착</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">1→5인</span><span class="kpi-label">팀 구성 완료</span></div>
+        <div class="kpi"><span class="kpi-num">18개월</span><span class="kpi-label">구축 기간</span></div>
+        <div class="kpi"><span class="kpi-num">×1.8</span><span class="kpi-label">팀 확장 후 효율</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <div style="background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px;flex:1;">
+        <div class="chart-title">팀빌딩 타임라인 & 4축 구조</div>
+        <svg viewBox="0 0 520 480" width="100%" style="display:block;">
+          <line x1="30" y1="44" x2="30" y2="310" stroke="#E2E8F0" stroke-width="2.5" stroke-dasharray="6,4"/>
+          <!-- Phase 1 -->
+          <circle cx="30" cy="55" r="16" fill="#1E3A8A"/>
+          <text x="30" y="60" font-size="11" fill="#fff" text-anchor="middle" font-weight="800">1</text>
+          <rect x="58" y="38" width="450" height="50" rx="10" fill="#F8FAFF" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="76" y="59" font-size="13" fill="#334155" font-weight="700">2024.05 — 마케터 1인 (도형 본인)</text>
+          <text x="76" y="77" font-size="12" fill="#94A3B8">퍼포먼스·콘텐츠·CRM·분석 전부 단독 수행</text>
+          <!-- Phase 2 -->
+          <circle cx="30" cy="165" r="16" fill="#2563EB"/>
+          <text x="30" y="170" font-size="11" fill="#fff" text-anchor="middle" font-weight="800">2</text>
+          <rect x="58" y="148" width="450" height="50" rx="10" fill="#F8FAFF" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="76" y="169" font-size="13" fill="#334155" font-weight="700">2024.09 — 콘텐츠 담당 1명 채용</text>
+          <text x="76" y="187" font-size="12" fill="#94A3B8">소재 제작 분리 → 광고 운영 집중 가능</text>
+          <!-- Phase 3 -->
+          <circle cx="30" cy="275" r="16" fill="#3B82F6"/>
+          <text x="30" y="280" font-size="11" fill="#fff" text-anchor="middle" font-weight="800">3</text>
+          <rect x="58" y="258" width="450" height="50" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="76" y="279" font-size="13" fill="#1E3A8A" font-weight="700">2025.03 — 퍼포먼스 + CRM + 분석 추가 채용 완료</text>
+          <text x="76" y="297" font-size="12" fill="#2563EB">4축 5인 팀 완성 · 마케팅 효율 ×1.8</text>
+          <!-- 4 axis boxes -->
+          <line x1="10" y1="325" x2="510" y2="325" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="260" y="347" font-size="12" fill="#64748B" text-anchor="middle" font-weight="700">4축 팀 구조</text>
+          <rect x="10" y="358" width="115" height="56" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="67" y="381" font-size="12" fill="#1D4ED8" text-anchor="middle" font-weight="700">퍼포먼스</text>
+          <text x="67" y="399" font-size="11" fill="#64748B" text-anchor="middle">광고 운영</text>
+          <rect x="138" y="358" width="115" height="56" rx="10" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.5"/>
+          <text x="195" y="381" font-size="12" fill="#EA580C" text-anchor="middle" font-weight="700">콘텐츠</text>
+          <text x="195" y="399" font-size="11" fill="#64748B" text-anchor="middle">소재·인플루언서</text>
+          <rect x="266" y="358" width="115" height="56" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="323" y="381" font-size="12" fill="#DC2626" text-anchor="middle" font-weight="700">CRM</text>
+          <text x="323" y="399" font-size="11" fill="#64748B" text-anchor="middle">리텐션 시퀀스</text>
+          <rect x="394" y="358" width="116" height="56" rx="10" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.5"/>
+          <text x="452" y="381" font-size="12" fill="#7C3AED" text-anchor="middle" font-weight="700">분석</text>
+          <text x="452" y="399" font-size="11" fill="#64748B" text-anchor="middle">BigQuery·GA4</text>
+          <!-- Bottom result -->
+          <rect x="10" y="428" width="500" height="44" rx="12" fill="#1D4ED8"/>
+          <text x="260" y="454" font-size="14" fill="#fff" text-anchor="middle" font-weight="700">4축 팀 완성 후 마케팅 효율 ×1.8 · 인턴 육성 프로그램 운영</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="pg-badge">16 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p17  팀빌딩 ②  팀원 제안→실행
+══════════════════════════════════════════ -->
+<div class="slide" id="p17">
+  <div class="hd">
+    <div><div class="eyebrow">Team Building · 02 / 02</div><div class="page-title">팀원이 제안하고 직접 실행하는 문화 설계</div></div>
+    <span class="slide-num">17 / 21</span>
+  </div>
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-team);">팀빌딩</span>
+        <span class="c-badge" style="background:#334155;">커버링 · 2025.01~현재</span>
+      </div>
+      <div class="p-title">지시하는 팀이 아니라<br>제안하고 실행하는 팀으로</div>
+      <p class="p-desc">팀원이 스스로 가설을 세우고 실험을 설계하는 문화를 구축. 팀원 제안으로 시작된 등급제 앱 배너 기능이 실제 서비스에 반영되었습니다.</p>
+      <div class="sec-label">문화 설계 요소</div>
+      <div class="sec"><ul>
+        <li><strong>주간 가설 회의</strong> — 팀원별 1개 실험 아이디어 발표 + 피드백</li>
+        <li><strong>실험 예산 자율 배분</strong> — 소규모 예산 자율 집행 권한 부여</li>
+        <li><strong>성과 공유 세션</strong> — 성공·실패 모두 공개 리뷰 → 학습 문화</li>
+        <li><strong>결과 귀속</strong> — 팀원 제안 실험 성과는 팀원 이름으로 기록</li>
+      </ul></div>
+      <div class="sec-label">성과 사례</div>
+      <div class="sec"><ul>
+        <li>팀원 제안: "등급 달성 알림을 앱 내 배너로" → 개발 반영</li>
+        <li>팀원 실험: 마이크로 인플루언서 직접 섭외 → CPA -38%</li>
+        <li>월 평균 3건 이상 팀원 자발 실험 진행 중</li>
+      </ul></div>
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">3건+</span><span class="kpi-label">월 팀원 자발 실험</span></div>
+        <div class="kpi"><span class="kpi-num">-38%</span><span class="kpi-label">팀원 실험 CPA</span></div>
+        <div class="kpi"><span class="kpi-num">1건</span><span class="kpi-label">팀원 제안→앱 반영</span></div>
+      </div>
+    </div>
+    <div class="col-r">
+      <img src="./assets/covering_mobile_tier.png" alt="커버링 모바일 등급 UI" style="flex:1;border-radius:16px;object-fit:contain;border:1.5px solid var(--line);background:var(--bg);width:100%;">
+    </div>
+  </div>
+  <div class="pg-badge">17 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p18  이삼오구 요약 — 이전 직장 성과
+══════════════════════════════════════════ -->
+<div class="slide" id="p18">
+  <div class="hd">
+    <div><div class="eyebrow">Previous Company · 이삼오구(주) 2021.08~2023.10</div><div class="page-title">이전 직장 성과 요약 — 멀티브랜드 퍼포먼스</div></div>
+    <span class="slide-num">18 / 21</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;margin-top:24px;height:900px;padding:0 96px 40px;">
+    <div style="background:var(--white);border:1.5px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:800;flex-shrink:0;">H</div>
+        <div><div style="font-size:17px;font-weight:800;color:var(--text);">헤어핌</div><div style="font-size:11px;color:var(--sub);">헤어 케어 디바이스</div></div>
+      </div>
+      <div style="height:1px;background:var(--line-lt);"></div>
+      <div style="background:var(--blue-soft);border-radius:10px;padding:14px;"><div style="font-size:34px;font-weight:900;color:var(--blue-deep);">×8</div><div style="font-size:13px;color:var(--text2);margin-top:2px;">주간 매출 성장</div></div>
+      <div style="background:var(--bg);border-radius:10px;padding:12px;"><div style="font-size:20px;font-weight:800;color:var(--text);">7.5억</div><div style="font-size:12px;color:var(--sub);">누적 매출 기여</div></div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;flex:1;">"매직 대체재" 포지셔닝으로 새 카테고리 창출. 비교 소구 콘텐츠로 CVR 극대화.</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="c-badge" style="background:var(--ca-content);font-size:11px;">콘텐츠</span>
+        <span class="c-badge" style="background:var(--ca-perf);font-size:11px;">퍼포먼스</span>
+      </div>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;background:#EA580C;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:800;flex-shrink:0;">S</div>
+        <div><div style="font-size:17px;font-weight:800;color:var(--text);">스윗밤</div><div style="font-size:11px;color:var(--sub);">뷰티 케어 브랜드</div></div>
+      </div>
+      <div style="height:1px;background:var(--line-lt);"></div>
+      <div style="background:#FFF7ED;border:1px solid #FDBA74;border-radius:10px;padding:14px;"><div style="font-size:34px;font-weight:900;color:#C2410C;">×8</div><div style="font-size:13px;color:var(--text2);margin-top:2px;">전환수 성장</div></div>
+      <div style="background:var(--bg);border-radius:10px;padding:12px;"><div style="font-size:20px;font-weight:800;color:var(--text);">ROAS 240%</div><div style="font-size:12px;color:var(--sub);">광고비 대비 매출</div></div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;flex:1;">타겟 세그먼트 재정의 + 소재 A/B 테스트로 전환 효율 8배 향상.</div>
+      <div style="display:flex;gap:6px;"><span class="c-badge" style="background:var(--ca-perf);font-size:11px;">퍼포먼스</span><span class="c-badge" style="background:var(--ca-growth);font-size:11px;">그로스</span></div>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;background:#7C3AED;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:800;flex-shrink:0;">K</div>
+        <div><div style="font-size:17px;font-weight:800;color:var(--text);">코르릉</div><div style="font-size:11px;color:var(--sub);">펫 케어 브랜드</div></div>
+      </div>
+      <div style="height:1px;background:var(--line-lt);"></div>
+      <div style="background:#F5F3FF;border:1px solid #C4B5FD;border-radius:10px;padding:14px;"><div style="font-size:34px;font-weight:900;color:#7C3AED;">1.6억</div><div style="font-size:13px;color:var(--text2);margin-top:2px;">3개월 누적 매출</div></div>
+      <div style="background:var(--bg);border-radius:10px;padding:12px;"><div style="font-size:20px;font-weight:800;color:var(--text);">런칭 0→1</div><div style="font-size:12px;color:var(--sub);">신규 브랜드 초기 성장</div></div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;flex:1;">펫 케어 니치 시장 공략. 론칭 3개월 만에 1.6억 매출.</div>
+      <div style="display:flex;gap:6px;"><span class="c-badge" style="background:var(--ca-growth);font-size:11px;">그로스</span><span class="c-badge" style="background:var(--ca-viral);font-size:11px;">바이럴</span></div>
+    </div>
+    <div style="background:var(--blue-navy);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;background:#334155;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:800;flex-shrink:0;">∑</div>
+        <div><div style="font-size:17px;font-weight:800;color:#fff;">이삼오구 종합</div><div style="font-size:11px;color:#64748B;">14개월 전체 성과</div></div>
+      </div>
+      <div style="height:1px;background:#334155;"></div>
+      <div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+        <div style="padding-bottom:10px;border-bottom:1px solid #334155;"><div style="font-size:12px;color:#64748B;">관리 브랜드 수</div><div style="font-size:20px;font-weight:800;color:#fff;margin-top:3px;">4개 동시 운영</div></div>
+        <div style="padding-bottom:10px;border-bottom:1px solid #334155;"><div style="font-size:12px;color:#64748B;">누적 매출 기여</div><div style="font-size:30px;font-weight:900;color:var(--blue-bright);margin-top:3px;">27억+</div></div>
+        <div><div style="font-size:12px;color:#64748B;">핵심 역량 강화</div><div style="font-size:13px;color:#CBD5E1;line-height:1.65;margin-top:4px;">멀티브랜드 운영, 채널 최적화, 소재 A/B 체계화</div></div>
+      </div>
+      <div style="background:var(--blue-bright);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:13px;color:#fff;font-weight:700;">이 경험이 커버링 39배 성장의 기반</div></div>
+    </div>
+  </div>
+  <div class="pg-badge">18 / 21</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p19  0→1 CTA (cobalt dark + ribbon + lime icons)
+══════════════════════════════════════════ -->
+<div class="slide cobalt" id="p19">
+  <div class="grid-bg dim"></div>
+  <div class="ribbon ribbon-bl">0→1을 만드는 시스템 · 5Y 4M</div>
+  <span class="sparkle" style="top:140px;right:200px;font-size:32px;"></span>
+  <span class="sparkle" style="top:380px;right:120px;font-size:24px;"></span>
+  <div style="display:flex;flex-direction:column;height:100%;padding:88px 96px 64px;justify-content:center;position:relative;z-index:1;">
+    <div class="kicker dark" style="margin-bottom:28px;">Why Me</div>
+    <h2 style="font-family:var(--font-display);font-size:64px;font-weight:900;color:#fff;letter-spacing:-.035em;line-height:1.08;margin-bottom:22px;">귀사에서도<br><span style="color:var(--lime);">똑같이 만들어 드립니다.</span></h2>
+    <p style="font-size:20px;color:var(--lavender);line-height:1.7;margin-bottom:56px;max-width:860px;">커버링에서 <b style="color:#fff;font-weight:700;">월 4,520만원을 17.6억</b>으로, 이삼오구에서 <b style="color:#fff;font-weight:700;">누적 27억</b>을 만든 방법은 특정 회사에만 유효한 것이 아닙니다. <b style="color:var(--lime);font-weight:700;">0→1</b>을 만드는 시스템과 실행력, 그게 저입니다.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;max-width:1280px;">
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(214,255,61,.30);border-radius:16px;padding:30px 28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:48px;height:3px;background:var(--lime);"></div>
+        <div style="width:44px;height:44px;background:var(--lime);border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#0A0F2E" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-.015em;">즉시 실행 가능</div>
+        <div style="font-size:14px;color:var(--lavender);line-height:1.7;">퍼포먼스·CRM·콘텐츠·분석 전 채널을 직접 집행. 합류 첫 주부터 실질적 기여 가능합니다.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(214,255,61,.30);border-radius:16px;padding:30px 28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:48px;height:3px;background:var(--lime);"></div>
+        <div style="width:44px;height:44px;background:var(--lime);border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="#0A0F2E" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-.015em;">숫자로 증명</div>
+        <div style="font-size:14px;color:var(--lavender);line-height:1.7;"><span style="color:var(--lime);font-weight:700;font-family:var(--font-mono);">39× · −72.8% · 1/3</span> 모든 결과는 데이터로 기록, 재현 가능한 방법론으로 정리.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(214,255,61,.30);border-radius:16px;padding:30px 28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:48px;height:3px;background:var(--lime);"></div>
+        <div style="width:44px;height:44px;background:var(--lime);border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#0A0F2E" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-.015em;">시스템으로 성장</div>
+        <div style="font-size:14px;color:var(--lavender);line-height:1.7;">혼자 잘하는 마케터가 아니라 팀과 시스템을 만들어 회사를 성장시키는 사람. <b style="color:#fff;">1인→5인</b> 팀 경험.</div>
+      </div>
+    </div>
+  </div>
+  <div class="chrome dark"><span><b>19</b> / 21</span><span>Why Me · Lee Dohyeong</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p20  CONTACT (light + cobalt icons + chrome)
+══════════════════════════════════════════ -->
+<div class="slide" id="p20">
+  <div class="grid-bg light"></div>
+  <span class="sparkle cobalt-tint" style="top:140px;left:240px;font-size:24px;"></span>
+  <span class="sparkle cobalt-tint" style="bottom:240px;right:200px;font-size:32px;"></span>
+  <div style="display:flex;flex-direction:column;height:100%;padding:64px 96px;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1;">
+    <div class="kicker" style="margin-bottom:24px;">Contact</div>
+    <h2 style="font-family:var(--font-display);font-size:60px;font-weight:900;color:var(--text);letter-spacing:-.035em;line-height:1.08;margin-bottom:16px;">함께 <em style="color:var(--cobalt);font-style:normal;">성장합시다.</em></h2>
+    <p style="font-size:19px;color:var(--sub);margin-bottom:52px;line-height:1.7;">언제든지 연락주세요. 빠르게 답변드리겠습니다.</p>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;">
+      <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px 32px;display:flex;align-items:center;gap:16px;min-width:300px;box-shadow:0 2px 6px rgba(15,25,50,.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:36px;height:3px;background:var(--lime);"></div>
+        <div style="width:44px;height:44px;background:var(--cobalt);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#fff" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="#fff" stroke-width="2"/></svg></div>
+        <div style="text-align:left;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--sub);font-weight:700;margin-bottom:5px;letter-spacing:.18em;text-transform:uppercase;">Email</div><div style="font-size:15px;font-weight:700;color:var(--text);">cumdederitvivaldi@gmail.com</div></div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px 32px;display:flex;align-items:center;gap:16px;min-width:260px;box-shadow:0 2px 6px rgba(15,25,50,.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:36px;height:3px;background:var(--lime);"></div>
+        <div style="width:44px;height:44px;background:#FEE500;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#0A0F2E" stroke-width="2.2"/></svg></div>
+        <div style="text-align:left;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--sub);font-weight:700;margin-bottom:5px;letter-spacing:.18em;text-transform:uppercase;">KakaoTalk</div><div style="font-size:15px;font-weight:700;color:var(--text);">hound600al</div></div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px 32px;display:flex;align-items:center;gap:16px;min-width:360px;box-shadow:0 2px 6px rgba(15,25,50,.04);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:36px;height:3px;background:var(--lime);"></div>
+        <div style="width:44px;height:44px;background:var(--ink);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D6FF3D" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 010 20" stroke="#D6FF3D" stroke-width="2"/></svg></div>
+        <div style="text-align:left;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--sub);font-weight:700;margin-bottom:5px;letter-spacing:.18em;text-transform:uppercase;">Performance Dashboard</div><div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--cobalt);">hound600al.github.io/marketing-lab-26-05-09</div></div>
+      </div>
+    </div>
+    <div style="margin-top:56px;font-family:var(--font-mono);font-size:12px;color:var(--sub);letter-spacing:.14em;text-transform:uppercase;">서울 동대문구 · 이도형 · Lee Dohyeong</div>
+  </div>
+  <div class="chrome"><span><b>20</b> / 21</span><span>Contact · Lee Dohyeong</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  p21  THANK YOU (cobalt + lime + grid + sparkles)
+══════════════════════════════════════════ -->
+<div class="slide cobalt" id="p21">
+  <div class="grid-bg dim"></div>
+  <span class="sparkle" style="top:200px;left:340px;font-size:32px;"></span>
+  <span class="sparkle" style="top:160px;right:380px;font-size:48px;"></span>
+  <span class="sparkle" style="bottom:280px;left:240px;font-size:24px;"></span>
+  <span class="sparkle" style="bottom:320px;right:280px;font-size:36px;"></span>
+  <div style="display:flex;flex-direction:column;height:100%;padding:64px 96px;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1;">
+    <div class="kicker dark" style="margin-bottom:32px;justify-content:center;">Lee Dohyeong · Portfolio End</div>
+    <div style="font-family:var(--font-display);font-size:128px;font-weight:900;color:var(--lime);letter-spacing:-.045em;line-height:.95;margin-bottom:28px;">Thank You.</div>
+    <div style="font-size:22px;color:rgba(255,255,255,.78);font-weight:500;margin-bottom:14px;line-height:1.6;">포트폴리오를 끝까지 봐주셔서 감사합니다.</div>
+    <div style="font-family:var(--font-mono);font-size:14px;color:var(--lavender);letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:56px;">Lee Dohyeong · Brand Accelerator · Growth Marketer</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#그로스</div>
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#CRM</div>
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#퍼포먼스</div>
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#콘텐츠</div>
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#바이럴</div>
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#AI활용</div>
+      <div style="padding:9px 18px;background:rgba(214,255,61,.12);border:1px solid rgba(214,255,61,.30);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--lime);font-weight:700;letter-spacing:.14em;text-transform:uppercase;">#팀빌딩</div>
+    </div>
+    <div style="margin-top:56px;font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;">이삼오구 누적 27억 · 커버링 39배 성장 · 5년 4개월</div>
+  </div>
+  <div class="chrome dark"><span><b>21</b> / 21</span><span>END · Thank You</span></div>
+</div>
+
+</body>
+</html>
