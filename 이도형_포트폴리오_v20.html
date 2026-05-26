@@ -658,20 +658,111 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
 
     <div class="col-r">
-      <!-- 결과물: 정책 카드 2열(고정높이) + 차트 전체 너비 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:none;height:440px;">
+      <!-- 결과물: 좌 1/3 씨앗 모바일 + 우 2/3 등급별 혜택 표 (사용자 첨부) -->
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:14px;flex:1;min-height:0;">
+        <div class="phone-frame">
+          <div class="scr" style="display:flex;flex-direction:column;height:100%;">
+            <div style="background:#F1F5F9;padding:7px 10px;font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">씨앗 · 미달성</div>
+            <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;display:flex;justify-content:center;align-items:flex-start;"><img src="./assets/covering_tier_ssiat.png" alt="씨앗 단계 화면" style="width:100%;height:auto;display:block;"></div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1.5px solid var(--cobalt);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(30,41,255,.18);">
+          <div style="background:var(--cobalt);padding:10px 18px;font-family:var(--font-mono);font-size:12px;font-weight:800;color:#fff;letter-spacing:.12em;text-align:center;text-transform:uppercase;flex-shrink:0;">★ 등급별 혜택 · 직접 기획·제작</div>
+          <!-- 등급표 거의 풀로 보이도록 contain + center -->
+          <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;display:flex;align-items:center;justify-content:center;padding:8px;"><img src="./assets/nb_p4_tier_table.png" alt="등급별 혜택 표 (새싹·묘목·나무)" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;object-fit:contain;"></div>
+        </div>
+      </div>
+
+      <!-- 지표: 도입 전 vs 도입 후 M1·M2 리텐션 비교 표 -->
+      <div class="chart-card" style="flex:none;">
+        <div class="chart-title">도입 전 vs 도입 후 · M1·M2 리텐션 <small>코호트 70,325명</small></div>
+        <table class="cmp-table">
+          <thead>
+            <tr><th>구분</th><th class="r">대상 인원</th><th class="r">M1 리텐션</th><th class="r">M2 리텐션</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>등급제 도입 전</td><td class="r">11,711명</td><td class="r">45.9%</td><td class="r">38.0%</td></tr>
+            <tr class="hl"><td>★ 등급 달성 (새싹+)</td><td class="r">12,312명</td><td class="r">86.9%</td><td class="r">84.4%</td></tr>
+            <tr><td>등급 미달성</td><td class="r">46,302명</td><td class="r">29.9%</td><td class="r">20.0%</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;padding:10px 14px;background:var(--ink);border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <span style="font-family:var(--font-mono);font-size:12px;color:var(--lavender);font-weight:600;letter-spacing:.06em;">등급 달성 vs 도입 전 · M1 갭</span>
+          <span style="font-family:var(--font-display);font-size:17px;color:var(--lime);font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+41.0%p · 180일 LTV ×18.1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chrome"><span><b>04</b> / 17</span><span>Growth · Retention · M1 +41%p</span></div>
+</div>
+
+
+<!-- ══════ p5  GROWTH ② ARPU (8kg 정책 → 객단가 +17.6%) ══════ -->
+<div class="slide" id="p5">
+  <div class="grid-bg light"></div>
+  <div class="hd-tight">
+    <div>
+      <div class="cat-row">
+        <span class="cat-chip" style="background:var(--ca-growth);"><span class="ko">그로스</span><span class="en">Growth</span></span>
+        <span class="cat-meta"><b>02 / 03</b> · ARPU</span>
+      </div>
+      <div class="page-title">8kg 초과 배출 혜택으로 <em>객단가 17.6%</em> 개선</div>
+    </div>
+    <span class="slide-num">05 / 17</span>
+  </div>
+
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-growth);">Growth · Pricing</span>
+        <span class="c-badge outline">커버링 · 2024.11~2025.03</span>
+      </div>
+      <div class="p-title">4kg 미만 절반·5kg부터 수익,<br><em>가격 임계점</em>을 시뮬레이션으로 옮기다</div>
+      <p class="p-desc">무게 시뮬레이션으로 <strong>8kg 임계점</strong> 도출. 초과 배출 시 <strong>방문비 20% + 기본요금 25%</strong> 이중 인센티브로 '많이 한 번에' 배출 패턴으로 이동.</p>
+
+      <div class="sec-label">실행 · 직접 설계</div>
+      <div class="sec"><ul>
+        <li>할인 비용 대비 수익 개선 효과가 가장 큰 <strong>8kg 임계점</strong> 시뮬레이션</li>
+        <li>이벤트 페이지 + 수거 신청 화면 안내 <strong>Figma 디자인 100% 직접 제작</strong></li>
+      </ul></div>
+
+      <div class="sec-label">결과 · 도입 전 6개월 vs 후 5개월</div>
+      <div class="sec"><ul>
+        <li>객단가 <strong>7,205원 → 8,474원 (+17.6%)</strong></li>
+        <li>8kg 초과 배출 비율 <strong>20.75% → 27.07%</strong> (+6.32%p)</li>
+      </ul></div>
+
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">+17.6%</span><span class="kpi-label">객단가 (7,205 → 8,474원)</span></div>
+        <div class="kpi"><span class="kpi-num">+6.32%p</span><span class="kpi-label">8kg 초과 배출 비율</span></div>
+        <div class="kpi"><span class="kpi-num">+2.3%</span><span class="kpi-label">ARPU 동반 상승</span></div>
+      </div>
+    </div>
+
+    <div class="col-r">
+      <!-- 결과물: 사용자 첨부 ARPU 상세페이지 3장 — 각 이미지 2/3까지 보이도록 컨테이너 확대 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;min-height:0;">
         <div style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 6px rgba(15,25,50,.04);">
           <div style="background:var(--cobalt);padding:8px 12px;font-family:var(--font-mono);font-size:11px;font-weight:800;color:#fff;letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">8kg 정책 #1</div>
-          <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;"><img src="./assets/nb_p5_arpu_1.png" alt="8kg 정책 상세 1" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"></div>
+          <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;"><img src="./assets/nb_p5_arpu_1.png" alt="8kg 정책 상세 1" style="width:100%;height:auto;display:block;"></div>
         </div>
         <div style="background:#fff;border:1.5px solid var(--cobalt);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(30,41,255,.18);">
           <div style="background:var(--cobalt);padding:8px 12px;font-family:var(--font-mono);font-size:11px;font-weight:800;color:#fff;letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">★ 8kg 정책 #2</div>
-          <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;"><img src="./assets/nb_p5_arpu_2.png" alt="8kg 정책 상세 2" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"></div>
+          <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;"><img src="./assets/nb_p5_arpu_2.png" alt="8kg 정책 상세 2" style="width:100%;height:auto;display:block;"></div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 6px rgba(15,25,50,.04);">
+          <div style="background:var(--cobalt);padding:8px 12px;font-family:var(--font-mono);font-size:11px;font-weight:800;color:#fff;letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">8kg 정책 #3</div>
+          <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;"><img src="./assets/nb_p5_arpu_3.png" alt="8kg 정책 상세 3" style="width:100%;height:auto;display:block;"></div>
         </div>
       </div>
-      <!-- 수거 무게 분포 변화 차트 — 전체 너비 -->
-      <div style="flex:1;min-height:0;border-radius:10px;overflow:hidden;margin-top:8px;">
-        <img src="./assets/p5_weight_dist_chart.png" alt="수거 무게 분포 변화 도입 전후" style="width:100%;height:100%;display:block;object-fit:contain;object-position:top left;">
+      <!-- 지표: 도입 전후 강조 배너 (컴팩트) -->
+      <div style="flex:none;background:var(--ink);border-radius:10px;padding:14px 22px;display:flex;align-items:center;justify-content:space-around;gap:14px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);"></div>
+        <div style="text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.1em;text-transform:uppercase;">★ 객단가</div><div style="font-family:var(--font-display);font-size:22px;color:var(--lime);font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+17.6%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender-dim);margin-top:1px;">7,205 → 8,474원</div></div>
+        <div style="width:1px;height:42px;background:rgba(255,255,255,.18);"></div>
+        <div style="text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.1em;text-transform:uppercase;">8kg 초과 비율</div><div style="font-family:var(--font-display);font-size:22px;color:#fff;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+6.32%p</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender-dim);margin-top:1px;">20.75 → 27.07%</div></div>
+        <div style="width:1px;height:42px;background:rgba(255,255,255,.18);"></div>
+        <div style="text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.1em;text-transform:uppercase;">ARPU</div><div style="font-family:var(--font-display);font-size:22px;color:#fff;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+2.3%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender-dim);margin-top:1px;">20,099 → 20,569원</div></div>
       </div>
       <!-- 숨김: 기존 KPI delta chart strip 제거 -->
       <div style="display:none;" class="chart-card">
@@ -696,6 +787,7 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
   <div class="chrome"><span><b>05</b> / 17</span><span>Growth · ARPU · 객단가 +17.6%</span></div>
 </div>
+
 
 
 <!-- ══════ p6  GROWTH ③ CVR (CRM 시나리오 → D45 CVR +231%) ══════ -->
