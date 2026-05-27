@@ -1327,10 +1327,15 @@ document.addEventListener('DOMContentLoaded', function(){
           </div>
         </div>
       </div>
-      <!-- 차트 2종: 론칭 전후 라인 + 예산 비중 듀얼축 라인 (node 2766-2 반영) -->
-      <div style="display:flex;gap:12px;flex:none;height:218px;">
-        <div class="chart-card" style="flex:1;display:flex;flex-direction:column;padding:12px 14px;min-width:0;">
-          <div class="chart-title" style="font-size:12px;margin-bottom:2px;">론칭 전후 AOS CVR · M+1 <small>25.03~05</small></div>
+      <!-- 차트 카드 1장: 헤더 + 라인 차트 2종 (node 2766-2 레이아웃) -->
+      <div class="chart-card" style="flex:1;display:flex;flex-direction:column;padding:14px 18px;min-height:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div class="chart-title" style="margin-bottom:0;">구글애즈 T-ROAS 정적가치 집행 — CVR · M+1 리텐션 변화</div>
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--sub);letter-spacing:.08em;">기여도 90%</span>
+        </div>
+        <div style="display:flex;gap:18px;flex:1;min-height:0;">
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+          <div style="font-size:11px;font-weight:700;color:var(--text2);text-align:center;margin-bottom:2px;">T-ROAS 론칭 전후 AOS CVR · M+1 <span style="color:var(--sub);font-weight:400;">25.03~05</span></div>
           <svg viewBox="0 0 300 200" width="100%" style="display:block;flex:1;">
             <line x1="40" y1="30" x2="288" y2="30" stroke="#F1F4F9"/><line x1="40" y1="75" x2="288" y2="75" stroke="#F1F4F9"/><line x1="40" y1="120" x2="288" y2="120" stroke="#F1F4F9"/><line x1="40" y1="165" x2="288" y2="165" stroke="#E2E6EF"/>
             <text x="34" y="33" font-size="8" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">60</text><text x="34" y="78" font-size="8" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">40</text><text x="34" y="123" font-size="8" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">20</text>
@@ -1343,8 +1348,8 @@ document.addEventListener('DOMContentLoaded', function(){
             <circle cx="62" cy="192" r="4" fill="#10C390"/><text x="70" y="195" font-size="8" fill="#5B6675" font-family="JetBrains Mono">AOS CVR</text><circle cx="150" cy="192" r="4" fill="#3498DB"/><text x="158" y="195" font-size="8" fill="#5B6675" font-family="JetBrains Mono">M+1 리텐션</text>
           </svg>
         </div>
-        <div class="chart-card" style="flex:1;display:flex;flex-direction:column;padding:12px 14px;min-width:0;">
-          <div class="chart-title" style="font-size:12px;margin-bottom:2px;">예산 비중 vs M+1 <small>25.11~26.03</small></div>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+          <div style="font-size:11px;font-weight:700;color:var(--text2);text-align:center;margin-bottom:2px;">T-ROAS 예산 비중 vs M+1 <span style="color:var(--sub);font-weight:400;">25.11~26.03</span></div>
           <svg viewBox="0 0 320 200" width="100%" style="display:block;flex:1;">
             <line x1="34" y1="30" x2="300" y2="30" stroke="#F1F4F9"/><line x1="34" y1="75" x2="300" y2="75" stroke="#F1F4F9"/><line x1="34" y1="120" x2="300" y2="120" stroke="#F1F4F9"/><line x1="34" y1="165" x2="300" y2="165" stroke="#E2E6EF"/>
             <text x="30" y="33" font-size="8" fill="#C2740F" text-anchor="end" font-family="JetBrains Mono">60</text><text x="30" y="123" font-size="8" fill="#C2740F" text-anchor="end" font-family="JetBrains Mono">20</text><text x="305" y="100" font-size="8" fill="#2C7BB6" text-anchor="start" font-family="JetBrains Mono">M+1</text>
@@ -1355,12 +1360,19 @@ document.addEventListener('DOMContentLoaded', function(){
             <circle cx="46" cy="192" r="4" fill="#E8911E"/><text x="54" y="195" font-size="8" fill="#5B6675" font-family="JetBrains Mono">T-ROAS 예산 비중</text><circle cx="190" cy="192" r="4" fill="#3498DB"/><text x="198" y="195" font-size="8" fill="#5B6675" font-family="JetBrains Mono">M+1(우)</text>
           </svg>
         </div>
+        </div>
       </div>
-      <!-- 표 2종: 론칭 전후 + 예산 비중 -->
-      <div style="display:flex;gap:12px;flex:1;min-height:0;">
-        <div class="chart-card" style="flex:1;display:flex;flex-direction:column;padding:12px 14px;min-width:0;">
-          <div class="chart-title" style="font-size:12px;margin-bottom:6px;">론칭 전후 — AOS CVR · M+1</div>
-          <table style="width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;">
+      <!-- 표 카드 1장: 헤더 + 표 2종 (행 stretch로 여백 제거) -->
+      <div class="chart-card" style="flex:1;display:flex;flex-direction:column;padding:14px 18px;min-height:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div class="chart-title" style="margin-bottom:0;">구글애즈 T-ROAS · 정적가치 우회 집행 — AOS CVR · M+1 리텐션 변화</div>
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--sub);letter-spacing:.08em;">기여도 90%</span>
+        </div>
+        <div style="display:flex;gap:18px;flex:1;min-height:0;">
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+          <div style="background:#E8F8F0;color:#0E9E76;text-align:center;font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:.02em;padding:6px;border-radius:8px 8px 0 0;">T-ROAS 론칭 전후 · AOS CVR · M+1 리텐션</div>
+          <div style="flex:1;min-height:0;border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">
+          <table style="width:100%;height:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;">
             <thead><tr>
               <th style="text-align:left;padding:7px 8px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;border-radius:6px 0 0 0;">월</th>
               <th style="text-align:right;padding:7px 6px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;">CVR</th>
@@ -1373,10 +1385,12 @@ document.addEventListener('DOMContentLoaded', function(){
               <tr><td style="text-align:left;padding:9px 8px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">25.05</td><td style="text-align:right;padding:9px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">26.8%</td><td style="text-align:right;padding:9px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">46.1%</td><td style="text-align:left;padding:9px 9px;font-size:10px;color:var(--sub);">높은 수준 유지</td></tr>
             </tbody>
           </table>
+          </div>
         </div>
-        <div class="chart-card" style="flex:1.15;display:flex;flex-direction:column;padding:12px 14px;min-width:0;">
-          <div class="chart-title" style="font-size:12px;margin-bottom:6px;">예산 비중과 M+1 <small>25.11~26.03</small></div>
-          <table style="width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;">
+        <div style="flex:1.15;display:flex;flex-direction:column;min-width:0;">
+          <div style="background:#EEF1FF;color:var(--cobalt);text-align:center;font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:.02em;padding:6px;border-radius:8px 8px 0 0;">T-ROAS 예산 비중과 M+1 리텐션 (25.11~26.03)</div>
+          <div style="flex:1;min-height:0;border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">
+          <table style="width:100%;height:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;">
             <thead><tr>
               <th style="text-align:left;padding:7px 8px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;border-radius:6px 0 0 0;">가입 월</th>
               <th style="text-align:right;padding:7px 6px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;">T-ROAS 예산</th>
@@ -1391,6 +1405,8 @@ document.addEventListener('DOMContentLoaded', function(){
               <tr><td style="text-align:left;padding:8px 8px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">26.03</td><td style="text-align:right;padding:8px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">₩1,349만</td><td style="text-align:right;padding:8px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">3%</td><td style="text-align:right;padding:8px 9px;font-size:11px;font-family:var(--font-mono);color:var(--sub);">—</td></tr>
             </tbody>
           </table>
+          </div>
+        </div>
         </div>
       </div>
     </div>
