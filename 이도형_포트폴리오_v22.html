@@ -758,10 +758,10 @@ document.addEventListener('DOMContentLoaded', function(){
         <li>물류비는 <em>5kg 초과 시에야 회수</em> — 소량 주문이 마진만 잠식</li>
       </ul></div>
 
-      <div class="phase b2"><span class="ptag">실행</span>시뮬레이션으로 8kg 임계점 도출 → 20% 할인 설계</div>
+      <div class="phase b2"><span class="ptag">실행</span>시뮬레이션으로 8kg 임계점 도출 → 이중 인센티브 설계</div>
       <div class="sec tight"><ul>
         <li>수익 개선 효과가 가장 큰 <strong>8kg 임계점</strong>을 시뮬레이션으로 특정</li>
-        <li>8kg 초과 배출 20% 할인 + 수거 화면 안내 <strong>Figma 직접 제작</strong></li>
+        <li>초과 배출 시 <strong>방문비 20% + 기본요금 25%</strong> 이중 할인 · 안내 화면 <strong>Figma 직접 제작</strong></li>
       </ul></div>
 
       <div class="phase b3"><span class="ptag">결과</span>객단가 <b>+17.6%</b> · '많이 한 번에'로 배출 패턴 이동</div>
@@ -792,33 +792,47 @@ document.addEventListener('DOMContentLoaded', function(){
           <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;"><img src="./assets/nb_p5_arpu_3.png" alt="8kg 정책 상세 3" style="width:100%;height:auto;display:block;"></div>
         </div>
       </div>
-      <!-- 지표: 도입 전후 강조 배너 (컴팩트) -->
-      <div style="flex:none;background:var(--ink);border-radius:10px;padding:14px 22px;display:flex;align-items:center;justify-content:space-around;gap:14px;position:relative;overflow:hidden;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);"></div>
-        <div style="text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.1em;text-transform:uppercase;">★ 객단가</div><div style="font-family:var(--font-display);font-size:22px;color:var(--lime);font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+17.6%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender-dim);margin-top:1px;">7,205 → 8,474원</div></div>
-        <div style="width:1px;height:42px;background:rgba(255,255,255,.18);"></div>
-        <div style="text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.1em;text-transform:uppercase;">8kg 초과 비율</div><div style="font-family:var(--font-display);font-size:22px;color:#fff;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+6.32%p</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender-dim);margin-top:1px;">20.75 → 27.07%</div></div>
-        <div style="width:1px;height:42px;background:rgba(255,255,255,.18);"></div>
-        <div style="text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.1em;text-transform:uppercase;">ARPU</div><div style="font-family:var(--font-display);font-size:22px;color:#fff;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">+2.3%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender-dim);margin-top:1px;">20,099 → 20,569원</div></div>
-      </div>
-      <!-- 숨김: 기존 KPI delta chart strip 제거 -->
-      <div style="display:none;" class="chart-card">
-        <div class="chart-title">수거 무게 분포 변화 (도입 전 → 후)</div>
-        <svg viewBox="0 0 540 110" width="100%" style="display:block;">
-          <text x="20" y="22" font-size="11" fill="#5B6675" font-family="JetBrains Mono">8kg 초과</text>
-          <rect x="100" y="14" width="170" height="14" rx="3" fill="#CBD5E1"/>
-          <text x="278" y="25" font-size="11" fill="#5B6675" font-family="JetBrains Mono">20.75%</text>
-          <text x="20" y="50" font-size="11" fill="#1E29FF" font-family="JetBrains Mono" font-weight="700">8kg 초과 ★</text>
-          <rect x="100" y="42" width="222" height="18" rx="3" fill="#1E29FF"/>
-          <text x="330" y="56" font-size="12" fill="#1E29FF" font-weight="800" font-family="JetBrains Mono">27.07% (+6.32%p)</text>
-          <line x1="20" y1="74" x2="520" y2="74" stroke="#E2E6EF" stroke-width="1"/>
-          <text x="20" y="94" font-size="11" fill="#5B6675" font-family="JetBrains Mono">객단가</text>
-          <text x="100" y="94" font-size="13" fill="#5B6675" font-family="JetBrains Mono">7,205원</text>
-          <text x="200" y="94" font-size="13" fill="#0F172A" font-family="JetBrains Mono">→</text>
-          <text x="230" y="94" font-size="14" fill="#1E29FF" font-weight="900" font-family="JetBrains Mono">8,474원</text>
-          <rect x="350" y="80" width="130" height="22" rx="4" fill="#D6FF3D"/>
-          <text x="415" y="95" font-size="12" fill="#0A0F2E" font-weight="900" text-anchor="middle" font-family="JetBrains Mono">★ +17.6%</text>
-        </svg>
+      <!-- 지표: 도입 전후 분석 행 (차트 + 지표 카드 + 비교 표) — node 2766-2 반영 -->
+      <div style="display:flex;gap:12px;flex:none;height:286px;">
+        <!-- ① 8kg 초과 배출 비율 도입 전후 막대 -->
+        <div class="chart-card" style="flex:1;display:flex;flex-direction:column;padding:14px 16px;min-width:0;">
+          <div class="chart-title" style="font-size:13px;margin-bottom:8px;">8kg 초과 배출 비율 <small>도입 전 → 후</small></div>
+          <svg viewBox="0 0 240 196" width="100%" style="display:block;flex:1;">
+            <line x1="20" y1="172" x2="228" y2="172" stroke="#E2E6EF" stroke-width="1.5"/>
+            <!-- 도입 전 20.75% -->
+            <rect x="46" y="68" width="62" height="104" rx="4" fill="#CBD5E1"/>
+            <text x="77" y="60" font-size="14" fill="#5B6675" font-weight="800" text-anchor="middle" font-family="JetBrains Mono">20.75%</text>
+            <text x="77" y="188" font-size="11" fill="#5B6675" text-anchor="middle" font-family="JetBrains Mono">도입 전</text>
+            <!-- 도입 후 27.07% -->
+            <rect x="132" y="35" width="62" height="137" rx="4" fill="#10C390"/>
+            <rect x="132" y="35" width="62" height="4" fill="#0A0F2E" opacity=".18"/>
+            <text x="163" y="27" font-size="15" fill="#0E9E76" font-weight="900" text-anchor="middle" font-family="JetBrains Mono">27.07%</text>
+            <text x="163" y="188" font-size="11" fill="#10C390" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">도입 후</text>
+            <!-- +6.32%p 배지 -->
+            <rect x="120" y="92" width="86" height="24" rx="12" fill="#0A0F2E"/>
+            <text x="163" y="108" font-size="12" fill="#D6FF3D" font-weight="900" text-anchor="middle" font-family="JetBrains Mono">+6.32%p</text>
+          </svg>
+        </div>
+        <!-- ② 핵심 지표 카드 스택 -->
+        <div style="flex:.82;display:flex;flex-direction:column;gap:8px;min-width:0;">
+          <div style="flex:1;background:#FBF6E9;border:1px solid #F0E6C8;border-radius:10px;padding:9px 13px;display:flex;flex-direction:column;justify-content:center;"><div style="font-family:var(--font-display);font-size:21px;font-weight:900;color:#7A5B12;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">7,205원</div><div style="font-family:var(--font-mono);font-size:10px;color:#9A8244;letter-spacing:.04em;">도입 전 객단가</div></div>
+          <div style="flex:1;background:#E8F8F0;border:1px solid #BFEAD6;border-radius:10px;padding:9px 13px;display:flex;flex-direction:column;justify-content:center;"><div style="font-family:var(--font-display);font-size:21px;font-weight:900;color:#0E9E76;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">8,474원</div><div style="font-family:var(--font-mono);font-size:10px;color:#3FA985;letter-spacing:.04em;">도입 후 객단가</div></div>
+          <div style="flex:1;background:var(--ink);border-radius:10px;padding:9px 13px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;width:34px;height:3px;background:var(--lime);"></div><div style="font-family:var(--font-display);font-size:21px;font-weight:900;color:var(--lime);letter-spacing:-.02em;">+17.6%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.04em;">객단가 개선</div></div>
+          <div style="flex:1;background:var(--cobalt-soft);border:1px solid #C9D0FF;border-radius:10px;padding:9px 13px;display:flex;flex-direction:column;justify-content:center;"><div style="font-family:var(--font-display);font-size:21px;font-weight:900;color:var(--cobalt);letter-spacing:-.02em;">+2.3%</div><div style="font-family:var(--font-mono);font-size:10px;color:#5B66C9;letter-spacing:.04em;">ARPU 동반 상승</div></div>
+        </div>
+        <!-- ③ 도입 전/후 비교 표 -->
+        <div class="chart-card" style="flex:1.15;padding:14px 16px;display:flex;flex-direction:column;min-width:0;">
+          <div class="chart-title" style="font-size:13px;margin-bottom:8px;">도입 전 vs 도입 후</div>
+          <table class="cmp-table" style="font-size:0;">
+            <thead><tr><th style="font-size:10px;padding:6px 8px;">구분</th><th class="r" style="font-size:10px;padding:6px 8px;">도입 전</th><th class="r" style="font-size:10px;padding:6px 8px;">도입 후</th></tr></thead>
+            <tbody>
+              <tr><td style="font-size:12px;padding:8px;">비교 기간</td><td class="r" style="font-size:11px;padding:8px;">24.05~10<br>(6개월)</td><td class="r" style="font-size:11px;padding:8px;">24.11~25.03<br>(5개월)</td></tr>
+              <tr><td style="font-size:12px;padding:8px;">평균 ARPU</td><td class="r" style="font-size:12px;padding:8px;">20,099원</td><td class="r" style="font-size:12px;padding:8px;">20,569원</td></tr>
+              <tr class="hl"><td style="font-size:12px;padding:8px;">★ 평균 객단가</td><td class="r" style="font-size:12px;padding:8px;">7,205원</td><td class="r" style="font-size:12px;padding:8px;">8,474원</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:auto;padding:9px 12px;background:var(--ink);border-radius:7px;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);"></div><div style="font-family:var(--font-display);font-size:13px;color:#fff;font-weight:800;letter-spacing:-.01em;">객단가 <span style="color:var(--lime);">+17.6%</span> · ARPU <span style="color:var(--lime);">+2.3%</span></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -886,12 +900,30 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
       </div>
 
-      <!-- 지표: 사용자 첨부 — D16/D45 도입 전후 정확한 지표 표 -->
-      <div class="chart-card" style="flex:none;padding:0;overflow:hidden;">
-        <div class="chart-title" style="margin:18px 22px 12px;">D16·D45 알림톡 도입 전 vs 도입 후 <small>코호트 6개월 비교</small></div>
-        <div style="padding:0 14px 14px;"><img src="./assets/nb_p6_cvr_metrics.png" alt="D16·D45 CVR 도입 전후 표" style="width:100%;height:auto;display:block;border-radius:6px;"></div>
-        <!-- 핵심 인사이트 다크 배너 (사용자 첨부) -->
-        <div style="padding:0 14px 14px;"><img src="./assets/nb_p6_cvr_insight.png" alt="핵심 인사이트 +231% +99% +10pp" style="width:100%;height:auto;display:block;border-radius:6px;"></div>
+      <!-- 지표: D16/D45 CVR 도입 전후 그룹 막대 차트 (node 2766-2 반영) -->
+      <div class="chart-card" style="flex:none;display:flex;flex-direction:column;">
+        <div class="chart-title">D16·D45 CVR — 골든타임 CRM 개입 후 <small>D16 +99% · D45 +231%</small></div>
+        <svg viewBox="0 0 520 248" width="100%" style="display:block;">
+          <!-- 범례 -->
+          <rect x="300" y="6" width="13" height="13" rx="3" fill="#3498DB"/><text x="319" y="17" font-size="12" fill="#5B6675" font-family="JetBrains Mono">D16 CVR (%)</text>
+          <rect x="410" y="6" width="13" height="13" rx="3" fill="#10C390"/><text x="429" y="17" font-size="12" fill="#5B6675" font-family="JetBrains Mono">D45 CVR (%)</text>
+          <!-- y 그리드 -->
+          <line x1="58" y1="40" x2="500" y2="40" stroke="#F1F4F9"/><text x="50" y="44" font-size="10" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">3.0</text>
+          <line x1="58" y1="97" x2="500" y2="97" stroke="#F1F4F9"/><text x="50" y="101" font-size="10" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">2.0</text>
+          <line x1="58" y1="153" x2="500" y2="153" stroke="#F1F4F9"/><text x="50" y="157" font-size="10" fill="#8B95A6" text-anchor="end" font-family="JetBrains Mono">1.0</text>
+          <line x1="58" y1="210" x2="500" y2="210" stroke="#E2E6EF" stroke-width="1.5"/>
+          <!-- 도입 전 그룹 -->
+          <rect x="140" y="156" width="46" height="54" rx="3" fill="#3498DB" opacity=".55"/><text x="163" y="150" font-size="12" fill="#2C7BB6" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">0.95</text>
+          <rect x="192" y="163" width="46" height="47" rx="3" fill="#10C390" opacity=".55"/><text x="215" y="157" font-size="12" fill="#0E9E76" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">0.83</text>
+          <text x="189" y="228" font-size="12" fill="#5B6675" text-anchor="middle" font-family="JetBrains Mono">도입 전</text>
+          <!-- 도입 후 그룹 -->
+          <rect x="320" y="103" width="46" height="107" rx="3" fill="#3498DB"/><text x="343" y="97" font-size="13" fill="#2C7BB6" font-weight="900" text-anchor="middle" font-family="JetBrains Mono">1.89</text>
+          <rect x="372" y="54" width="46" height="156" rx="3" fill="#10C390"/><text x="395" y="48" font-size="13" fill="#0E9E76" font-weight="900" text-anchor="middle" font-family="JetBrains Mono">2.75</text>
+          <text x="369" y="228" font-size="12" fill="#0F172A" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">도입 후</text>
+          <!-- 증감 배지 -->
+          <rect x="318" y="116" width="52" height="20" rx="10" fill="#0A0F2E"/><text x="344" y="130" font-size="11" fill="#fff" font-weight="800" text-anchor="middle" font-family="JetBrains Mono">+99%</text>
+          <rect x="368" y="66" width="56" height="20" rx="10" fill="#0A0F2E"/><text x="396" y="80" font-size="11" fill="#D6FF3D" font-weight="800" text-anchor="middle" font-family="JetBrains Mono">+231%</text>
+        </svg>
       </div>
     </div>
   </div>
@@ -959,7 +991,25 @@ document.addEventListener('DOMContentLoaded', function(){
       <!-- 지표: 사용자 첨부 — 페이백 사용 vs 미사용 M1~M6 표 -->
       <div class="chart-card" style="flex:1;min-height:0;display:flex;flex-direction:column;padding:0;overflow:hidden;">
         <div class="chart-title" style="margin:18px 22px 10px;">페이백 쿠폰 사용 vs 미사용 · M1~M6 리텐션 <small>동일 가입 기간 코호트</small></div>
-        <div style="padding:0 14px 14px;"><img src="./assets/nb_p9_payback_table.png" alt="페이백 사용 874명 vs 미사용 6,564명 M1~M6 표 (+52pp ~ +28pp 갭 유지)" style="width:100%;height:auto;display:block;border-radius:6px;"></div>
+        <div style="padding:0 18px 10px;">
+          <table class="cmp-table" style="font-size:0;">
+            <thead><tr>
+              <th style="font-size:11px;padding:8px 6px;">구분</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">모수</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">M1</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">M2</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">M3</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">M4</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">M5</th>
+              <th class="r" style="font-size:11px;padding:8px 6px;">M6</th>
+            </tr></thead>
+            <tbody>
+              <tr class="hl"><td style="font-size:12px;padding:9px 6px;">처치군 <span style="font-weight:500;color:var(--sub);font-size:10px;">사용</span></td><td class="r" style="font-size:12px;padding:9px 6px;">874명</td><td class="r" style="font-size:12px;padding:9px 6px;">89.5%</td><td class="r" style="font-size:12px;padding:9px 6px;">66.9%</td><td class="r" style="font-size:12px;padding:9px 6px;">61.1%</td><td class="r" style="font-size:12px;padding:9px 6px;">56.2%</td><td class="r" style="font-size:12px;padding:9px 6px;">54.7%</td><td class="r" style="font-size:12px;padding:9px 6px;">52.9%</td></tr>
+              <tr><td style="font-size:12px;padding:9px 6px;">대조군 <span style="font-size:10px;color:var(--sub);">미사용</span></td><td class="r" style="font-size:12px;padding:9px 6px;">6,564명</td><td class="r" style="font-size:12px;padding:9px 6px;">37.5%</td><td class="r" style="font-size:12px;padding:9px 6px;">30.4%</td><td class="r" style="font-size:12px;padding:9px 6px;">27.8%</td><td class="r" style="font-size:12px;padding:9px 6px;">26.4%</td><td class="r" style="font-size:12px;padding:9px 6px;">24.1%</td><td class="r" style="font-size:12px;padding:9px 6px;">24.8%</td></tr>
+              <tr><td style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">갭 (처치−대조)</td><td class="r" style="font-size:12px;padding:9px 6px;color:var(--sub);">—</td><td class="r" style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">+52.0pp</td><td class="r" style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">+36.5pp</td><td class="r" style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">+33.3pp</td><td class="r" style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">+29.8pp</td><td class="r" style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">+30.6pp</td><td class="r" style="font-size:12px;padding:9px 6px;font-weight:800;color:#0E9E76;">+28.1pp</td></tr>
+            </tbody>
+          </table>
+        </div>
         <div style="margin-top:auto;padding:14px 18px;background:var(--ink);border-radius:8px;position:relative;overflow:hidden;margin:0 14px 14px;">
           <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);"></div>
           <div style="font-family:var(--font-mono);font-size:11px;color:var(--lavender);font-weight:600;letter-spacing:.08em;">핵심 인사이트</div>
@@ -994,26 +1044,37 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
       <div class="p-title">"왜 사야 하는가"를 한 줄로 꽂는,<br><em>구매할 수 밖에 없는</em> 광고 소재</div>
 
-      <div class="phase b1"><span class="ptag">병목</span>전담 마케터 없는 1인 운영, 외주는 소구점이 흐려짐</div>
+      <div class="phase b1"><span class="ptag">병목</span>전담 마케터·디자이너·편집자가 없었다</div>
       <div class="sec tight"><ul>
-        <li>제품 핵심 소구점을 가장 잘 아는 사람이 직접 만들어야 했음</li>
+        <li>외주가 만든 이미지 배너가 전부 — 소스 수급부터 기획·촬영·편집·세팅까지 <em>혼자 끌고 가야 하는 구조</em></li>
       </ul></div>
 
-      <div class="phase b2"><span class="ptag">실행</span>페인포인트를 소구축으로, 전 공정 1인 운영</div>
+      <div class="phase b2"><span class="ptag">실행</span>진짜 불편을 건드리는 소재를 1인이 직접 제작</div>
       <div class="sec tight"><ul>
-        <li>기획·촬영·편집·광고 세팅까지 <strong>외주 없이 직접</strong></li>
-        <li>매주 <strong>CTR·CPI·CAC</strong> 분석 → 성과 기반 소재 교체·신규 기획</li>
+        <li>이전 직장에서 페인포인트로 <strong>매출 27억</strong>을 만든 경험을 그대로 적용</li>
+        <li>소구점이 잡히면 기획·촬영·편집·세팅까지 직접 마무리, 먹힌 소재는 <strong>변주로 타겟 확장</strong></li>
       </ul></div>
 
-      <div class="phase b3"><span class="ptag">결과</span>페인포인트 적중 소재로 누적 구매 <b>40,499건</b></div>
+      <div class="phase b3"><span class="ptag">결과</span>외주 없는 1인 운영으로 구매 <b>40,499건</b></div>
       <div class="sec tight"><ul>
-        <li>"<strong>상한 반찬통</strong>" CPI <strong>-72.8%</strong> · "<strong>미용실 매직 대체재</strong>" 주간 매출 <strong>×8</strong></li>
+        <li>메타 단일 채널 · 페인포인트 한 줄 구매 트리거가 <strong>월 매출을 40배</strong>로 끌어올린 출발점</li>
       </ul></div>
 
       <div style="margin-top:14px;padding:10px 14px;background:var(--cobalt-soft);border-left:3px solid var(--cobalt);border-radius:4px;font-size:15px;color:var(--cobalt);font-weight:700;display:inline-flex;align-items:center;gap:8px;">▶ 각 영상은 <b style="background:var(--lime);padding:1px 6px;border-radius:3px;color:var(--ink);">PLAY 버튼</b> 클릭 시 재생됩니다</div>
 
-      <!-- 결과: 사용자 첨부 콘텐츠 누적 9 지표 표 (META+GOOGLE+TIKTOK+ASA) -->
-      <div style="border-radius:14px;overflow:hidden;margin-top:auto;box-shadow:0 4px 14px rgba(10,15,46,.18);"><img src="./assets/nb_p7_content_metrics.png" alt="콘텐츠 누적 성과 — 노출/클릭/지출비/설치수/가입수/구매수/CPI/가입CPA/구매CPA" style="width:100%;height:auto;display:block;"></div>
+      <!-- 결과: 콘텐츠 누적 성과 (META 단일 채널) — node 2766-2 반영 -->
+      <div style="margin-top:auto;background:var(--ink);border-radius:14px;padding:16px 20px;position:relative;overflow:hidden;box-shadow:0 4px 14px rgba(10,15,46,.18);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);"></div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--lavender);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">콘텐츠 누적 성과 · META</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px 18px;">
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.06em;">노출</div><div style="font-family:var(--font-display);font-size:23px;font-weight:900;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">52,180K</div></div>
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.06em;">클릭</div><div style="font-family:var(--font-display);font-size:23px;font-weight:900;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">1,254K</div></div>
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.06em;">지출비</div><div style="font-family:var(--font-display);font-size:23px;font-weight:900;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">3.47억</div></div>
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.06em;">설치수</div><div style="font-family:var(--font-display);font-size:23px;font-weight:900;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">119,720</div></div>
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:var(--lavender);letter-spacing:.06em;">가입수</div><div style="font-family:var(--font-display);font-size:23px;font-weight:900;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;">84,810</div></div>
+          <div style="background:rgba(214,255,61,.14);border:1px solid rgba(214,255,61,.4);border-radius:8px;padding:4px 10px;margin:-4px -6px;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--lime);letter-spacing:.06em;">★ 구매수</div><div style="font-family:var(--font-display);font-size:23px;font-weight:900;color:var(--lime);letter-spacing:-.02em;font-variant-numeric:tabular-nums;">40,499</div></div>
+        </div>
+      </div>
     </div>
 
     <div class="col-r">
@@ -1079,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <span class="cat-chip" style="background:var(--ca-perf);"><span class="ko">퍼포먼스</span><span class="en">Performance</span></span>
         <span class="cat-meta"><b>01 / 02</b> · Web2App</span>
       </div>
-      <div class="page-title">브릿지 + 구매 최적화로 <em>CPA 51.8%↓ · ROAS 1.4배</em></div>
+      <div class="page-title">브릿지 페이지 + 구매 최적화로 <em>AOS CVR 19.47%</em></div>
     </div>
     <span class="slide-num">09 / 16</span>
   </div>
@@ -1094,24 +1155,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <div class="phase b1"><span class="ptag">병목</span>앱스토어 직링크가 저의향 유저까지 떠안았다</div>
       <div class="sec tight"><ul>
-        <li>설득 없이 설치만 요구 → ML 학습 비효율, iOS ATT <em>ROAS 0.37x</em></li>
+        <li>설득 없이 설치만 요구 → <em>저의향 유저 유입 + 머신러닝 학습 비효율</em></li>
       </ul></div>
 
       <div class="phase b2"><span class="ptag">실행</span>브릿지 10종 + 최적화 이벤트를 '구매'로 격상</div>
       <div class="sec tight"><ul>
-        <li>가치를 먼저 설득하는 <strong>브릿지 웹페이지 10종</strong> 기획·제작</li>
+        <li>제품 가치를 먼저 설득하는 <strong>브릿지 웹페이지 10종</strong> 기획·제작</li>
         <li>설치 → <strong>구매(Purchase)</strong> 학습으로 고의향 유저 중심 전환</li>
       </ul></div>
 
-      <div class="phase b3"><span class="ptag">결과</span>같은 기간 일반 앱설치 대비 CPA <b>-51.8%</b></div>
+      <div class="phase b3"><span class="ptag">결과</span>도입 전/후 111일 — 구매 <b>+80.6%</b> · 매출 <b>+187%</b></div>
       <div class="sec tight"><ul>
-        <li>CPA <strong>₩15,191 → ₩7,316</strong>, ROAS +42.7%, iOS ROAS 0.37→<strong>7.33x</strong></li>
+        <li>매출 <strong>175 → 502억</strong> · CPA 사실상 유지 · ROAS <strong>+61.3%p</strong></li>
       </ul></div>
 
       <div class="result">
-        <div class="kpi"><span class="kpi-num">-51.8%</span><span class="kpi-label">CPA (vs 일반 앱설치)</span></div>
-        <div class="kpi"><span class="kpi-num">×1.4</span><span class="kpi-label">ROAS (43.3 → 61.8x)</span></div>
-        <div class="kpi"><span class="kpi-num">7.33x</span><span class="kpi-label">iOS ROAS (0.37 → 7.33)</span></div>
+        <div class="kpi"><span class="kpi-num">19.47%</span><span class="kpi-label">AOS CVR (구매/클릭)</span></div>
+        <div class="kpi"><span class="kpi-num">7,534건</span><span class="kpi-label">누적 구매</span></div>
+        <div class="kpi"><span class="kpi-num">10종</span><span class="kpi-label">브릿지 LP 설계·운영</span></div>
       </div>
     </div>
 
@@ -1140,20 +1201,22 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <!-- 지표: 브릿지 도입 전/후 111일 증분 (Airbridge 실측 — Notion 페이지 데이터) -->
       <div class="chart-card" style="flex:1;min-height:0;display:flex;flex-direction:column;">
-        <div class="chart-title">같은 기간 일반 앱설치 vs Web2App 브릿지 <small>Meta 광고관리자 · omni_purchase</small></div>
+        <div class="chart-title">브릿지 도입 전 vs 도입 후 · 동일 111일 증분 <small>Airbridge 실측, Meta 채널</small></div>
         <table class="cmp-table">
           <thead>
-            <tr><th>구분</th><th class="r">광고비</th><th class="r">CPA</th><th class="r">CVR</th><th class="r">ROAS</th></tr>
+            <tr><th>지표</th><th class="r">Before (25.10.15~26.02.02)</th><th class="r">After (26.02.03~05.24)</th><th class="r">증분</th></tr>
           </thead>
           <tbody>
-            <tr><td>일반 앱설치 (33개)</td><td class="r">₩529.2M</td><td class="r">₩15,191</td><td class="r">11.01%</td><td class="r">43.27x</td></tr>
-            <tr class="hl"><td>★ Web2App 브릿지 (9개)</td><td class="r">₩103.3M</td><td class="r">₩7,316</td><td class="r">22.34%</td><td class="r">61.75x</td></tr>
-            <tr><td>개선</td><td class="r" style="color:var(--cobalt);font-weight:800;">약 1/5 예산</td><td class="r" style="color:var(--cobalt);font-weight:800;">-51.8%</td><td class="r" style="color:var(--cobalt);font-weight:800;">+102.9%</td><td class="r" style="color:var(--cobalt);font-weight:800;">+42.7%</td></tr>
+            <tr class="hl"><td>★ 구매</td><td class="r">17,504건</td><td class="r">31,613건</td><td class="r" style="color:var(--cobalt);">+80.6%</td></tr>
+            <tr class="hl"><td>★ 매출</td><td class="r">175.1억</td><td class="r">502.4억</td><td class="r" style="color:var(--cobalt);">+187%</td></tr>
+            <tr><td>CPA (구매당 비용)</td><td class="r">₩20,681</td><td class="r">₩20,371</td><td class="r" style="color:var(--cobalt);font-weight:800;">-1.5% (유지)</td></tr>
+            <tr><td>ROAS</td><td class="r">4,836%</td><td class="r">7,802%</td><td class="r" style="color:var(--cobalt);font-weight:800;">+61.3%p</td></tr>
+            <tr><td>광고비 (Meta)</td><td class="r">3.62억</td><td class="r">6.44억</td><td class="r" style="color:var(--cobalt);font-weight:800;">+77.9%</td></tr>
           </tbody>
         </table>
         <div style="margin-top:auto;padding:12px 16px;background:var(--ink);border-radius:6px;">
-          <div style="font-family:var(--font-mono);font-size:11px;color:var(--lavender);font-weight:600;letter-spacing:.08em;">핵심 — iOS ATT 우회</div>
-          <div style="font-family:var(--font-display);font-size:15px;color:#fff;font-weight:700;letter-spacing:-.018em;margin-top:3px;line-height:1.45;">광고비 <span style="color:var(--lime);">1/5</span>만 쓰며 구매 CVR 2배·ROAS 1.4배. iOS는 측정 한계를 뚫고 <span style="color:var(--lime);">ROAS 0.37 → 7.33x</span></div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--lavender);font-weight:600;letter-spacing:.08em;">증분 해석</div>
+          <div style="font-family:var(--font-display);font-size:15px;color:#fff;font-weight:700;letter-spacing:-.018em;margin-top:3px;line-height:1.45;">광고비를 +77.9% 증액했음에도 <span style="color:var(--lime);">CPA는 사실상 유지</span>되며 구매 +80.6%, 매출 +187% 확장 — <span style="color:var(--lime);">동일 단가로 더 높은 LTV 유저 모객</span></div>
         </div>
       </div>
     </div>
@@ -1225,9 +1288,10 @@ document.addEventListener('DOMContentLoaded', function(){
           </div>
         </div>
       </div>
-      <!-- bottom: monthly chart -->
-      <div class="chart-card" style="flex:1;min-height:0;display:flex;flex-direction:column;">
-        <div class="chart-title">캠페인 론칭 전후 AOS CVR · M+1 리텐션 (25.03~05)</div>
+      <!-- bottom: 론칭 전후 차트 + T-ROAS 예산 비중 표 (node 2766-2 반영) -->
+      <div style="display:flex;gap:12px;flex:1;min-height:0;">
+      <div class="chart-card" style="flex:1.25;min-height:0;display:flex;flex-direction:column;">
+        <div class="chart-title" style="font-size:14px;">론칭 전후 AOS CVR · M+1 (25.03~05)</div>
         <svg viewBox="0 0 520 280" width="100%" style="display:block;flex:1;">
           <!-- horizontal grid -->
           <line x1="60" y1="40" x2="500" y2="40" stroke="#F1F4F9"/>
@@ -1263,6 +1327,21 @@ document.addEventListener('DOMContentLoaded', function(){
           <line x1="130" y1="265" x2="146" y2="265" stroke="#10C390" stroke-width="3"/>
           <text x="152" y="270" font-size="11" fill="#5B6675" font-family="JetBrains Mono">M+1 리텐션</text>
         </svg>
+      </div>
+      <div class="chart-card" style="flex:1;min-height:0;display:flex;flex-direction:column;">
+        <div class="chart-title" style="font-size:14px;">T-ROAS 예산 비중 ↑ = M+1 유지 <small>25.11~26.03</small></div>
+        <table class="cmp-table" style="font-size:0;">
+          <thead><tr><th style="font-size:10px;padding:7px 6px;">가입월</th><th class="r" style="font-size:10px;padding:7px 6px;">T-ROAS 비중</th><th class="r" style="font-size:10px;padding:7px 6px;">AOS M+1</th></tr></thead>
+          <tbody>
+            <tr><td style="font-size:12px;padding:8px 6px;">25.11</td><td class="r" style="font-size:12px;padding:8px 6px;">55%</td><td class="r" style="font-size:12px;padding:8px 6px;">39.0%</td></tr>
+            <tr><td style="font-size:12px;padding:8px 6px;">25.12</td><td class="r" style="font-size:12px;padding:8px 6px;">39%</td><td class="r" style="font-size:12px;padding:8px 6px;">39.3%</td></tr>
+            <tr class="hl"><td style="font-size:12px;padding:8px 6px;">★ 26.01</td><td class="r" style="font-size:12px;padding:8px 6px;">41%</td><td class="r" style="font-size:12px;padding:8px 6px;">40.0%</td></tr>
+            <tr><td style="font-size:12px;padding:8px 6px;">26.02</td><td class="r" style="font-size:12px;padding:8px 6px;">10%</td><td class="r" style="font-size:12px;padding:8px 6px;">39.7%</td></tr>
+            <tr><td style="font-size:12px;padding:8px 6px;">26.03</td><td class="r" style="font-size:12px;padding:8px 6px;">3%</td><td class="r" style="font-size:12px;padding:8px 6px;">—</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:auto;padding:9px 12px;background:var(--ink);border-radius:7px;"><div style="font-family:var(--font-display);font-size:12px;color:#fff;font-weight:700;line-height:1.4;">예산 비중 높은 달일수록 <span style="color:var(--lime);">M+1 리텐션 유지</span></div></div>
+      </div>
       </div>
     </div>
   </div>
