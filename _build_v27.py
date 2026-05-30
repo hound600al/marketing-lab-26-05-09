@@ -88,10 +88,10 @@ NEW_ORDER = [
     ("ptiktok",  6),   # NEW: TikTok 매체 확장 (perf 03/03)
     ("p13",      7),   # PA 그로스 사이클      (viral 01/01)
     ("p7",       8),   # 영상 콘텐츠           (content 01/01)
-    ("p6",       9),   # CVR +231%             (growth 01/03)
-    ("p990",    10),   # NEW: 990원 진입 이벤트 (growth 02/03)
-    ("p4",      11),   # M1 리텐션 +41%p        (growth 03/03)
-    ("p9",      12),   # 페이백 RCT             (CRM 01/01)
+    ("p6",       9),   # CVR +231%             (growth 01/02)
+    ("p4",      10),   # M1 리텐션 +41%p        (CRM  01/02) ← 카테고리 변경
+    ("p990",    11),   # 990원 진입 이벤트     (growth 02/02)
+    ("p9",      12),   # 페이백 RCT             (CRM  02/02)
     ("p14",     13),   # Claude CLI
     ("p15",     14),   # 팀 리딩
     ("p16",     15),   # 이전 경력
@@ -129,15 +129,11 @@ SUBCOUNTER_REWRITES: dict[str, tuple[str, str]] = {
         "<b>02 / 02</b> · PA 그로스 사이클",
         "<b>01 / 01</b> · PA 그로스 사이클",
     ),
-    # CVR was 03/03 → make 01/03 (first growth slide in new order)
-    "p6": ("<b>03 / 03</b> · CVR", "<b>01 / 03</b> · CVR"),
-    # M1 retention was 01/03 → make 03/03 (last growth slide)
-    "p4": ("<b>01 / 03</b> · Retention", "<b>03 / 03</b> · Retention"),
-    # 페이백 RCT was 02/02 · CRM → make 01/01 (solo CRM in v27)
-    "p9": (
-        "<b>02 / 02</b> · 식목일 페이백 RCT",
-        "<b>01 / 01</b> · 식목일 페이백 RCT",
-    ),
+    # CVR: 그로스 카테고리 슬라이드가 2개로 줄었으므로 03/03 → 01/02
+    "p6": ("<b>03 / 03</b> · CVR", "<b>01 / 02</b> · CVR"),
+    # M1 등급제: 그로스→CRM 재분류, 첫 번째 CRM 슬라이드(01/02)
+    "p4": ("<b>01 / 03</b> · Retention", "<b>01 / 02</b> · Retention"),
+    # 페이백 RCT는 v26에서 02/02 · 식목일 페이백 RCT 그대로 — rewrite 불필요
 }
 
 # --------------------------------------------------------------------------
@@ -321,7 +317,7 @@ ENTRY990_SLIDE = '''<div class="slide" id="p990">
     <div>
       <div class="cat-row">
         <span class="cat-chip" style="background:var(--ca-growth);"><span class="ko">그로스</span><span class="en">Growth</span></span>
-        <span class="cat-meta"><b>02 / 03</b> · 진입 이벤트</span>
+        <span class="cat-meta"><b>02 / 02</b> · 진입 이벤트</span>
       </div>
       <div class="page-title">990원 진입 이벤트로 <em>월 신규 +36% · 브랜드 검색 2.4배 · CAC 동시 개선</em></div>
     </div>
@@ -835,6 +831,34 @@ cap = sub_once(
 )
 
 slide_blocks["p3"] = cap
+
+# --------------------------------------------------------------------------
+# 6.5 p4 (M1 등급제) — 그로스 → CRM 재분류
+# --------------------------------------------------------------------------
+m1 = slide_blocks["p4"]
+
+# 헤더의 cat-chip BG + ko/en 텍스트를 CRM 칩으로 교체
+m1 = sub_once(
+    m1,
+    r'<span class="cat-chip" style="background:var\(--ca-growth\);"><span class="ko">그로스</span><span class="en">Growth</span></span>',
+    '<span class="cat-chip" style="background:var(--ca-crm);"><span class="ko">CRM</span><span class="en">Retention</span></span>',
+)
+
+# 좌측 tag-row의 c-badge "Growth · CRM" → "CRM · Retention" (퍼포먼스 마케터 시각에서 CRM 첫 번째 슬라이드)
+m1 = sub_once(
+    m1,
+    r'<span class="c-badge" style="background:var\(--ca-growth\);">Growth · CRM</span>',
+    '<span class="c-badge" style="background:var(--ca-crm);">CRM · Retention</span>',
+)
+
+# 하단 chrome 텍스트도 Growth · Retention → CRM · Retention
+m1 = sub_once(
+    m1,
+    r"Growth · Retention · M1 \+41%p",
+    "CRM · Retention · M1 +41%p",
+)
+
+slide_blocks["p4"] = m1
 
 # --------------------------------------------------------------------------
 # 7. Update <title>
