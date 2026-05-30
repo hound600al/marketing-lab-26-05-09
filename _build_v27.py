@@ -121,8 +121,8 @@ def page2(n: int) -> str:
 # v26 sub-counter values per id (cat-meta `<b>NN / MM</b>` strings) and the
 # replacement we want for v27.
 SUBCOUNTER_REWRITES: dict[str, tuple[str, str]] = {
-    # 퍼포먼스 카테고리에 TikTok 슬라이드를 추가했으므로 01/02 → 01/03, 02/02 → 02/03
-    "p10": ("<b>01 / 02</b> · Web2App", "<b>01 / 03</b> · Web2App"),
+    # 퍼포먼스 카테고리에 TikTok 슬라이드를 추가했으므로 02/02 → 02/03
+    # (p10 Web2App은 본문 자체를 새 수치로 교체하면서 01/03을 이미 박아둠)
     "p11": ("<b>02 / 02</b> · T-ROAS", "<b>02 / 03</b> · T-ROAS"),
     # 단순 협업 제거 → PA가 단독 바이럴 슬라이드. 02/02 → 01/01
     "p13": (
@@ -507,6 +507,154 @@ ENTRY990_SLIDE = '''<div class="slide" id="p990">
 </div>'''
 
 slide_blocks["p990"] = ENTRY990_SLIDE
+
+
+# --------------------------------------------------------------------------
+# 3.7 Rewrite p10 (Web2App 브릿지) — 실제 수치로 본문·표 전면 교체
+#     기간 26.02.03~26.05.24 (111일) · Meta omni_purchase · AOV ₩25,000 가정.
+#     일반 앱설치(33개) vs Web2App(9개): CPA -51.8% / CVR +102.9% / ROAS +107.6%
+#     iOS: CAC -72.2% (₩41,882 → ₩11,658), 1/6 예산으로 4,426건 구매.
+# --------------------------------------------------------------------------
+WEB2APP_SLIDE = '''<div class="slide" id="p10">
+  <div class="grid-bg light"></div>
+  <div class="hd-tight">
+    <div>
+      <div class="cat-row">
+        <span class="cat-chip" style="background:var(--ca-perf);"><span class="ko">퍼포먼스</span><span class="en">Performance</span></span>
+        <span class="cat-meta"><b>01 / 03</b> · Web2App</span>
+      </div>
+      <div class="page-title">Web2App 브릿지로 — <em>CPA -51.8% · 구매 CVR 2배 · ROAS 2.1배</em></div>
+    </div>
+    <span class="slide-num">04 / 16</span>
+  </div>
+
+  <div class="body2">
+    <div class="col-l">
+      <div class="tag-row">
+        <span class="c-badge" style="background:var(--ca-perf);">Performance · Meta · Web2App</span>
+        <span class="c-badge outline">커버링 · 2026.02.03~05.24 · 111일 · 동일 계정 동시 운영</span>
+      </div>
+      <div class="p-title">앱스토어 직링크 대신 <em>브릿지로 가치를 먼저 설득</em> +<br>최적화 이벤트를 <em>구매로 격상</em></div>
+
+      <div class="phase b1"><span class="ptag">병목</span>앱스토어 직링크는 두 곳에서 효율을 잃고 있었다</div>
+      <div class="sec tight"><ul>
+        <li>설득 없이 설치만 요구 → <em>저의향 유저 무분별 유입</em>, CPA 천장이 빨리 옴</li>
+        <li>iOS는 ATT 이후 <strong>인앱 구매 신호가 매체로 거의 안 돌아옴</strong> → 머신러닝이 양질의 구매 시그널 학습 불가</li>
+      </ul></div>
+
+      <div class="phase b2"><span class="ptag">실행</span>광고 URL을 브릿지로, 최적화 이벤트를 구매로 격상</div>
+      <div class="sec tight"><ul>
+        <li>앱스토어 직링크 → <strong>브릿지 웹페이지</strong>(<code style="font-family:var(--font-mono);font-size:13px;background:var(--cobalt-soft);padding:1px 6px;border-radius:3px;">bimil.covering.app</code> 외 자체 LP) — 가치를 납득한 유저만 다음 단계</li>
+        <li>최적화 이벤트: <strong>앱 설치 → 구매(purchase)</strong> 격상 — Meta가 "설치할 사람"이 아니라 <em>"구매할 사람"</em>을 직접 학습</li>
+        <li><strong>브릿지 10종 라인업</strong> — 범용(bimil) + 지역(천안·아산·대세종) + 친구 소구 + 대형 봉투(BULK30)</li>
+      </ul></div>
+
+      <div class="phase b3"><span class="ptag">결과</span>1/5 예산으로 CPA <b>절반</b>, 구매 CVR <b>2배</b>, ROAS <b>2.1배</b></div>
+      <div class="sec tight"><ul>
+        <li>같은 기간 동일 계정 — 일반 앱설치(33개) vs Web2App(9개): CPA <strong>₩15,191 → ₩7,316 (-51.8%)</strong> · CVR <strong>11.01% → 22.34% (+102.9%)</strong> · ROAS <strong>1.65x → 3.42x</strong></li>
+        <li>iOS — ATT로 ROAS 구조적 과소측정인 채널에서 <strong>CAC ₩41,882 → ₩11,658 (-72.2%)</strong>, 1/6 예산으로 4,426건 구매 (평균의 약 1/4)</li>
+      </ul></div>
+
+      <div class="result">
+        <div class="kpi"><span class="kpi-num">-51.8%</span><span class="kpi-label">CPA (₩15,191 → ₩7,316)</span></div>
+        <div class="kpi"><span class="kpi-num">2.0×</span><span class="kpi-label">구매 CVR (11.01% → 22.34%)</span></div>
+        <div class="kpi"><span class="kpi-num">2.1×</span><span class="kpi-label">ROAS (1.65x → 3.42x)</span></div>
+      </div>
+    </div>
+
+    <div class="col-r">
+      <!-- 결과물: 좌 브릿지 LP + 우 핵심 레슨런 카드 -->
+      <div style="display:grid;grid-template-columns:230px 1fr;gap:14px;flex:none;height:432px;">
+        <!-- Card #1: 브릿지 LP 비주얼 -->
+        <div class="phone-frame" style="height:100%;">
+          <div class="scr" style="display:flex;flex-direction:column;height:100%;">
+            <div style="background:#F1F5F9;padding:7px 10px;font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">브릿지 LP · bimil.covering.app</div>
+            <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;position:relative;"><img src="./assets/bridge_lp_1.png" alt="Web2App 브릿지 LP — 직접 기획·제작" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
+          </div>
+        </div>
+
+        <!-- Card #2: 레슨런 3-track 카드 -->
+        <div style="background:var(--ink);border:1.5px solid var(--lime);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 6px 18px rgba(214,255,61,.18);">
+          <div style="background:var(--lime);padding:9px 18px;font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--ink);letter-spacing:.1em;text-align:center;text-transform:uppercase;flex-shrink:0;">★ 운용 레슨런 — 무엇을 학습시키고, 어디서 거를 것인가</div>
+          <div style="flex:1;padding:14px 18px;display:flex;flex-direction:column;gap:11px;justify-content:space-between;">
+            <div style="display:flex;align-items:flex-start;gap:11px;">
+              <div style="width:32px;height:32px;background:var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:#fff;font-weight:900;flex-shrink:0;">①</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:var(--font-mono);font-size:10px;color:var(--lime);font-weight:800;letter-spacing:.12em;text-transform:uppercase;">학습 신호 격상</div>
+                <div style="font-size:13.5px;color:#fff;font-weight:700;line-height:1.4;margin-top:2px;">최적화를 <strong style="color:var(--lime);">설치 → 구매</strong>로 격상하니 머신러닝이 구매 의향이 높은 유저를 학습 → CPA 절반</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px;">
+              <div style="width:32px;height:32px;background:var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:#fff;font-weight:900;flex-shrink:0;">②</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:var(--font-mono);font-size:10px;color:var(--lime);font-weight:800;letter-spacing:.12em;text-transform:uppercase;">랜딩에서 한 번 거르기</div>
+                <div style="font-size:13.5px;color:#fff;font-weight:700;line-height:1.4;margin-top:2px;">직링크 대신 <strong style="color:var(--lime);">브릿지로 가치 납득한 유저만</strong> 진입 → 구매 CVR <strong style="color:var(--lime);">11.01% → 22.34%</strong></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px;padding-top:9px;border-top:1px dashed rgba(214,255,61,.32);">
+              <div style="width:32px;height:32px;background:#7C3AED;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;color:#fff;font-weight:900;flex-shrink:0;">iOS</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:var(--font-mono);font-size:10px;color:#E9D5FF;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">측정 안 되는 채널의 정답</div>
+                <div style="font-size:13px;color:#fff;font-weight:600;line-height:1.4;margin-top:2px;">ATT로 ROAS 과소측정 → <strong>CAC·구매수로 판단</strong>. iOS CAC <strong style="color:#D6FF3D;">₩41,882 → ₩11,658 (-72.2%)</strong>, 1/6 예산</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 핵심 비교 표 — 일반 앱설치 vs Web2App (111일 동일 계정) -->
+      <div class="chart-card" style="flex:none;display:flex;flex-direction:column;padding:14px 18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div class="chart-title" style="margin-bottom:0;">동일 기간·동일 계정 — 일반 앱설치 vs Web2App 브릿지</div>
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--sub);letter-spacing:.08em;">26.02.03~05.24 · 111일 · Meta omni_purchase</span>
+        </div>
+        <table style="width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;">
+          <thead><tr>
+            <th style="text-align:left;padding:7px 8px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;border-radius:6px 0 0 0;">구분</th>
+            <th style="text-align:right;padding:7px 6px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;">광고비</th>
+            <th style="text-align:right;padding:7px 6px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;">구매</th>
+            <th style="text-align:right;padding:7px 6px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;">CPA</th>
+            <th style="text-align:right;padding:7px 6px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;">CVR</th>
+            <th style="text-align:right;padding:7px 8px;background:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;border-radius:0 6px 0 0;">ROAS</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line-lt);">
+              <td style="padding:9px 8px;font-size:11px;color:var(--text2);">일반 앱설치 <span style="color:var(--sub);font-size:9px;">(33개 캠페인)</span></td>
+              <td style="text-align:right;padding:9px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">₩529.2M</td>
+              <td style="text-align:right;padding:9px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">34,833건</td>
+              <td style="text-align:right;padding:9px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">₩15,191</td>
+              <td style="text-align:right;padding:9px 6px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">11.01%</td>
+              <td style="text-align:right;padding:9px 8px;font-size:11px;font-family:var(--font-mono);color:var(--text2);">1.65x</td>
+            </tr>
+            <tr style="background:#F4FBF7;border-bottom:1px solid var(--line-lt);">
+              <td style="padding:9px 8px;font-size:11px;font-weight:800;color:var(--text);">★ Web2App 브릿지 <span style="color:var(--sub);font-size:9px;font-weight:500;">(9개)</span></td>
+              <td style="text-align:right;padding:9px 6px;font-size:12px;font-family:var(--font-mono);font-weight:800;color:#0E9E76;">₩103.3M</td>
+              <td style="text-align:right;padding:9px 6px;font-size:12px;font-family:var(--font-mono);font-weight:800;color:#0E9E76;">14,114건</td>
+              <td style="text-align:right;padding:9px 6px;font-size:12px;font-family:var(--font-mono);font-weight:800;color:#0E9E76;">₩7,316</td>
+              <td style="text-align:right;padding:9px 6px;font-size:12px;font-family:var(--font-mono);font-weight:800;color:#0E9E76;">22.34%</td>
+              <td style="text-align:right;padding:9px 8px;font-size:12px;font-family:var(--font-mono);font-weight:800;color:#0E9E76;">3.42x</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 8px;font-size:11px;font-weight:800;color:var(--text);">개선</td>
+              <td style="text-align:right;padding:7px 6px;"><span style="display:inline-block;background:#EEF1FF;color:#1E29FF;font-family:var(--font-mono);font-size:10px;font-weight:800;padding:3px 6px;border-radius:10px;">1/5 예산</span></td>
+              <td style="text-align:right;padding:7px 6px;font-size:10px;font-family:var(--font-mono);color:var(--sub);">—</td>
+              <td style="text-align:right;padding:7px 6px;"><span style="display:inline-block;background:#E3F7ED;color:#0E9E76;font-family:var(--font-mono);font-size:10px;font-weight:800;padding:3px 6px;border-radius:10px;">-51.8%</span></td>
+              <td style="text-align:right;padding:7px 6px;"><span style="display:inline-block;background:#E3F7ED;color:#0E9E76;font-family:var(--font-mono);font-size:10px;font-weight:800;padding:3px 6px;border-radius:10px;">+102.9%</span></td>
+              <td style="text-align:right;padding:7px 8px;"><span style="display:inline-block;background:#E3F7ED;color:#0E9E76;font-family:var(--font-mono);font-size:10px;font-weight:800;padding:3px 6px;border-radius:10px;">+107.6%</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:auto;padding-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--text2);line-height:1.5;">
+          ✅ 같은 머신러닝 풀·같은 계정에서 동시 운영된 두 그룹의 격차 → <strong style="color:var(--text);">브릿지 + 구매 최적화 격상의 효과</strong>. CPA·CVR은 <code style="font-family:var(--font-mono);font-size:10px;background:var(--cobalt-soft);padding:1px 4px;border-radius:3px;">omni_purchase</code> 기준, ROAS는 AOV ₩25,000 가정 환산.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chrome"><span><b>04</b> / 16</span><span>Performance · Web2App · CPA -51.8% / CVR 2× / ROAS 2.1×</span></div>
+</div>'''
+
+slide_blocks["p10"] = WEB2APP_SLIDE
+
 
 # v26 had p3 chrome="<b>03</b> / 16". The other chromes are unique strings we
 # rewrite per slide via slide-num + chrome page substitution.
