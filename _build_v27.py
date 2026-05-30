@@ -563,13 +563,24 @@ WEB2APP_SLIDE = '''<div class="slide" id="p10">
     </div>
 
     <div class="col-r">
-      <!-- 결과물: 좌 브릿지 LP + 우 핵심 레슨런 카드 -->
-      <div style="display:grid;grid-template-columns:230px 1fr;gap:14px;flex:none;height:432px;">
-        <!-- Card #1: 브릿지 LP 비주얼 -->
-        <div class="phone-frame" style="height:100%;">
-          <div class="scr" style="display:flex;flex-direction:column;height:100%;">
-            <div style="background:#F1F5F9;padding:7px 10px;font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">브릿지 LP · bimil.covering.app</div>
-            <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;position:relative;"><img src="./assets/bridge_lp_1.png" alt="Web2App 브릿지 LP — 직접 기획·제작" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
+      <!-- 결과물: 좌 브릿지 LP 3종 갤러리 + 우 핵심 레슨런 카드 -->
+      <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:14px;flex:none;height:432px;">
+        <!-- Card #1: 브릿지 LP 3종 갤러리 (10종 중 대표 예시) -->
+        <div style="background:#fff;border:1.5px solid var(--cobalt-border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(30,41,255,.10);">
+          <div style="background:var(--cobalt);padding:9px 14px;font-family:var(--font-mono);font-size:11px;font-weight:800;color:#fff;letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">★ 브릿지 LP 10종 라인업 — 직접 기획·제작 (예시 3종)</div>
+          <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px;background:#F8FAFF;">
+            <div style="display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(15,25,50,.06);">
+              <div style="background:var(--cobalt-soft);padding:5px 6px;font-family:var(--font-mono);font-size:9px;font-weight:800;color:var(--cobalt);letter-spacing:.04em;text-align:center;text-transform:uppercase;flex-shrink:0;">범용 · bimil</div>
+              <div style="flex:1;min-height:0;position:relative;overflow:hidden;background:#fff;"><img src="./assets/bridge_lp_1.png" alt="범용 브릿지 LP — bimil.covering.app" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(15,25,50,.06);">
+              <div style="background:var(--cobalt-soft);padding:5px 6px;font-family:var(--font-mono);font-size:9px;font-weight:800;color:var(--cobalt);letter-spacing:.04em;text-align:center;text-transform:uppercase;flex-shrink:0;">지역 · 천안·아산</div>
+              <div style="flex:1;min-height:0;position:relative;overflow:hidden;background:#fff;"><img src="./assets/bridge_lp_2.png" alt="지역 한정 브릿지 LP — 천안·아산·대세종" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;background:#fff;border:1.5px solid var(--lime);border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(214,255,61,.22);">
+              <div style="background:var(--lime);padding:5px 6px;font-family:var(--font-mono);font-size:9px;font-weight:800;color:var(--ink);letter-spacing:.04em;text-align:center;text-transform:uppercase;flex-shrink:0;">대형 봉투 · BULK30</div>
+              <div style="flex:1;min-height:0;position:relative;overflow:hidden;background:#fff;"><img src="./assets/bridge_lp_3.png" alt="대형 봉투 브릿지 LP — BULK30" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
+            </div>
           </div>
         </div>
 
