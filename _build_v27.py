@@ -704,7 +704,7 @@ cover = sub_once(
     "퍼포먼스 마케팅으로<br>"
     "<span style=\"color:var(--lime);\">월 매출 4,520만 → 18.9억,</span><br>"
     "<span style=\"color:var(--lime);\">40배 성장</span>을 만든<br>"
-    "퍼포먼스 마케터 <span style=\"color:var(--lime);\">이도형</span>입니다.",
+    "브랜드 엑셀러레이터 <span style=\"color:var(--lime);\">이도형</span>입니다.",
 )
 
 cover = sub_once(
