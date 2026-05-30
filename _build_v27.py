@@ -370,8 +370,8 @@ ENTRY990_SLIDE = '''<div class="slide" id="p990">
         <!-- Card #1: 연말 청소결산 LP (직접 기획) -->
         <div class="phone-frame" style="height:100%;">
           <div class="scr" style="display:flex;flex-direction:column;height:100%;">
-            <div style="background:#F1F5F9;padding:7px 10px;font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">연말 청소결산 · 990원 LP</div>
-            <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;position:relative;"><img src="./assets/covering_promo_year_end.png" alt="연말 청소결산 · 990원 진입 이벤트 상세페이지 (직접 기획·제작)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
+            <div style="background:#F1F5F9;padding:7px 10px;font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.08em;text-align:center;text-transform:uppercase;flex-shrink:0;">첫 이용 고객 이벤트 · 990원 LP</div>
+            <div style="flex:1;min-height:0;overflow:hidden;background:#F8FAFF;position:relative;"><img src="./assets/990원.PNG" alt="첫 이용 고객 이벤트 · 990원 진입 LP (직접 기획·제작)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>
           </div>
         </div>
 
