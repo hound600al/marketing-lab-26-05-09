@@ -836,28 +836,57 @@ slide_blocks["p3"] = cap
 # --------------------------------------------------------------------------
 m1 = slide_blocks["p4"]
 
-# 헤더의 cat-chip BG + ko/en 텍스트를 CRM 칩으로 교체
+# 헤더의 cat-chip을 '그로스 · CRM' 하이브리드 (그라데이션) 으로 교체
 m1 = sub_once(
     m1,
     r'<span class="cat-chip" style="background:var\(--ca-growth\);"><span class="ko">그로스</span><span class="en">Growth</span></span>',
-    '<span class="cat-chip" style="background:var(--ca-crm);"><span class="ko">CRM</span><span class="en">Retention</span></span>',
+    '<span class="cat-chip" style="background:linear-gradient(90deg,var(--ca-growth),var(--ca-crm));"><span class="ko">그로스 · CRM</span><span class="en">Growth · Retention</span></span>',
 )
 
-# 좌측 tag-row의 c-badge "Growth · CRM" → "CRM · Retention" (퍼포먼스 마케터 시각에서 CRM 첫 번째 슬라이드)
+# 좌측 tag-row의 c-badge "Growth · CRM" → "Growth · CRM · Retention" 그라데이션
 m1 = sub_once(
     m1,
     r'<span class="c-badge" style="background:var\(--ca-growth\);">Growth · CRM</span>',
-    '<span class="c-badge" style="background:var(--ca-crm);">CRM · Retention</span>',
+    '<span class="c-badge" style="background:linear-gradient(90deg,var(--ca-growth),var(--ca-crm));">Growth · CRM · Retention</span>',
 )
 
-# 하단 chrome 텍스트도 Growth · Retention → CRM · Retention
+# 하단 chrome 텍스트
 m1 = sub_once(
     m1,
     r"Growth · Retention · M1 \+41%p",
-    "CRM · Retention · M1 +41%p",
+    "Growth · CRM · M1 +41%p",
 )
 
 slide_blocks["p4"] = m1
+
+
+# --------------------------------------------------------------------------
+# 6.6 p6 (D45 CVR) — 그로스 → '그로스 · CRM' 하이브리드 chip
+#     알림톡(CRM)으로 CVR(그로스 지표) 개선한 사례이므로 두 카테고리 동시 표기
+# --------------------------------------------------------------------------
+cvr = slide_blocks["p6"]
+
+cvr = sub_once(
+    cvr,
+    r'<span class="cat-chip" style="background:var\(--ca-growth\);"><span class="ko">그로스</span><span class="en">Growth</span></span>',
+    '<span class="cat-chip" style="background:linear-gradient(90deg,var(--ca-growth),var(--ca-crm));"><span class="ko">그로스 · CRM</span><span class="en">Growth · Retention</span></span>',
+)
+
+# tag-row 의 'Growth · CRM' badge도 그라데이션으로
+cvr = sub_once(
+    cvr,
+    r'<span class="c-badge" style="background:var\(--ca-growth\);">Growth · CRM</span>',
+    '<span class="c-badge" style="background:linear-gradient(90deg,var(--ca-growth),var(--ca-crm));">Growth · CRM · Retention</span>',
+)
+
+# chrome 텍스트
+cvr = sub_once(
+    cvr,
+    r"Growth · CVR · D45 \+231%",
+    "Growth · CRM · CVR D45 +231%",
+)
+
+slide_blocks["p6"] = cvr
 
 # --------------------------------------------------------------------------
 # 7. Update <title>
