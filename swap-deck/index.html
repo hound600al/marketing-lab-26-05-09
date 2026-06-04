@@ -68,6 +68,19 @@ ul.list li b{color:var(--ink-900);font-weight:800}
 .bar-track{flex:1;height:26px;background:var(--paper-2);border-radius:8px;overflow:hidden}
 .bar-fill{height:100%;border-radius:8px;background:var(--blue-500);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:13px;font-weight:800}
 .bar-fill.mint{background:var(--mint-500)}.bar-fill.ink{background:var(--ink-700)}.bar-fill.b2{background:var(--blue-600)}
+.chip{font-size:11.5px;font-weight:700;color:var(--ink-500);background:var(--paper-2);border:1px solid var(--line);padding:4px 9px;border-radius:999px}
+.chip.on{background:var(--blue-500);color:#fff;border-color:var(--blue-500)}
+.gbar{display:flex;height:23px;border-radius:7px;overflow:hidden;font-size:11.5px;font-weight:800;margin-bottom:13px}
+.gbar .m{background:var(--blue-500);color:#fff;display:flex;align-items:center;padding-left:8px}
+.gbar .f{background:#d3dbeb;color:var(--ink-500);display:flex;align-items:center;justify-content:center}
+.lab{font-size:12px;font-weight:700;color:var(--ink-500);margin-bottom:5px}
+.srch{background:#fff;border-bottom:1px solid var(--line);padding:11px 15px;display:flex;align-items:center;gap:9px}
+.srch .nlogo{font-size:18px;font-weight:900;color:#03c75a}
+.srch .q{flex:1;background:var(--paper-2);border:1.5px solid #03c75a;border-radius:8px;padding:7px 12px;font-size:14px;font-weight:700;color:var(--ink-800)}
+.ad{border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.ad .src{font-size:11.5px;color:var(--ink-300);font-weight:700;margin-bottom:3px}
+.ad .ttl{font-size:14.5px;font-weight:800;color:var(--ink-900);line-height:1.3}
+.ad .ds{font-size:12.5px;color:var(--ink-500);margin-top:3px}
 
 /* asset placeholder */
 .ph{position:relative;border-radius:12px;overflow:hidden;background:var(--paper-2);border:1px dashed #C3CBDA;display:flex;align-items:center;justify-content:center}
@@ -116,6 +129,10 @@ const SLIDES = [];
 function S(html, cls=""){ SLIDES.push(`<section class="slide ${cls}">${html}<div class="foot"><span class="brand-foot">swap × 이도형 그로스 전략</span><span>2026.06</span></div></section>`); }
 // asset placeholder helper
 function A(file, label, h){ return `<div class="ph" style="height:${h}"><img src="assets/${file}" onerror="this.style.display='none'" onload="this.parentNode.classList.add('ok')"><span class="ph-label">🖼️ ${label}<span class="file">assets/${file}</span></span></div>`; }
+// keyword stat card (gender + age) — Naver 키워드도구 데이터
+function KW(name, trend, male, ages){ const fem=100-male;
+  const arows=ages.map(([lbl,pct,cls])=>`<div class="bar-row"><span class="name" style="width:40px;font-size:12px">${lbl}</span><div class="bar-track" style="height:17px"><div class="bar-fill ${cls}" style="width:${Math.max(18,Math.round(pct/35*100))}%;font-size:10.5px;padding-right:7px">${pct}%</div></div></div>`).join('');
+  return `<div class="col card" style="padding:16px 16px"><div style="font-size:17px;font-weight:800;color:var(--ink-900)">${name}</div><div class="note" style="margin-bottom:11px">${trend}</div><div class="lab">성별</div><div class="gbar"><div class="m" style="width:${male}%">남 ${male}%</div><div class="f" style="width:${fem}%">여 ${fem}%</div></div><div class="lab">연령대</div><div class="chart" style="gap:6px">${arows}</div></div>`; }
 // embed helper
 function E(url, title, h){ return `<div class="embed" style="height:${h}"><div class="bar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span>${title}<a href="${url}" target="_blank">새 탭 ↗</a></div><div class="frame"><iframe src="${url}" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-popups"></iframe></div></div>`; }
 
@@ -156,18 +173,29 @@ S(`<div class="kicker"><span class="dot"></span>문제 정의 · Pain</div>
 S(`<div class="kicker"><span class="dot"></span>핵심 발견 · Data ①</div>
   <h2><span class="u-blue-mark">전기자전거 = 배달 라이더</span>, 같은 사람이다</h2>
   <p class="sub" style="margin:10px 0 16px">네이버 검색광고 키워드도구 — 성별·연령이 거의 동일하다. (남 70~85% · 30~50대 집중)</p>
-  <div class="row grow" style="gap:16px">
-    <div class="col">${A('naver_ebike.png','네이버 키워드 통계 — 전기자전거','100%')}</div>
-    <div class="col">${A('naver_baemin_connect.png','네이버 키워드 통계 — 배민커넥트','100%')}</div>
-    <div class="col">${A('naver_delivery_rider.png','네이버 키워드 통계 — 배달라이더','100%')}</div>
+  <div class="row grow" style="gap:14px">
+    ${KW('전기자전거','월 7만 → 18만 · 강한 계절성',79,[['40대',33,'b2'],['30대',29,''],['50+',25,'ink'],['~29',9,'ink']])}
+    ${KW('배민커넥트','월 2.5만 → 1.3만',83,[['30대',34,'b2'],['40대',34,''],['50+',19,'ink'],['~29',9,'ink']])}
+    ${KW('배달라이더','월 1천~1.7천 · 연중 유지',73,[['40대',35,'b2'],['30대',26,''],['50+',23,'ink'],['~29',11,'ink']])}
   </div>
-  <p class="note" style="margin-top:12px">교집합 타깃 = <b style="color:var(--blue-600)">30~50대 남성</b> · 출처: 네이버 검색광고 키워드도구(최근 1년)</p>`);
+  <p class="note" style="margin-top:12px">교집합 타깃 = <b style="color:var(--blue-600)">30~50대 남성</b> · 출처: 네이버 검색광고 키워드도구(최근 1년, 데스크탑·모바일 종합 근사치)</p>`);
 
 /* 5 데이터2 — 검색의도 + 시즌 */
 S(`<div class="kicker"><span class="dot"></span>핵심 발견 · Data ②</div>
   <h2>검색엔진도 이미 둘을 <span class="u-blue">묶어서</span> 보여준다</h2>
   <div class="row grow" style="margin-top:16px;gap:20px">
-    <div class="col" style="flex:1.1">${A('naver_search_ebike.png','네이버 \\'전기자전거\\' 검색결과 — "배달용 추천" 노출 + 경쟁사 배달 광고','100%')}</div>
+    <div class="col" style="flex:1.05">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="srch"><span class="nlogo">N</span><div class="q">전기 자전거</div></div>
+        <div style="display:flex;gap:14px;padding:9px 15px;font-size:12.5px;color:var(--ink-300);font-weight:600;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden">통합 · 쇼핑 · 이미지 · 블로그 · 카페 · 지식iN · 동영상</div>
+        <div style="padding:13px 15px;display:flex;flex-direction:column;gap:11px">
+          <div class="ad"><div class="src">광고 · lycle.kr</div><div class="ttl">전기자전거 · 제휴카드 렌탈시 · 최대 120만원 할인</div><div class="ds">초기비용 0원 · 최대 48개월 렌탈</div>
+            <div style="display:flex;gap:7px;margin-top:9px"><span class="chip">자토바이</span><span class="chip on">배달용 추천</span><span class="chip">접이식</span></div></div>
+          <div class="ad"><div class="src">광고 · ventlerus.com</div><div class="ttl">배달라이더가 선정한 자토바이 넘버원</div><div class="ds">프리미엄 전기자전거 · 24개월 무이자 · 부담없는 48개월 인수형렌탈</div></div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:9px">네이버 '전기자전거' 검색 → <b style="color:var(--blue-600)">'배달용 추천'</b> 노출 + 경쟁사 배달 광고</p>
+    </div>
     <div class="col" style="display:flex;flex-direction:column;gap:14px">
       <div class="card amber"><span class="tag amber">상업적 검증</span><h3>"배달용 전기자전거" 경쟁지수 98</h3><p>검색량은 작아도 광고주 입찰 최상위 = 전환가치 높은 교집합.</p></div>
       <div class="card blue"><span class="tag mint">시즌 헷지</span>
