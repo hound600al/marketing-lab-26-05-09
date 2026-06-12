@@ -68,7 +68,7 @@
 
   <div class="card">
     <div class="legend">
-      <span class="lg-item" style="color:#2D5BFF;"><span class="lg-line" style="background:#2D5BFF;"></span> B2C 매출</span>
+      <span class="lg-item" style="color:#2D5BFF;"><span class="lg-line" style="background:#2D5BFF;"></span> B2C 매출 성장지수(예측)</span>
       <span class="lg-item" style="color:#10C390;"><span class="lg-line" style="background:#10C390;"></span> 신규 유저</span>
       <span class="lg-item" style="color:#F5B400;"><span class="lg-line" style="background:#F5B400;"></span> 마케팅비</span>
       <span class="lg-item" style="color:#1F2837;"><span class="lg-dash"></span> CAC</span>
@@ -83,8 +83,9 @@
 <script>
   // ─── data ────────────────────────────────────────────────
   const labels    = ['24.05','06','07','08','09','10','11','12','25.01','02','03','04','05','06','07','08'];
-  const revenue   = [0.578,0.7428,1.006,1.349,1.435,1.733,1.685,1.735,1.914,2.410,2.410,3.778,4.447,4.447,6.901,7.535]; // 억
-  const marketing = [0.0433,0.1630,0.2279,0.2368,0.2030,0.2854,0.3461,0.3498,0.6228,0.3303,0.4518,0.6679,0.7480,0.7649,1.40,1.14]; // 억
+  // 매출은 절대액 미공개 — 입사(=100) 대비 성장지수(예측)만 사용
+  const revenue   = [100,128,174,233,248,300,292,300,331,417,417,654,769,769,1194,1304]; // 성장지수(예측, 입사=100)
+  const marketing = [0.0433,0.1630,0.2279,0.2368,0.2030,0.2854,0.3461,0.3498,0.6228,0.3303,0.4518,0.6679,0.7480,0.7649,1.40,1.14]; // 억(광고비)
   const newUsers  = [600,864,1373,1807,2321,1853,1933,1893,2512,2692,2692,5783,6235,6235,10211,9440]; // 명
   const cac       = [14260,13394,13054,10515,11849,15735,19250,19056,19056,13223,13223,11940,12467,12467,16253,13626]; // 원
   const contrib   = [-5.1,-32.8,9.8,12.1,12.6,16.4,13.1,19.1,19.1,18.2,21.9,18.9,23.3,27.0,23.5,25.6]; // %
@@ -93,9 +94,9 @@
   // 입사(2024-05 = index 0) 기준 정규화
   function norm(arr){ const base = arr[0]; return arr.map(v => v == null ? null : +(v/base*100).toFixed(2)); }
 
-  // 절대값 포맷
+  // 포맷 (매출은 성장지수, 절대액 미공개)
   const fmt = {
-    revenue:   v => v.toFixed(2) + '억',
+    revenue:   v => v.toLocaleString() + ' (예측 지수)',
     marketing: v => v >= 1 ? v.toFixed(2) + '억' : Math.round(v*10000).toLocaleString() + '만원',
     newUsers:  v => v.toLocaleString() + '명',
     cac:       v => v.toLocaleString() + '원',
@@ -126,13 +127,13 @@
         },
         // 좌축 정규화 라인들
         {
-          type:'line', label:'B2C 매출',
+          type:'line', label:'B2C 매출 성장지수(예측)',
           data: norm(revenue),
           borderColor:'#2D5BFF', backgroundColor:'rgba(45,91,255,0.06)',
           borderWidth: 2.6, tension: .3, pointRadius: 2.5, pointHoverRadius: 5,
           pointBackgroundColor:'#2D5BFF', pointBorderColor:'#fff', pointBorderWidth: 1,
           yAxisID: 'y', order: 1,
-          _abs: revenue, _fmt: 'revenue',
+          _fmt: 'revenue',
         },
         {
           type:'line', label:'신규 유저',
